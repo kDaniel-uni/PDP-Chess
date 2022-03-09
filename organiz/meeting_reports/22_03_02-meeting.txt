@@ -1,0 +1,13 @@
+Debrief du rendez vous du 02/03/2022
+
+Premier rendez-vous, donc discussions grossières sur le projet :
+
+- Découverte du projet grossièrement et de la façon de le construire et l'implémenter, on était plus porté sur un projet ou l'utilisateur
+joué contre un des différents algorithmes à implémenté, hors nous avons vu que le but premier était de se faire affronter des algo entre eux afin de comparé leurs niveau.
+- Discussion sur les algorithmes à utiliser.
+- Discussion sur les bitboards à mettre en place sur chaque pièces.
+- Décision du langage à utiliser -> C++.
+- Réflexion sur la répartition du travail par le groupe afin d'avancer de manière optimale dans le projet.
+
+
+
