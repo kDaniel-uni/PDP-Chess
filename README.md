@@ -1,6 +1,6 @@
 # PDP Echec
 
-Projet de programmer un jeu d'échec dans le cadre de l'UE PDP de Master 1 Informatique
+Projet de programmation d'un jeu d'échec dans le cadre de l'UE PDP de Master 1 Informatique
 
 ## Getting started
 
