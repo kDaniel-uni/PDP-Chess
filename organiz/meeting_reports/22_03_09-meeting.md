@@ -1,25 +1,25 @@
-#Debrief du rendez-vous du 09/03/2022
+# Débrief du rendez-vous du 09/03/2022
 
-### Questions à poser :
+## Questions à poser
 
-#### Bitboards :
+### Bitboards
 
-- Choix d'utiliser des bits de séparation dans les bitboards pour les échecs (64-bits nativement)
-- Opération d'erosion -> 
-- Explication shift
-- Comment associer les différents bitboards pour utiliser les opérations
+- Choix d'utiliser des bits de séparation dans les bitboards pour les échecs. (64-bits nativement)
+- Opération d’érosion.
+- Explication du shift.
+- Comment associer les différents bitboards pour utiliser les opérations.
 
-#### General :
+### General
 
 - Parallélisme
 
-### Resumé :
+### Resumé
 
-- Importance de citer les sources, citer à chaque fois qu'importe le support !
-- Pousser plus la recherche des coups possibles (e.g transformation du pion en n'importe quelle pièce)
-- Temps dans les besoins
-- Bien réfléchir à la manière de donner des instructions au programmes (e.g une config json)
-- Rechercher comment les autres programmes analysent leur algos et resultats (première idée de tournoi pas pertinent)
+- Importance de citer les sources dans le rapport, citer à chaque fois peu importe le support !
+- Pousser davantage la recherche des coups possibles. (e.g transformation du pion en n'importe quelle pièce)
+- Indiquer le temps dans les besoins.
+- Bien réfléchir à la manière de donner des instructions au programme. (e.g une config json)
+- Rechercher comment les autres programmes analysent leurs algorithmes et résultats. (première idée de tournoi peu pertinente)
 
-- Réfléchir aux modèles d'architectures pour la prochaine scéance
-- Chercher les algos parallélisables dans l'existant
+- Réfléchir aux modèles d'architectures possibles pour la prochaine séance.
+- Chercher les algorithmes parallélisables pour l’analyse de lexistant.
