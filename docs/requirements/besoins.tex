@@ -25,8 +25,8 @@
 \newpage
 
 \section{Objectifs généraux du projet}
-Le but du projet est de programmer un joueur d'échec complet en appliquant les algorithmes les plus fréquents et en utilisant au mieux les bitboards qui sont un moyen de représenter l'échiquier à l'aide de douze variables de 64bits chacune (comme le nombre de case d'un échiquier). 
-Ces  douze variables, une pour chaque type de pièces par couleur stockent donc les positions des différentes pièces du plateau de jeu. Le site suivant l'explique d'ailleurs de manière précise \cite{Bitboards}. L'interface utilisateur sera purement en mode texte (ce n'est pas le but du projet). Si possible, plusieurs approches pourront être implantées et comparées via des tournois entre les différentes stratégies.
+Le but du projet est de programmer un joueur d'échec complet en appliquant les algorithmes les plus fréquents et en utilisant au mieux les bitboards qui sont un moyen de représenter l'échiquier à l'aide de douze variables de 64bits chacune (comme le nombre de cases d'un échiquier). 
+Ces douze variables, une pour chaque type de pièce par couleur, stockent donc les positions des différentes pièces du plateau de jeu. Le site suivant l'explique d'ailleurs de manière précise \cite{Bitboards}. L'interface utilisateur sera purement en mode texte (ce n'est pas le but du projet). Si possible, plusieurs approches pourront être implantées et comparées via des tournois entre les différentes stratégies.
 
 Le projet se dirigera vers des techniques d'exploration d'arbre classiques telles que Minimax-
 ab \cite{Minmax-ab}, Negamax \cite{Negamax}, Negascout \cite{Negascout}, MTD(f) \cite{MTD(f)}, Monte-Carlo Tree Search (MCTS)\cite{MCTS}. Ainsi qu'au développement d'heuristiques propres au jeu dans l'idée d'éliminer le plus efficacement les branches "perdantes" \cite{Heuristiques}.
@@ -40,7 +40,7 @@ Afin de discuter du fonctionnement de l'algorithme Minimax-ab il faut parler du 
 \newline
 L'algorithme Minimax a pour but de trouver la liste des meilleurs coups à jouer, pour cela on va générer tous les coups possibles dans un arbre jusqu'à une certaine profondeur,  puis en partant des feuilles en remontant jusqu'à la racine on remonte alternativement le meilleur coup favorisant notre victoire et le meilleur coup favorisant le coup de notre adversaire\cite{Heuristiques}.
 \newline\newline
-L'algorithme Minimax-ab à le même principe à la différence que lorsqu'il remonte l'arbre des coups possibles il ne prend pas en la peine de juger l'efficacité de certains coups en fonction des autres coups qu'il a déjà jugé plus efficace, au travers d'une comparaison entre deux variables, alpha et bêta\cite{Heuristiques}.
+L'algorithme Minimax-ab a le même principe à la différence que lorsqu'il remonte l'arbre des coups possibles il ne prend pas en la peine de juger l'efficacité de certains coups en fonction des autres coups qu'il a déjà jugé plus efficace, au travers d'une comparaison entre deux variables, alpha et bêta\cite{Heuristiques}.
 \newline\newline
 L'algorithme Negamax se différencie de l'algorithme Minimax-ab par le fait que plutôt que de maximiser le coup du joueur et minimiser le coup de l'adversaire il inverse le signe des évaluations à chaque niveau de profondeur de l'arbre de décision et ne cherche plus qu'à maximiser la valeur du coup à évaluer\cite{Negamax}.
 \newline\newline
@@ -50,11 +50,11 @@ L'algorithme fonctionne en quatre étapes\cite{MonteCarlo}:
 \item La sélection successive des enfants de la racine jusqu'à atteindre une feuille.
 \item L'expansion de l'arbre, en ajoutant un enfant à la feuille si celle-ci n'est pas finale.
 \item La simulation d'une partie au hasard depuis l'enfant rajouté jusqu'à atteindre une fin de partie.
-\item La remonté du résultat de la partie par la mise à jour du nombre de simulation victorieuse et du nombre de simulation totale pour chaque nœuds.
+\item La remontée du résultat de la partie par la mise à jour du nombre de simulation victorieuse et du nombre de simulation totale pour chaque nœuds.
 \end{itemize}
 \newpage
 \centerline{\includegraphics[scale = 0.25]{img/Echiquier.png}}
-La plupart des logiciels de jeu d'échecs proposés au grand public, disponible dans les boutiques virtuelles comme le Microsoft store, optent pour un affichage graphique afin de jouer aux échecs, toutefois on peut se rendre compte que ces logiciels permettent aux joueurs de :
+La plupart des logiciels de jeu d'échecs proposés au grand public, disponibles dans les boutiques virtuelles comme le Microsoft store, optent pour un affichage graphique afin de jouer aux échecs, toutefois on peut se rendre compte que ces logiciels permettent aux joueurs de :
 \begin{itemize}
 \item sélectionner qui joue en premier. (qui joue les pièces blanches)
 \item sélectionner le nombre de joueurs. (l'ia contre l'ia, 1 joueur contre l'ia ou 2 joueurs)
@@ -68,7 +68,7 @@ La plupart des logiciels de jeu d'échecs proposés au grand public, disponible 
 \end{itemize}
 Mais il existe également des logiciels, quant-à eux plus scientifique, avec pour vocation d'exercer  des algorithmes contre des champions humains ou contre d'autres logiciels.
 \newline
-C'est le cas de Kaissa qui fût le premier programme à avoir gagner le championnat ACM d'échecs informatiques de 1974. Ce dernier utilise un algorithme Minimax alpha beta \cite{KaissaAB} pour calculer ses coups et un système de bitboard pour déterminer les mouvements légaux d'une pièce \cite{KaissaBitboard}.
+C'est le cas de Kaissa qui fût le premier programme à avoir gagné le championnat ACM d'échecs informatiques de 1974. Ce dernier utilise un algorithme Minimax alpha beta \cite{KaissaAB} pour calculer ses coups et un système de bitboard pour déterminer les mouvements légaux d'une pièce \cite{KaissaBitboard}.
 \newline
 Nous pouvons cité Deep Thought qui remporta le 19ème championnat ACM d'échecs informatiques, il s'agit du premier ordinateur avec le niveau d'un grand maître et joua contre Garry Kasparov en 1989 et fut battu\cite{Deep}. 
 \newline
@@ -104,13 +104,13 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
         b = fou, r = tour, n = cavalier).
         Les cases vides, quand à elle contiendront un point "." dans un souci de lisibilité.
         \item Afin de différencier les pions des 2 joueurs du plateau de jeu, le joueur blanc aura des pions en majuscule et le joueur noir en minuscule.
-        \item Les coordonnées des cases seront les même que sur le jeux d'échec original, les numéros représentent les lignes et les lettres pour les colonnes, par exemple (a1 = 1ère case en bas à gauche \dots).
+        \item Les coordonnées des cases seront les mêmes que sur le jeu d'échec original, les numéros représentent les lignes et les lettres pour les colonnes, par exemple (a1 = 1ère case en bas à gauche \dots).
     \end{itemize}
     \centerline{\includegraphics[scale = 0.5]{img/echecs_title.png}}
     \medskip
     \item \textbf{Lister les mouvements possibles : }
     \newline
-    En cas de jeu de l'utilisateur contre un des différents Algorithme, une commande "playable" permet d'afficher la liste de tous les coups jouables pour l'utilisateur ( par exemple : h2h4 \dots).
+    En cas de jeu de l'utilisateur contre un des différents algorithmes, une commande "playable" permet d'afficher la liste de tous les coups jouables pour l'utilisateur ( par exemple : h2h4 \dots).
     \newline
     \centerline{\includegraphics[scale = 0.5]{img/chess_moveh2h4.png}}
     \medskip
@@ -125,19 +125,19 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
             \item \textbf{Pion (p,P) : } Le pions avance d'une case en ligne droite uniquement (ni sur les cotés ni en arrière) hormis le premier déplacement de chaque pions qui peut être de 1 ou 2 cases au choix.
             Hormis quand le pion "mange" une pièce, dans ce cas la le déplacement se fait en diagonale d'une portée de 1.
             \item \textbf{Roi (k,K) : } Le roi peut aller dans toutes les directions mais d'une seule case.
-            \item \textbf{Reine (q,Q) : } La reine peut aller dans toutes les directions et n'est pas limité par le nombre de case de déplacement.
-            \item \textbf{Fou (b,B) : } Le fou se déplace uniquement en diagonale et n'est pas limité par le nombre de case de déplacement.
-            \item \textbf{Tour (r,R) : } La tour est le complémentaire du fou, elle se déplace uniquement en ligne horizontale ou verticale sans limitation du nombre de case de déplacement.
+            \item \textbf{Reine (q,Q) : } La reine peut aller dans toutes les directions et n'est pas limitée par le nombre de cases de déplacement.
+            \item \textbf{Fou (b,B) : } Le fou se déplace uniquement en diagonale et n'est pas limité par le nombre de cases de déplacement.
+            \item \textbf{Tour (r,R) : } La tour est le complémentaire du fou, elle se déplace uniquement en ligne horizontale ou verticale sans limitation du nombre de cases de déplacement.
             \item \textbf{Cavalier (n,N) : } Le cavalier à le déplacement le plus atypique, il peux sauter au dessus des autres pièces durant son déplacement, il se déplace en "L" dans le sens qu'il veut.
             \newline
             \centerline{\includegraphics[scale = 0.2]{img/Deplacement_cavalier.png}}
         \end{itemize}
-        \item Si le mouvement est correct pour la pièce, il doit vérifier que la case ou le chemin venant vers la case n'est pas occupé par une pièce allié (hormis le cavalier qui doit juste vérifier la case d'arrivée), auquel cas, le mouvement n'est pas valide.
+        \item Si le mouvement est correct pour la pièce, il doit vérifier que la case ou le chemin venant vers la case n'est pas occupé par une pièce alliée (hormis le cavalier qui doit juste vérifier la case d'arrivée), auquel cas, le mouvement n'est pas valide.
         \item Si la case n'est pas occupée par une pièce alliée, le programme vérifie si une pièce ennemie se trouve sur la case.
         Si c'est le cas la pièce ennemie est détruite du plateau de jeu.
-        A noter que le pion ne "mange" pas de la même façon qu'il se déplace, en effet il ne peux manger qu'en diagonale à distance de 1.
+        A noter que le pion ne "mange" pas de la même façon qu'il se déplace, en effet il ne peut manger qu'en diagonale à distance de 1.
         \item Enfin, la pièce se déplace sur la case cible.
-        À noter que si un pion se retrouve au bout de l'échiquier la pièces doit pouvoir être changer en la pièce du choix de l'IA / l'utilisateur.
+        À noter que si un pion se retrouve au bout de l'échiquier la pièce doit pouvoir être changer en la pièce du choix de l'IA / l'utilisateur.
     \end{enumerate}
     \medskip
     \item \textbf{Garder une trace de l'historique : }
@@ -155,14 +155,14 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
         \newline
         Il faudra donc que le logiciel affiche le type d'algorithme utilisé et ses paramètres, quelle ia a gagné ou non, le nombre de tours pour finir la partie, pour chaque tour le temps pris par les ia ou joueurs pour réaliser une action, et le temps moyen d'un tour des ia.
     \medskip
-    \item \textbf{Lancer un tournois entre algorithmes : }
+    \item \textbf{Lancer un tournoi entre algorithmes : }
     \newline
-        Il est possible de lancer un tournois entre différents algorithmes afin de voir lequel est le plus performant en rajoutant l'option "-tournament NAME" à l'appel du logiciel.
-        Le tournoi serait une forme de "ligue" ou chaque algorithme jouerais 2 fois contre tous les autres, une fois en tant que joueur blanc une fois en tant que joueur noir.
+        Il est possible de lancer un tournoi entre différents algorithmes afin de voir lequel est le plus performant en rajoutant l'option "-tournament NAME" à l'appel du logiciel.
+        Le tournoi serait une forme de "ligue" ou chaque algorithme jouerait 2 fois contre tous les autres, une fois en tant que joueur blanc une fois en tant que joueur noir.
         \newline
-        À la suite de ce tournoi, les informations suivantes sont stocké dans un fichier du même nom que celui du tournoi (NAME) :
+        À la suite de ce tournoi, les informations suivantes sont stockés dans un fichier du même nom que celui du tournoi (NAME) :
         \begin{itemize}
-            \item Un classement de tous les algorithmes suivant le nombre de victoire et basé surtout sur le nombre de coup joué jusqu'à la victoire.
+            \item Un classement de tous les algorithmes suivant le nombre de victoires et basé surtout sur le nombre de coups joués jusqu'à la victoire.
             \item Un cour résumé sur chaque match de la forme suivante " Minmax-ab Blanc 1 MCTS Noir 0 36cp" qui signifie ici une victoire de minmax-ab sur MCTS en 36 coups.
             \newline
             \centerline{\includegraphics[scale = 0.5]{img/Summarytournament.png}}
@@ -172,13 +172,13 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
     \newline
         Dans le monde des Échecs il existe des "problèmes" d'échec \cite{Krt}, c-à-d d'après un plateau donné il faut réussir à mettre en place des stratégies comme mettre le roi adverse en échec et mat en un certain nombre de coups.\newline
         \begin{itemize}
-            \item Les énigmes sont stocké dans le dossier enigm dans un fichier au nom de l'énigme comme l'exemple suivant : \newline
+            \item Les énigmes sont stockées dans le dossier enigm dans un fichier au nom de l'énigme comme l'exemple suivant : \newline
             \includegraphics[scale = 0.3]{img/a_l_abordage.png}
             \item Dans les fichiers enigm/*, à la suite de l'échiquier de départ se trouve les conditions de victoires de l'énigme : "EM" pour un echec et mat, "EMC5" Si il faut un echec et mat en moins de 5 coups \dots
         \end{itemize}
         Les options -Enigm list affichent la liste des noms des énigmes connu par le programme.
         il sera donc possible de lancer les algorithmes sur ces "problèmes".
-        Les problèmes nécessitent un joueur adverse, le programme utiliseras donc l'algorithme de MCTS en second joueur.
+        Les problèmes nécessitent un joueur adverse, le programme utilisera donc l'algorithme de MCTS en second joueur.
 \end{itemize}
 
 
