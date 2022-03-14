@@ -25,8 +25,10 @@
 \newpage
 
 \section{Objectifs généraux du projet}
-Le but du projet est de programmer un joueur d'échec complet en appliquant les algorithmes les plus fréquents et en utilisant au mieux les bitboards qui sont un moyen de représenter l'échiquier à l'aide de douze variables de 64bits chacune (comme le nombre de case d'un échiquier). 
-Ces  douze variables, une pour chaque type de pièces par couleur stockent donc les positions des différentes pièces du plateau de jeu. Le site suivant l'explique d'ailleurs de manière précise \cite{Bitboards}. L'interface utilisateur sera purement en mode texte (ce n'est pas le but du projet). Si possible, plusieurs approches pourront être implantées et comparées via des tournois entre les différentes stratégies.
+Le but du projet est de programmer un joueur d'échec complet en appliquant les algorithmes les plus fréquents et en utilisant au mieux les bitboards qui sont un moyen de représenter l'échiquier à l'aide de douze variables de 64bits chacune (comme le nombre de case d'un échiquier). \newline
+Ces  douze variables, une pour chaque type de pièces par couleur stockent donc les positions des différentes pièces du plateau de jeu. Le site suivant l'explique d'ailleurs de manière précise \cite{Bitboards}. 
+
+L'interface utilisateur sera purement en mode texte (ce n'est pas le but du projet). Si possible, plusieurs approches pourront être implantées et comparées via des tournois entre les différentes stratégies.
 
 Le projet se dirigera vers des techniques d'exploration d'arbre classiques telles que Minimax-
 ab \cite{Minmax-ab}, Negamax \cite{Negamax}, Negascout \cite{Negascout}, MTD(f) \cite{MTD(f)}, Monte-Carlo Tree Search (MCTS)\cite{MCTS}. Ainsi qu'au développement d'heuristiques propres au jeu dans l'idée d'éliminer le plus efficacement les branches "perdantes" \cite{Heuristiques}.
@@ -179,6 +181,7 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
         Les options -Enigm list affichent la liste des noms des énigmes connu par le programme.
         il sera donc possible de lancer les algorithmes sur ces "problèmes".
         Les problèmes nécessitent un joueur adverse, le programme utiliseras donc l'algorithme de MCTS en second joueur.
+        Le programme doit donc générer la partie selon le modèle de l'énigme.
 \end{itemize}
 
 
@@ -201,6 +204,22 @@ Jusqu'à Deep Blue qui possède une puce lui permettant de paralléliser l'algor
     Le programme doit être exécutable sous les systèmes d'exploitation suivantes : Ubuntu 20.04, Ubuntu 21.10 ainsi que sur mac OS Catalina.
     \newline
     
+\end{itemize}
+\medskip
+\section{Idée de structure}
+Pour l'instant, nous avons une réflexion sur 2 partie de structure. (En cours de travail) \newline
+\begin{itemize}
+    \item Une partie Jeu de base :\newline
+    \includegraphics[scale = 0.3]{img/UML_part_gaming_chess.png}
+    \newpage
+    \item Une partie avec l'abstract factory permettant de générer les différentes "IA" : \newline
+    \includegraphics[scale = 0.4]{img/Abstract_factory_IA_chess.png}
+    
+\end{itemize}
+\section{Liste des outils}
+\begin{itemize}
+    \item Langage à utiliser : C++
+    \item Utilisation de Bitboards pour représenter et gérer les pièces.
 \end{itemize}
 \section{Annexe}
 \subsection{Pseudo-code des différentes techniques d'exploration d'arbre classiques : }
