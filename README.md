@@ -2,6 +2,13 @@
 
 Projet de programmation d'un jeu d'échec dans le cadre de l'UE PDP de Master 1 Informatique
 
+
+## TODO
+Faire un schéma propre pour le projet d'échecs avec : 
+ - La mise en place d'une abstract factory qui génèreras les différentes IA suivant un même schéma.
+ - La partir echiquier suivant à peu près le modèle sur discord sauf si vous trouvez mieux ou plus cohérent,
+ tout en incluant les bitboards.
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
