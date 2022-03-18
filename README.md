@@ -4,16 +4,13 @@ Projet de programmation d'un jeu d'échec dans le cadre de l'UE PDP de Master 1 
 
 
 ## TODO
-Faire un schéma propre pour le projet d'échecs avec : 
- - La mise en place d'une abstract factory qui génèreras les différentes IA suivant un même schéma.
- - La partir echiquier suivant à peu près le modèle sur discord sauf si vous trouvez mieux ou plus cohérent,
- tout en incluant les bitboards.
 
-## Getting started
+- Voir comment procéder pour les tests unitaire avant de trop avancer pour les mettre en place en même temps que les fonctionnalités.
+- Compléter le cahier des besoins.
+- Voir pour le Cmakefile (Karl)
+- Se mettre en accords pour le coding style ( à voir tous ensemble)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
 ## Add your files
 
