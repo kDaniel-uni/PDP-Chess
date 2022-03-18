@@ -15,8 +15,8 @@ public :
     board();
     std::string result();
     bool is_game_over();
-    char* board_to_string();
-    void load_game(std::string filename); //load a game wrote in the filename, if no filename, load the default game.
+    char* to_string();
+    void from_string(std::string filename); //load a game wrote in the filename, if no filename, load the default game.
     void upgrade_white_and_black_pieces();
 
 };

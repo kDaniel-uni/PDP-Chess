@@ -10,7 +10,7 @@ game::game() {
 }
 
 void game::drawBoard() {
-    char* chars = _board->board_to_string();
+    char* chars = _board->to_string();
     int char_in_row = 0;
     for (int index = 0; index < BOARD_SIZE; index++) {
         if (char_in_row >= 8){
@@ -20,4 +20,5 @@ void game::drawBoard() {
         std::cout << chars[index] << ' ';
         char_in_row ++;
     }
+    std::cout << std::endl << std::endl;
 }

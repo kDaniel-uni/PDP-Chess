@@ -27,7 +27,10 @@ struct Bitboards
     Bitboard White_pieces;
     Bitboard Black_pieces;
 
-    Bitboards(){
+    Bitboards(bool is_empty){
+        if (is_empty){
+            return;
+        }
         White_pawns = 65280;
         White_rooks = 129;
         White_knights = 66;
