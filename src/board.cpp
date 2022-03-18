@@ -1,3 +1,6 @@
+//
+// Pdp_echec university project
+//
 
 #include <string>
 #include <array>
@@ -7,48 +10,18 @@
 #include "../include/bitboard_operations.h"
 
 using namespace std;
-typedef uint64_t bitboard;
 
-struct
-{
-    bitboard White_pawns = 0;
-    bitboard Black_pawns = 0;
-    bitboard White_rooks = 0;
-    bitboard Black_rooks = 0;
-    bitboard White_knights = 0;
-    bitboard Black_knights = 0;
-    bitboard White_bishops = 0;
-    bitboard Black_bishops = 0;
-    bitboard White_queen = 0;
-    bitboard Black_queen = 0;
-    bitboard White_king = 0;
-    bitboard Black_king = 0;
-
-    bitboard White_pieces;
-    bitboard Black_pieces;
-}pieces;
-
-void board::upgrade_white_and_black_pieces(){
-    pieces.White_pieces = pieces.White_pawns | pieces.White_rooks | pieces.White_knights | pieces.White_bishops | pieces.White_queen | pieces.White_king;
-    pieces.Black_pieces = pieces.Black_pawns | pieces.Black_rooks | pieces.Black_knights | pieces.Black_bishops | pieces.Black_queen | pieces.Black_king;
+board::board(){
+    _bitboards = new Bitboards();
 }
 
-std::string board::board_to_string(){
-    string res;
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_pawns,'P'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_pawns,'p'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_rooks,'R'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_rooks,'r'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_knights,'N'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_knights,'n'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_bishops,'B'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_bishops,'b'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_queen,'Q'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_queen,'q'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.White_king,'K'));
-    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_king,'k'));
-    return res;
+void board::upgrade_white_and_black_pieces(){
+    _bitboards->White_pieces = _bitboards->White_pawns | _bitboards->White_rooks | _bitboards->White_knights | _bitboards->White_bishops | _bitboards->White_queen | _bitboards->White_king;
+    _bitboards->Black_pieces = _bitboards->Black_pawns | _bitboards->Black_rooks | _bitboards->Black_knights | _bitboards->Black_bishops | _bitboards->Black_queen | _bitboards->Black_king;
+}
 
+char* board::board_to_string(){
+    return bitboard_operation::to_string(_bitboards);
 }
 void board::load_game(string filename){
     string line;
@@ -64,23 +37,23 @@ void board::load_game(string filename){
         pos-=line.size();// verifier que pos passe pas en négatif. Voir si le size prend en compte le '\n'
         for (char const &c: line) {
             switch (c) {
-                case 'P' : pieces.White_pawns += pow(2,(pos+inc));
-                case 'p' : pieces.Black_pawns += pow(2,(pos+inc));
+                case 'P' : _bitboards->White_pawns += pow(2,(pos+inc));
+                case 'p' : _bitboards->Black_pawns += pow(2,(pos+inc));
 
-                case 'R' : pieces.White_rooks += pow(2,(pos+inc));
-                case 'r' : pieces.Black_rooks += pow(2,(pos+inc));
+                case 'R' : _bitboards->White_rooks += pow(2,(pos+inc));
+                case 'r' : _bitboards->Black_rooks += pow(2,(pos+inc));
 
-                case 'N' : pieces.White_knights += pow(2,(pos+inc));
-                case 'n' : pieces.Black_knights += pow(2,(pos+inc));
+                case 'N' : _bitboards->White_knights += pow(2,(pos+inc));
+                case 'n' : _bitboards->Black_knights += pow(2,(pos+inc));
 
-                case 'B' : pieces.White_bishops += pow(2,(pos+inc));
-                case 'b' : pieces.Black_bishops += pow(2,(pos+inc));
+                case 'B' : _bitboards->White_bishops += pow(2,(pos+inc));
+                case 'b' : _bitboards->Black_bishops += pow(2,(pos+inc));
 
-                case 'Q' : pieces.White_queen += pow(2,(pos+inc));
-                case 'q' : pieces.Black_queen += pow(2,(pos+inc));
+                case 'Q' : _bitboards->White_queen += pow(2,(pos+inc));
+                case 'q' : _bitboards->Black_queen += pow(2,(pos+inc));
 
-                case 'K' : pieces.White_king += pow(2,(pos+inc));
-                case 'k' : pieces.Black_king += pow(2,(pos+inc));
+                case 'K' : _bitboards->White_king += pow(2,(pos+inc));
+                case 'k' : _bitboards->Black_king += pow(2,(pos+inc));
 
 
             }

@@ -1,18 +1,23 @@
 //
-// Created by KAAAAAAAAAAAAAAAAARL on 17/03/2022.
+// Pdp_echec university project
 //
 
 #include <iostream>
 #include "../include/game.h"
 
-void game::drawBoard(std::string board) {
+game::game() {
+    _board = new board();
+}
+
+void game::drawBoard() {
+    char* chars = _board->board_to_string();
     int char_in_row = 0;
-    for (char const &c: board) {
+    for (int index = 0; index < 64; index++) {
         if (char_in_row >= 8){
             std::cout << std::endl;
             char_in_row = 0;
         }
-        std::cout << c << ' ';
+        std::cout << chars[index] << ' ';
         char_in_row ++;
     }
 }

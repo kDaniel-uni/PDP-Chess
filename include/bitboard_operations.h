@@ -1,16 +1,19 @@
 //
-// Created by KAAAAAAAAAAAAAAAAARL on 18/03/2022.
+// Pdp_echec university project
 //
 
 #ifndef PDP_ECHEC_BITBOARD_OPERATIONS_H
 #define PDP_ECHEC_BITBOARD_OPERATIONS_H
 
 #include "string"
+#include "vector"
+#include "bitboards.h"
 
 namespace bitboard_operation{
 
-    std::string bitboard_to_string(uint64_t * bitboard, char p);
+    std::vector<uint8_t> get_positions(Bitboard bitboard);
 
+    char* to_string(Bitboards* bitboards);
 }
 
 #endif //PDP_ECHEC_BITBOARD_OPERATIONS_H

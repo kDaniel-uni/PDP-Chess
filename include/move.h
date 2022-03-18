@@ -1,5 +1,5 @@
 //
-// Created by KAAAAAAAAAAAAAAAAARL on 17/03/2022.
+// Pdp_echec university project
 //
 
 #ifndef PDP_ECHEC_COUP_H

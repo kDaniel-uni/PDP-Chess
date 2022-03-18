@@ -5,7 +5,7 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(pdp_echec src/main.cpp src/game.cpp)
+add_executable(pdp_echec src/main.cpp src/game.cpp src/board.cpp src/bitboard_operations.cpp include/bitboards.h)
 
 target_include_directories(pdp_echec
         PRIVATE

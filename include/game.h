@@ -1,20 +1,26 @@
+//
+// Pdp_echec university project
+//
 
 #ifndef PDP_ECHEC_GAME_H
 #define PDP_ECHEC_GAME_H
 
 
 #include "ai_player.h"
+#include "board.h"
 #include <vector>
 
 class game {
 public:
-    void drawBoard(std::string);
+    game();
+    void drawBoard();
 
 private:
-    ai_player* white_player;
-    ai_player* black_player;
-    ai_player* current_player;
-    std::vector<move> history;
+    board* _board;
+    ai_player* _white_player;
+    ai_player* _black_player;
+    ai_player* _current_player;
+    std::vector<move> _history;
 };
 
 
