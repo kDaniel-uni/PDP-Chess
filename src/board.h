@@ -11,7 +11,7 @@ public :
     std::string result();
     bool is_game_over();
     std::string board_to_string();
-    void default_board();
+    void load_game(string filename); //load a game wrote in the filename, if no filename, load the default game.
 };
 
 
