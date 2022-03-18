@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "game.h"
+#include "../include/game.h"
 
 void game::drawBoard(std::string board) {
     int char_in_row = 0;

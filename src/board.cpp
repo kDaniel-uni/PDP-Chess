@@ -1,17 +1,15 @@
 
 #include <string>
 #include <array>
-#include "board.h"
+#include "../include/board.h"
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <math.h>
+#include "../include/bitboard_operations.h"
 
 using namespace std;
-using namespace bitboard_operation;
 typedef uint64_t bitboard;
 
-    struct
+struct
 {
     bitboard White_pawns = 0;
     bitboard Black_pawns = 0;
@@ -30,21 +28,25 @@ typedef uint64_t bitboard;
     bitboard Black_pieces;
 }pieces;
 
+void board::upgrade_white_and_black_pieces(){
+    pieces.White_pieces = pieces.White_pawns | pieces.White_rooks | pieces.White_knights | pieces.White_bishops | pieces.White_queen | pieces.White_king;
+    pieces.Black_pieces = pieces.Black_pawns | pieces.Black_rooks | pieces.Black_knights | pieces.Black_bishops | pieces.Black_queen | pieces.Black_king;
+}
 
 std::string board::board_to_string(){
     string res;
-    res.append(*bitboard_to_string(&pieces.White_pawns,"P"));
-    res.append(*bitboard_to_string(&pieces.Black_pawns,"p"));
-    res.append(*bitboard_to_string(&pieces.White_rooks,"R"));
-    res.append(*bitboard_to_string(&pieces.Black_rooks,"r"));
-    res.append(*bitboard_to_string(&pieces.White_knights,"N"));
-    res.append(*bitboard_to_string(&pieces.Black_knights,"n"));
-    res.append(*bitboard_to_string(&pieces.White_bishops,"B"));
-    res.append(*bitboard_to_string(&pieces.Black_bishops,"b"));
-    res.append(*bitboard_to_string(&pieces.White_queen,"Q"));
-    res.append(*bitboard_to_string(&pieces.Black_queen,"q"));
-    res.append(*bitboard_to_string(&pieces.White_king,"K"));
-    res.append(*bitboard_to_string(&pieces.Black_king,"k"));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_pawns,'P'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_pawns,'p'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_rooks,'R'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_rooks,'r'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_knights,'N'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_knights,'n'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_bishops,'B'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_bishops,'b'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_queen,'Q'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_queen,'q'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.White_king,'K'));
+    res.append(bitboard_operation::bitboard_to_string(&pieces.Black_king,'k'));
     return res;
 
 }
@@ -53,12 +55,12 @@ void board::load_game(string filename){
     ifstream input_file(filename);
     if (!input_file.is_open()) {// mettre le fichier par default donc grille de jeu simple
         cerr << "Could not open the file - '"
-             << filename << "'" << endl;
+        << filename << "'" << endl;
         return;
     }
     int pos = 64;
     int inc = 0;
-    while(getline(input_file, line)){// faire attention aux coordonnées des cases : haut gauche = bitboard[56] 
+    while(getline(input_file, line)){// faire attention aux coordonnées des cases : haut gauche = bitboard[56]
         pos-=line.size();// verifier que pos passe pas en négatif. Voir si le size prend en compte le '\n'
         for (char const &c: line) {
             switch (c) {
@@ -89,43 +91,4 @@ void board::load_game(string filename){
     input_file.close();
     upgrade_white_and_black_pieces();
     return;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-namespace bitboard_operation{
-
-    std::string * bitboard_to_string(uint64_t * bitboard, string p){
-        string * res;
-        for(int i=0;i<sizeof(bitboard);i++){
-            if(bitboard[i] = 0){
-                res[i].append("-");
-            }
-            else{
-                res[i].append(p);
-            }
-        }
-        return res;
-    }
-    void upgrade_white_and_black_pieces(){
-        pieces.White_pieces = pieces.White_pawns | pieces.White_rooks | pieces.White_knights | pieces.White_bishops | pieces.White_queen | pieces.White_king;
-        pieces.Black_pieces = pieces.Black_pawns | pieces.Black_rooks | pieces.Black_knights | pieces.Black_bishops | pieces.Black_queen | pieces.Black_king;
-    }
-
-
-
-
 }
