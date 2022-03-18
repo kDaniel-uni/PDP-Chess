@@ -5,6 +5,8 @@
 #ifndef PDP_ECHEC_BITBOARDS_H
 #define PDP_ECHEC_BITBOARDS_H
 
+const int BOARD_SIZE = 64;
+
 typedef uint64_t Bitboard;
 
 struct Bitboards
@@ -32,6 +34,13 @@ struct Bitboards
         White_bishops = 36;
         White_queen = 16;
         White_king = 8;
+
+        Black_pawns = 71776119061217280;
+        Black_rooks = 9295429630892703744;
+        Black_knights = 4755801206503243776;
+        Black_bishops = 2594073385365405696;
+        Black_queen = 576460752303423488;
+        Black_king = 1152921504606846976;
     }
 
 };

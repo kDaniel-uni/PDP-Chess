@@ -8,7 +8,7 @@ namespace bitboard_operation {
 
     std::vector<uint8_t> get_positions(Bitboard bitboard) {
         std::vector<uint8_t> positions;
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
             if ((bitboard >> i) & 1) {
                 positions.push_back(i);
             }
@@ -17,9 +17,9 @@ namespace bitboard_operation {
     }
 
     char* to_string(Bitboards* bitboards){
-        char* res = new char[64];
+        char* res = new char[BOARD_SIZE];
 
-        for (int index = 0; index < 64; index++){
+        for (int index = 0; index < BOARD_SIZE; index++){
             res[index] = '-';
         }
 

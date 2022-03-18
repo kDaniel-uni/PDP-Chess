@@ -23,6 +23,7 @@ void board::upgrade_white_and_black_pieces(){
 char* board::board_to_string(){
     return bitboard_operation::to_string(_bitboards);
 }
+
 void board::load_game(string filename){
     string line;
     ifstream input_file(filename);

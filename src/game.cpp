@@ -12,7 +12,7 @@ game::game() {
 void game::drawBoard() {
     char* chars = _board->board_to_string();
     int char_in_row = 0;
-    for (int index = 0; index < 64; index++) {
+    for (int index = 0; index < BOARD_SIZE; index++) {
         if (char_in_row >= 8){
             std::cout << std::endl;
             char_in_row = 0;
