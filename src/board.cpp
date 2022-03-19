@@ -27,3 +27,20 @@ void board::from_string(string data){
     _bitboards = io_bitboard::from_string(data.c_str());
     upgrade_white_and_black_pieces();
 }
+
+bool board::is_game_over(){
+    if(_bitboards->White_king == 0 || _bitboards->Black_king == 0){
+        return true;
+    }
+    return false;
+}
+
+std::string board::result(){
+    if(_bitboards->White_king == 0){
+        return "The winner is player black";
+    }else if(_bitboards->Black_king == 0){
+        return "The winner is player White";
+    }else{
+        return "there is no winner";
+    }
+}
