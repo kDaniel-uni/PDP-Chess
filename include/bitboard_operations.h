@@ -13,7 +13,7 @@ namespace io_bitboard{
 
     std::vector<uint8_t> get_positions(Bitboard bitboard);
 
-    char* to_string(Bitboards* bitboards);
+    std::string to_string(Bitboards* bitboards);
 
     Bitboards* from_string(const char* data);
 }

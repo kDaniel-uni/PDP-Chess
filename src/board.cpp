@@ -19,7 +19,7 @@ void board::upgrade_white_and_black_pieces(){
     _bitboards->Black_pieces = _bitboards->Black_pawns | _bitboards->Black_rooks | _bitboards->Black_knights | _bitboards->Black_bishops | _bitboards->Black_queen | _bitboards->Black_king;
 }
 
-char* board::to_string(){
+std::string board::to_string(){
     return io_bitboard::to_string(_bitboards);
 }
 

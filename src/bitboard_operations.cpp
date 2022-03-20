@@ -18,8 +18,9 @@ namespace io_bitboard {
         return positions;
     }
 
-    char *to_string(Bitboards *bitboards) {
-        char *res = new char[BOARD_SIZE];
+    std::string to_string(Bitboards *bitboards) {
+        std::string res;
+        res.resize(64);
 
         for (int index = 0; index < BOARD_SIZE; index++) {
             res[index] = '-';
