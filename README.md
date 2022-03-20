@@ -5,11 +5,15 @@ Projet de programmation d'un jeu d'échec dans le cadre de l'UE PDP de Master 1 
 
 ## TODO
 
-- Voir comment procéder pour les tests unitaire avant de trop avancer pour les mettre en place en même temps que les fonctionnalités.
 - Compléter le cahier des besoins.
-- Voir pour le Cmakefile (Karl)
 - Se mettre en accords pour le coding style ( à voir tous ensemble)
+- Definir nos coups plus précisement afin d'entamer les fonctions du moteur de jeu
 
+## TEST UNITAIRE
+
+Pour les tests il faudrais se définir les noms qu'on utiliseras pour que ça soit homogène suivant ce que ça test.
+Un fichier pour chaque test afin que l'on repère directement quel test foire.
+Pour lancer les tests  "ctest" après avoir make.
 
 
 ## Add your files
