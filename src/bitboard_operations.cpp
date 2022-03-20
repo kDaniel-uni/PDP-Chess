@@ -4,6 +4,7 @@
 
 #include "../include/bitboard_operations.h"
 #include <algorithm>
+#include <math.h>
 
 namespace io_bitboard {
 
@@ -122,5 +123,7 @@ namespace io_bitboard {
         }
         return bitboards;
     }
+
+    
 }
 

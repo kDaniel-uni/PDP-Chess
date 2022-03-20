@@ -6,7 +6,7 @@
 #define PDP_ECHEC_AI_PLAYER_H
 
 
-#include <xstring>
+#include <string>
 #include "move.h"
 
 class ai_player {
