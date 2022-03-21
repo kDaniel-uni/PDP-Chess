@@ -4,6 +4,7 @@
 
 #include "../include/bitboard_operations.h"
 #include <algorithm>
+#include <iostream>
 #include <math.h>
 
 namespace io_bitboard {
@@ -125,6 +126,32 @@ namespace io_bitboard {
         return bitboards;
     }
 
-    
+    void draw_board(Bitboards* bitboards){
+        std::string chars = io_bitboard::to_string(bitboards);
+        int char_in_row = 0;
+        for (int index = 0; index < BOARD_SIZE; index++) {
+            if (char_in_row >= 8){
+                std::cout << std::endl;
+                char_in_row = 0;
+            }
+            std::cout << chars[index] << ' ';
+            char_in_row ++;
+        }
+        std::cout << std::endl << std::endl;
+    }
+}
+
+namespace filters{
+
+    Bitboard get_white_pawns_in_base_position(Bitboard bitboard){
+        Bitboard white_pawn_base_position = 71776119061217280;
+        return bitboard & white_pawn_base_position;
+    }
+
+    Bitboard get_black_pawns_in_base_position(Bitboard bitboard){
+        Bitboard black_pawn_base_position = 65280;
+        return bitboard & black_pawn_base_position;
+    }
+
 }
 

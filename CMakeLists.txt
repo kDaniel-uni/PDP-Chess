@@ -19,13 +19,19 @@ target_link_libraries(pdp_echec PUBLIC lib)
 add_executable(placeholder_test test/placeholder_test.cpp)
 target_link_libraries(placeholder_test PUBLIC lib)
 
-add_executable(bitboard_io_test test/bitboard_io_test.cpp)
-target_link_libraries(bitboard_io_test PUBLIC lib)
+add_executable(board_io_test test/board_io_test.cpp)
+target_link_libraries(board_io_test PUBLIC lib)
+
+add_executable(bitboard_operation_test test/bitboard_operation_test.cpp)
+target_link_libraries(bitboard_operation_test PUBLIC lib)
 
 
 add_test(placeholder placeholder_test)
 
-add_test(board_empty_init_test bitboard_io_test 1)
-add_test(board_classic_init_test bitboard_io_test 2)
-add_test(bitboard_basic_load_test bitboard_io_test 3)
-add_test(bitboard_random_load_test bitboard_io_test 4)
+add_test(board_empty_init_test board_io_test 1)
+add_test(board_classic_init_test board_io_test 2)
+add_test(board_basic_load_test board_io_test 3)
+add_test(board_random_load_test board_io_test 4)
+
+add_test(white_pawns_in_base_pos_test bitboard_operation_test 1)
+add_test(black_pawns_in_base_pos_test bitboard_operation_test 2)

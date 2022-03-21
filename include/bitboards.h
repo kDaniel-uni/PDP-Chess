@@ -32,7 +32,7 @@ struct Bitboards
             return;
         }
         White_pawns = 71776119061217280;
-        White_rooks = 9295429630892703744;
+        White_rooks = 9295429630892703744UL;
         White_knights = 4755801206503243776;
         White_bishops = 2594073385365405696;
         White_queen = 576460752303423488;

@@ -15,11 +15,8 @@ int main (int argc, char *argv[]) {
         std::string test_s = io_bitboard::to_string(bitboards);
 
         if (test_s == "----------------------------------------------------------------"){
-
             return EXIT_SUCCESS;
         }
-
-        return EXIT_FAILURE;
 
     } else if (arg == "2"){
 
@@ -30,8 +27,6 @@ int main (int argc, char *argv[]) {
             return EXIT_SUCCESS;
         }
 
-        return EXIT_FAILURE;
-
     } else if (arg == "3"){
 
         Bitboards* bitboards =  io_bitboard::from_string("rnbkqbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR");
@@ -41,8 +36,6 @@ int main (int argc, char *argv[]) {
             return EXIT_SUCCESS;
         }
 
-        return EXIT_FAILURE;
-
     } else if (arg == "4"){
 
         Bitboards* bitboards = io_bitboard::from_string("rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ");
@@ -51,8 +44,6 @@ int main (int argc, char *argv[]) {
         if (test_s == "rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ"){
             return EXIT_SUCCESS;
         }
-
-        return EXIT_FAILURE;
 
     }
 
