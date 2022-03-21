@@ -51,6 +51,12 @@ L'algorithme Minimax-ab a le même principe à la différence que lorsqu'il remo
 \newline\newline
 L'algorithme Negamax se différencie de l'algorithme Minimax-ab par le fait que plutôt que de maximiser le coup du joueur et minimiser le coup de l'adversaire, il inverse le signe des évaluations à chaque niveau de profondeur de l'arbre de décision et ne cherche plus qu'à maximiser la valeur du coup à évaluer\cite{Negamax}.
 \newline\newline
+L'algorithme Négascout recherche le premier coup normalement, sur une grande profondeur, puis de repérer le reste des coups possibles, sur une petite profondeur, et de se demander si la valeur de alpha obtenue lors du premier coup est la meilleure\cite{Negascout}.
+\newline\newline
+L'algorithme MTD(f) est basé sur la mémorisation d'un arbre de décision formée à partir de l'algorithme Minimax-ab et la formation de deux bornes, une borne supérieur et une borne inférieure. La mémorisation de l'arbre de décision permet de déterminer la valeur heuristique des coups possibles et d'effectuer un second parcours de l'arbre afin de récupérer la valeur de chaque coups et de modifier la valeur des bornes.
+\newline
+Le but étant de réduire l'intervalle entre les bornes jusqu'à trouver la valeur minimax correspondant au meilleur coup à jouer\cite{MTD(f)}.
+\newline\newline
 Avec l'algorithme Monte-Carlo Tree Search, un nœud de l'arbre de décision correspond à un état du jeu mais possède aussi deux valeurs, le nombre de simulations gagnantes et le nombre de simulations totales sur la branche.
 L'algorithme fonctionne en quatre étapes\cite{MonteCarlo}:
 \begin{itemize}
@@ -59,7 +65,8 @@ L'algorithme fonctionne en quatre étapes\cite{MonteCarlo}:
 \item La simulation d'une partie au hasard depuis l'enfant rajouté jusqu'à atteindre une fin de partie.
 \item La remontée du résultat de la partie par la mise à jour du nombre de simulations victorieuses et du nombre de simulations totales pour chaque nœud.
 \end{itemize}
-\newpage
+
+
 \subsection{Logiciels de jeu d'échecs existants}
 \centerline{\includegraphics[scale = 0.25]{img/Echiquier.png}}
 La plupart des logiciels de jeu d'échecs proposés au grand public, disponible dans les boutiques virtuelles comme le Microsoft Store, optent pour un affichage graphique afin de jouer aux échecs, toutefois on peut se rendre compte que ces logiciels permettent aux joueurs de :
@@ -71,16 +78,22 @@ La plupart des logiciels de jeu d'échecs proposés au grand public, disponible 
 \item visualiser les mouvements d'une pièce
 \newline
 \centerline{\includegraphics[scale = 0.5]{img/Piece_move.png}}
-\item sauvegarder une partie pour la reprendre plus tard. -charger une partie sauvegardée.
+\item sauvegarder une partie pour la reprendre plus tard. 
+\item charger une partie sauvegardée.
 \newline\newline
 \end{itemize}
 Mais il existe également des logiciels, quant-à eux plus scientifiques, avec pour vocation d'exercer  des algorithmes contre des champions humains ou contre d'autres logiciels.
 \newline
-C'est le cas de Kaissa qui fût le premier programme à avoir gagné le championnat ACM d'échecs informatiques de 1974. Ce dernier utilise un algorithme Minimax alpha beta \cite{KaissaAB} pour calculer ses coups et un système de bitboards pour déterminer les mouvements légaux d'une pièce. \cite{KaissaBitboard}.
+C'est le cas de Kaissa qui fût le premier programme à avoir gagné le championnat ACM d'échecs informatiques de 1974. Ce dernier utilise un algorithme Minimax alpha beta \cite{KaissaAB} pour calculer ses coups et un système de bitboards pour déterminer les mouvements légaux d'une pièce. \cite{Kaissa}\cite{KaissaBitboard}\cite{RotatedBitBoards}.
 \newline
 Nous pouvons citer Deep Thought qui remporta le 19ème championnat ACM d'échecs informatiques, il s'agit du premier ordinateur avec le niveau d'un grand maître qui joua contre Garry Kasparov en 1989 et fut battu.\cite{Deep}. 
 \newline
 Jusqu'à Deep Blue, doté d'une architecture massivement parallèle, lui permettant de paralléliser l'algorithme de recherche alpha-bêta\cite{DeepSystem} et fut le premier ordinateur à avoir battu Kasparov en 1996.\cite{Deep}.
+
+
+
+
+
 \newpage
 \section{Description des besoins}
 
