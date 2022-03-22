@@ -8,6 +8,7 @@
 #include "string"
 #include "vector"
 #include "bitboards.h"
+#include "move.h"
 
 namespace io_bitboard{
 
