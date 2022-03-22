@@ -25,6 +25,9 @@ target_link_libraries(board_io_test PUBLIC lib)
 add_executable(bitboard_operation_test test/bitboard_operation_test.cpp)
 target_link_libraries(bitboard_operation_test PUBLIC lib)
 
+add_executable(bitboard_move_test test/bitboard_move_test.cpp)
+target_link_libraries(bitboard_move_test PUBLIC lib)
+
 
 add_test(placeholder placeholder_test)
 
@@ -35,3 +38,6 @@ add_test(board_random_load_test board_io_test 4)
 
 add_test(white_pawns_in_base_pos_test bitboard_operation_test 1)
 add_test(black_pawns_in_base_pos_test bitboard_operation_test 2)
+
+add_test(move_test bitboard_move_test)
+

@@ -139,6 +139,89 @@ namespace io_bitboard {
         }
         std::cout << std::endl << std::endl;
     }
+
+    Bitboard get_bitboard_to_index(Bitboards* bitboards, int index){
+
+        for (auto i : get_positions(bitboards->White_pawns)) {
+            if (i == index){
+                return bitboards->White_pawns;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_pawns)) {
+            if (i == index){
+                return bitboards->Black_pawns;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->White_rooks)) {
+            if (i == index){
+                return bitboards->White_rooks;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_rooks)) {
+            if (i == index){
+                return bitboards->Black_rooks;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->White_knights)) {
+           if (i == index){
+                return bitboards->White_knights;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_knights)) {
+            if (i == index){
+                return bitboards->Black_knights;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->White_bishops)) {
+            if (i == index){
+                return bitboards->White_bishops;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_bishops)) {
+            if (i == index){
+                return bitboards->Black_bishops;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->White_queen)) {
+            if (i == index){
+                return bitboards->White_queen;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_queen)) {
+            if (i == index){
+                return bitboards->Black_queen;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->White_king)) {
+            if (i == index){
+                return bitboards->White_king;
+            }
+        }
+
+        for (auto i : get_positions(bitboards->Black_king)) {
+            if (i == index){
+                return bitboards->Black_king;
+            }
+        }
+    }
+
+    Bitboards * traduct_from_move(Bitboards * bitboards,move mv){
+        int begin_bit = ((int)mv.moving_position[0] - 49) * (int)mv.moving_position[1];
+        int end_bit = ((int)mv.target_position[0] - 49) * (int)mv.target_position[1];
+        Bitboard to_move = get_bitboard_to_index(bitboards,begin_bit);
+        to_move += pow(2,end_bit);
+        return bitboards;
+    }
 }
 
 namespace filters{

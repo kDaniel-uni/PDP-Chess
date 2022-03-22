@@ -8,6 +8,7 @@
 #include "string"
 #include "vector"
 #include "bitboards.h"
+#include "move.h"
 
 namespace io_bitboard{
 
@@ -18,6 +19,10 @@ namespace io_bitboard{
     Bitboards* from_string(const char* data);
 
     void draw_board(Bitboards* bitboards);
+
+    Bitboard get_bitboard_to_index(Bitboards* bitboards, int index);
+
+    Bitboards * traduct_from_move(Bitboards * bitboards,move mv);
 }
 
 
