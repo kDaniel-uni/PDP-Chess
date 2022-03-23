@@ -31,19 +31,19 @@ struct Bitboards
         if (is_empty){
             return;
         }
-        Black_pawns = 71776119061217280;
-        Black_rooks = 9295429630892703744UL;
-        Black_knights = 4755801206503243776;
-        Black_bishops = 2594073385365405696;
-        Black_queen = 576460752303423488;
-        Black_king = 1152921504606846976;
+        Black_pawns = (1<<55)+(1<<54)+(1<<53)+(1<<52)+(1<<51)+(1<<50)+(1<<49)+(1<<48);
+        Black_rooks = (1<<63)+(1<<56);
+        Black_knights = (1<<62)+(1<<57);
+        Black_bishops = (1<<61)+(1<<58);
+        Black_queen = (1<<59);
+        Black_king = (1<<60);
 
-        White_pawns = 65280;
-        White_rooks = 129;
-        White_knights = 66;
-        White_bishops = 36;
-        White_queen = 16;
-        White_king = 8;
+        White_pawns = (1<<15)+(1<<14)+(1<<13)+(1<<12)+(1<<11)+(1<<10)+(1<<9)+(1<<8);
+        White_rooks = (1<<7)+(1<<0);
+        White_knights = (1<<6)+(1<<1);
+        White_bishops = (1<<5)+(1<<2);
+        White_queen = 1<<4;
+        White_king = 1<<3;
     }
 
 };
