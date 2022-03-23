@@ -220,6 +220,8 @@ namespace io_bitboard {
         int end_bit = ((int)mv.target_position[0] - 49) * (int)mv.target_position[1];
         Bitboard to_move = get_bitboard_to_index(bitboards,begin_bit);
         to_move += pow(2,end_bit);
+        bitboards->White_pawns += pow(2,16); // test 
+        bitboards->White_pawns >> begin_bit;
         return bitboards;
     }
 }
