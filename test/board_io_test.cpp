@@ -29,10 +29,10 @@ int main (int argc, char *argv[]) {
 
     } else if (arg == "3"){
 
-        Bitboards* bitboards =  io_bitboard::from_string("rnbkqbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR");
+        Bitboards* bitboards =  io_bitboard::from_string("RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
         std::string test_s = io_bitboard::to_string(bitboards);
 
-        if (test_s == "rnbkqbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR"){
+        if (test_s == "RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 
