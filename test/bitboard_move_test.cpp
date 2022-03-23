@@ -15,7 +15,7 @@ int main (int argc, char *argv[]) {
     move_to_test.target_position = "h4";
     Bitboards* bitboards = new Bitboards(false);
     bitboards = io_bitboard::traduct_from_move(bitboards,move_to_test);
-    if (io_bitboard::to_string(bitboards)== "RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
+    if (io_bitboard::to_string(bitboards)== "pkpkpkpkqrqrqrqr-----------------------P--------PPPPPPP-RNBQKBNR"){
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;
