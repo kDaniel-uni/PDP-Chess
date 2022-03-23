@@ -23,7 +23,7 @@ int main (int argc, char *argv[]) {
         Bitboards* bitboards = new Bitboards(false);
         std::string test_s = io_bitboard::to_string(bitboards);
 
-        if (test_s == "rnbkqbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR"){
+        if (test_s == "RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 

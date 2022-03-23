@@ -10,15 +10,5 @@ game::game() {
 }
 
 void game::drawBoard() {
-    std::string chars = _board->to_string();
-    int char_in_row = 0;
-    for (int index = 0; index < BOARD_SIZE; index++) {
-        if (char_in_row >= 8){
-            std::cout << std::endl;
-            char_in_row = 0;
-        }
-        std::cout << chars[index] << ' ';
-        char_in_row ++;
-    }
-    std::cout << std::endl << std::endl;
+    io_bitboard::draw_board(_board->_bitboards);
 }
