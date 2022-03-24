@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "../include/game.h"
+#include "game.h"
 
 game::game() {
     _board = new board();

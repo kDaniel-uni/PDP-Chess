@@ -2,32 +2,36 @@
 // Pdp_echec university project
 //
 
-#include "string"
-#include "../include/bitboard_operations.h"
+#include <string>
+#include "bitboard_operations.h"
+#include "game.h"
+#include <iostream>
 
 int main (int argc, char *argv[]) {
 
     std::string arg = argv[1];
+    game* _game = new game();
 
     if (arg == "1"){
 
-        Bitboards* testing_board = io_bitboard::from_string("--------pPpPpP--------pp---------------------P-p---PP-PP--------");
-        Bitboard result = filters::get_white_pawns_in_base_position(testing_board->White_pawns);
+        _game->fromString("--------pPpPpP--------pp---------------------P-p---PP-PP--------");
+        uint64_t result = filters::get_white_pawns_in_base_position(_game->_board->_pieces[1]->pawns);
 
-        Bitboards* expexted_result = io_bitboard::from_string("---------------------------------------------------PP-PP--------");
+        uint64_t expected_result = (1 << 9) + (1 << 11) + (1 << 13);
 
-        if (result == expexted_result->White_pawns){
+        if (result == expected_result){
             return EXIT_SUCCESS;
         }
 
     } else if (arg == "2"){
 
-        Bitboards* testing_board = io_bitboard::from_string("--------pPpPpP--------pp----------------------Pp---PP-PP--------");
-        Bitboard result = filters::get_black_pawns_in_base_position(testing_board->Black_pawns);
+        _game->fromString("--------pPpPpP--------pp---------------------P-p---pp-pp--------");
+        uint64_t result = filters::get_black_pawns_in_base_position(_game->_board->_pieces[0]->pawns);
 
-        Bitboards* expexted_result = io_bitboard::from_string("--------p-p-p---------------------------------------------------");
+        uint64_t base = 1;
+        uint64_t expected_result = (base << 51) + (base << 52) + (base << 54) + (base << 55);
 
-        if (result == expexted_result->Black_pawns){
+        if (result == expected_result){
             return EXIT_SUCCESS;
         }
 

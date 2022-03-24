@@ -2,17 +2,18 @@
 // Pdp_echec university project
 //
 
-#include "../include/bitboard_operations.h"
+#include "game.h"
 #include "iostream"
 
 int main (int argc, char *argv[]) {
 
     std::string arg = argv[1];
+    game* _game = new game();
 
     if (arg == "1"){
 
-        Bitboards* bitboards = new Bitboards(true);
-        std::string test_s = io_bitboard::to_string(bitboards);
+        _game->_board->reset_to_empty();
+        std::string test_s = _game->_board->to_string();
 
         if (test_s == "----------------------------------------------------------------"){
             return EXIT_SUCCESS;
@@ -20,26 +21,26 @@ int main (int argc, char *argv[]) {
 
     } else if (arg == "2"){
 
-        Bitboards* bitboards = new Bitboards(false);
-        std::string test_s = io_bitboard::to_string(bitboards);
+        _game->_board->reset_to_classic();
+        std::string test_s = _game->_board->to_string();
 
-        if (test_s == "RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
+        if (test_s == "RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 
     } else if (arg == "3"){
 
-        Bitboards* bitboards =  io_bitboard::from_string("RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
-        std::string test_s = io_bitboard::to_string(bitboards);
+        _game->_board->from_string("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+        std::string test_s = _game->_board->to_string();
 
-        if (test_s == "RNBKQBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
+        if (test_s == "RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 
     } else if (arg == "4"){
 
-        Bitboards* bitboards = io_bitboard::from_string("rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ");
-        std::string test_s = io_bitboard::to_string(bitboards);
+        _game->_board->from_string("rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ");
+        std::string test_s = _game->_board->to_string();
 
         if (test_s == "rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ"){
             return EXIT_SUCCESS;

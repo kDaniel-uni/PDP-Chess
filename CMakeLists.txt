@@ -4,13 +4,15 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 14)
 enable_testing()
 
+include_directories(src/include)
+
 add_library(lib src/game.cpp
         src/board.cpp
         src/bitboard_operations.cpp)
 
 target_include_directories(lib
         PRIVATE
-        ${PROJECT_SOURCE_DIR}/include)
+        src/include)
 
 
 add_executable(pdp_echec src/main.cpp)
