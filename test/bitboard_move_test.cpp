@@ -3,9 +3,9 @@
 //
 
 #include <string.h>
-#include "../include/bitboard_operations.h"
-#include "../include/move.h"
-#include "../include/game.h"
+#include "bitboard_operations.h"
+#include "move.h"
+#include "game.h"
 
 int main (int argc, char *argv[]) {
     
