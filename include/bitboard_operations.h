@@ -18,9 +18,9 @@ namespace io_bitboard{
 
 namespace filters{
 
-    uint64_t get_white_pawns_in_base_position(Bitboard bitboard);
+    uint64_t get_white_pawns_in_base_position(const Bitboard& bitboard);
 
-    uint64_t get_black_pawns_in_base_position(Bitboard bitboard);
+    uint64_t get_black_pawns_in_base_position(const Bitboard& bitboard);
 }
 
 #endif //PDP_ECHEC_BITBOARD_OPERATIONS_H

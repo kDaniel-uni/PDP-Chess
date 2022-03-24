@@ -19,6 +19,8 @@ public :
     void from_string(const char* filename); //load a game wrote in the filename, if no filename, load the default game.
     void update_white_and_black_pieces();
     Bitboards* _pieces[2];
+    void reset_to_classic();
+    void reset_to_empty();
 
 };
 

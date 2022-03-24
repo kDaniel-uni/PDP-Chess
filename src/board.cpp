@@ -12,8 +12,8 @@
 using namespace std;
 
 board::board() {
-    _pieces[0] = new Bitboards(false, false);
-    _pieces[1] = new Bitboards(true, false);
+    _pieces[0] = new Bitboards(false, true);
+    _pieces[1] = new Bitboards(true, true);
 }
 
 void board::update_white_and_black_pieces() {
@@ -44,6 +44,8 @@ std::string board::to_string() {
 }
 
 void board::from_string(const char *data) {
+
+    reset_to_empty();
 
     for (auto index = 0; index < BOARD_SIZE; index++) {
         switch (data[index]) {
@@ -105,4 +107,14 @@ std::string board::result() {
     } else {
         return "there is no winner";
     }
+}
+
+void board::reset_to_classic() {
+    _pieces[0] = new Bitboards(false, false);
+    _pieces[1] = new Bitboards(true, false);
+}
+
+void board::reset_to_empty() {
+    _pieces[0] = new Bitboards(false, true);
+    _pieces[1] = new Bitboards(true, true);
 }
