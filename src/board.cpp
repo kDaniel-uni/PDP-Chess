@@ -89,6 +89,43 @@ void board::from_string(const char *data) {
     }
     update_white_and_black_pieces();
 }
+void  board::moving(movement mv){
+        for(int color = 0; color<2 ; color++ ){
+            for(auto index : io_bitboard::get_positions(_pieces[color]->pawns)){
+                if (index == mv.start_position){
+                    _pieces[color]->pawns.value = (_pieces[color]->pawns.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->rooks)){
+                if (index == mv.start_position){
+                    _pieces[color]->rooks.value = (_pieces[color]->rooks.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->knights)){
+                if (index == mv.start_position){
+                    _pieces[color]->knights.value = (_pieces[color]->knights.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->bishops)){
+                if (index == mv.start_position){
+                    _pieces[color]->bishops.value = (_pieces[color]->bishops.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->queen)){
+                if (index == mv.start_position){
+                    _pieces[color]->queen.value = (_pieces[color]->queen.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->king)){
+                if (index == mv.start_position){
+                    _pieces[color]->king.value = (_pieces[color]->king.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                }
+            }
+            update_white_and_black_pieces();
+
+            
+        }
+    }
 
 bool board::is_game_over() {
     if (_pieces[0]->king.value == 0 || _pieces[1]->king.value == 0) {

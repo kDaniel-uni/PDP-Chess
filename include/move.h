@@ -5,9 +5,9 @@
 #ifndef PDP_ECHEC_MOVE_H
 #define PDP_ECHEC_MOVE_H
 
-struct move{
-    int start_position[2];
-    int target_position[2];
+struct movement{
+    uint8_t start_position;
+    uint8_t target_position;
 };
 
 #endif //PDP_ECHEC_MOVE_H

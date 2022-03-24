@@ -16,13 +16,13 @@ public:
     game();
     void drawBoard() const;
     void fromString(std::string string);
+    board* _board;
 
 private:
-    board* _board;
     ai_player* _white_player;
     ai_player* _black_player;
     ai_player* _current_player;
-    std::vector<move> _history;
+    std::vector<movement> _history;
 };
 
 

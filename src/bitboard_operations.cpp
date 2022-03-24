@@ -20,6 +20,8 @@ namespace io_bitboard {
     }
 }
 
+
+
 namespace filters{
 
     uint64_t get_white_pawns_in_base_position(Bitboard bitboard){

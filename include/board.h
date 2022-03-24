@@ -7,6 +7,7 @@
 #include <string>
 #include <array>
 #include "bitboards.h"
+#include "move.h"
 
 class board{
 private :
@@ -19,6 +20,7 @@ public :
     void from_string(const char* filename); //load a game wrote in the filename, if no filename, load the default game.
     void update_white_and_black_pieces();
     Bitboards* _pieces[2];
+    void moving(movement mv);
 
 };
 
