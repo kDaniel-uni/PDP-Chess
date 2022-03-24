@@ -2,12 +2,12 @@
 // Pdp_echec university project
 //
 
-#ifndef PDP_ECHEC_COUP_H
-#define PDP_ECHEC_COUP_H
+#ifndef PDP_ECHEC_MOVE_H
+#define PDP_ECHEC_MOVE_H
 
 struct move{
-    std::string moving_position;
-    std::string target_position;
+    int start_position[2];
+    int target_position[2];
 };
 
-#endif //PDP_ECHEC_COUP_H
+#endif //PDP_ECHEC_MOVE_H
