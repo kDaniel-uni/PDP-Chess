@@ -11,22 +11,16 @@
 
 namespace io_bitboard{
 
-    std::vector<uint8_t> get_positions(Bitboard bitboard);
-
-    std::string to_string(Bitboards* bitboards);
-
-    Bitboards* from_string(const char* data);
-
-    void draw_board(Bitboards* bitboards);
+    std::vector<uint8_t> get_positions(const Bitboard& bitboard);
 
 }
 
 
 namespace filters{
 
-    Bitboard get_white_pawns_in_base_position(Bitboard bitboard);
+    uint64_t get_white_pawns_in_base_position(Bitboard bitboard);
 
-    Bitboard get_black_pawns_in_base_position(Bitboard bitboard);
+    uint64_t get_black_pawns_in_base_position(Bitboard bitboard);
 }
 
 #endif //PDP_ECHEC_BITBOARD_OPERATIONS_H
