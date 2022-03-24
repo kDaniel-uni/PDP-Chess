@@ -6,7 +6,7 @@
 #include <array>
 #include <iostream>
 #include <math.h>
-#include "../include/board.h"
+#include "board.h"
 #include "bitboard_operations.h"
 
 using namespace std;

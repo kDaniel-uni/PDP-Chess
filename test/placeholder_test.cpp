@@ -2,7 +2,7 @@
 // Pdp_echec university project
 //
 
-#include "../include/game.h"
+#include "game.h"
 #include <string.h>
 
 int main (int argc, char *argv[]) {
