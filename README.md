@@ -7,7 +7,21 @@ Projet de programmation d'un jeu d'échec dans le cadre de l'UE PDP de Master 1 
 
 - Compléter le cahier des besoins.
 - Se mettre en accords pour le coding style ( à voir tous ensemble)
-- Definir nos coups plus précisement afin d'entamer les fonctions du moteur de jeu
+
+## REPARTITION DES TACHES 
+
+Tous : Changement de la structure des bitboards.
+
+-Karl : 
+
+-Morgan : 
+
+-Marvin : 
+
+-Thomas : 
+
+-Florian : 
+    - deplacement des pieces suivant un move.
 
 ## TEST UNITAIRE
 
