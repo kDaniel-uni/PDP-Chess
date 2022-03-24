@@ -8,12 +8,14 @@
 
 #include "ai_player.h"
 #include "board.h"
+#include "bitboard_operations.h"
 #include <vector>
 
 class game {
 public:
     game();
-    void drawBoard();
+    void drawBoard() const;
+    void fromString(std::string string);
     board* _board;
 
 private:

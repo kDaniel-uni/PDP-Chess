@@ -6,7 +6,7 @@
 #define PDP_ECHEC_BOARD_H
 #include <string>
 #include <array>
-#include "bitboard_operations.h"
+#include "bitboards.h"
 
 class board{
 private :
@@ -16,9 +16,11 @@ public :
     std::string result();
     bool is_game_over();
     std::string to_string();
-    void from_string(std::string filename); //load a game wrote in the filename, if no filename, load the default game.
-    void upgrade_white_and_black_pieces();
-    Bitboards* _bitboards;
+    void from_string(const char* filename); //load a game wrote in the filename, if no filename, load the default game.
+    void update_white_and_black_pieces();
+    Bitboards* _pieces[2];
+    void reset_to_classic();
+    void reset_to_empty();
 
 };
 
