@@ -22,108 +22,109 @@ namespace io_bitboard {
     std::string to_string(Bitboards *bitboards) {
         std::string res;
         res.resize(64);
-
         for (int index = 0; index < BOARD_SIZE; index++) {
             res[index] = '-';
         }
 
-        for (auto index : get_positions(bitboards->White_pawns)) {
+        for (auto index : get_positions(bitboards[0].pawns)) {
             res[index] = 'P';
         }
 
-        for (auto index : get_positions(bitboards->Black_pawns)) {
+        for (auto index : get_positions(bitboards[1].pawns)) {
             res[index] = 'p';
         }
 
-        for (auto index : get_positions(bitboards->White_rooks)) {
+        for (auto index : get_positions(bitboards[0].rooks)) {
             res[index] = 'R';
         }
 
-        for (auto index : get_positions(bitboards->Black_rooks)) {
+        for (auto index : get_positions(bitboards[1].rooks)) {
             res[index] = 'r';
         }
 
-        for (auto index : get_positions(bitboards->White_knights)) {
+        for (auto index : get_positions(bitboards[0].knights)) {
             res[index] = 'N';
         }
 
-        for (auto index : get_positions(bitboards->Black_knights)) {
+        for (auto index : get_positions(bitboards[1].knights)) {
             res[index] = 'n';
         }
 
-        for (auto index : get_positions(bitboards->White_bishops)) {
+        for (auto index : get_positions(bitboards[0].bishops)) {
             res[index] = 'B';
         }
 
-        for (auto index : get_positions(bitboards->Black_bishops)) {
+        for (auto index : get_positions(bitboards[1].bishops)) {
             res[index] = 'b';
         }
 
-        for (auto index : get_positions(bitboards->White_queen)) {
+        for (auto index : get_positions(bitboards[0].queen)) {
             res[index] = 'Q';
         }
 
-        for (auto index : get_positions(bitboards->Black_queen)) {
+        for (auto index : get_positions(bitboards[1].queen)) {
             res[index] = 'q';
         }
 
-        for (auto index : get_positions(bitboards->White_king)) {
+        for (auto index : get_positions(bitboards[0].king)) {
             res[index] = 'K';
         }
 
-        for (auto index : get_positions(bitboards->Black_king)) {
+        for (auto index : get_positions(bitboards[1].king)) {
             res[index] = 'k';
         }
 
         return res;
     }
 
-
-    Bitboards *from_string(const char *data) {
-        Bitboards *bitboards = new Bitboards(true);
+    
+    Bitboards * from_string(const char *data) {
+        Bitboards *bitboards[2];
+        bitboards[0] = new Bitboards(true,true);
+        bitboards[1] = new Bitboards(false,true);
         for (auto index = 0; index < BOARD_SIZE; index++) {
             switch (data[index]) {
                 case 'P':
-                    bitboards->White_pawns += pow(2, index);
+                    bitboards[0]->pawns += pow(2, index);
                     break;
                 case 'p':
-                    bitboards->Black_pawns += pow(2, index);
+                    bitboards[1]->pawns += pow(2, index);
                     break;
                 case 'R':
-                    bitboards->White_rooks += pow(2, index);
+                    bitboards[0]->rooks += pow(2, index);
                     break;
                 case 'r':
-                    bitboards->Black_rooks += pow(2, index);
+                    bitboards[1]->rooks += pow(2, index);
                     break;
                 case 'N':
-                    bitboards->White_knights += pow(2, index);
+                    bitboards[0]->knights += pow(2, index);
                     break;
                 case 'n':
-                    bitboards->Black_knights += pow(2, index);
+                    bitboards[1]->knights += pow(2, index);
                     break;
                 case 'B':
-                    bitboards->White_bishops += pow(2, index);
+                    bitboards[0]->bishops += pow(2, index);
                     break;
                 case 'b':
-                    bitboards->Black_bishops += pow(2, index);
+                    bitboards[1]->bishops += pow(2, index);
                     break;
                 case 'Q':
-                    bitboards->White_queen += pow(2, index);
+                    bitboards[0]->queen += pow(2, index);
                     break;
                 case 'q':
-                    bitboards->Black_queen += pow(2, index);
+                    bitboards[1]->queen += pow(2, index);
                     break;
                 case 'K':
-                    bitboards->White_king += pow(2, index);
+                    bitboards[0]->king += pow(2, index);
                     break;
                 case 'k':
-                    bitboards->Black_king += pow(2, index);
+                    bitboards[1]->king += pow(2, index);
                     break;
                 default:
                     break;
             }
         }
-        return bitboards;
+        return *bitboards;
     }
 
     void draw_board(Bitboards* bitboards){

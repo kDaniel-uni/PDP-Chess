@@ -10,5 +10,5 @@ game::game() {
 }
 
 void game::drawBoard() {
-    io_bitboard::draw_board(_board->_bitboards);
+    io_bitboard::draw_board(*_board->_pieces);
 }

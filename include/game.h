@@ -8,6 +8,7 @@
 
 #include "ai_player.h"
 #include "board.h"
+#include "bitboard_operations.h"
 #include <vector>
 
 class game {

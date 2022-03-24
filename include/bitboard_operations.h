@@ -18,6 +18,7 @@ namespace io_bitboard{
     Bitboards* from_string(const char* data);
 
     void draw_board(Bitboards* bitboards);
+
 }
 
 

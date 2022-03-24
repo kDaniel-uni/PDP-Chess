@@ -17,8 +17,8 @@ public :
     bool is_game_over();
     std::string to_string();
     void from_string(std::string filename); //load a game wrote in the filename, if no filename, load the default game.
-    void upgrade_white_and_black_pieces();
-    Bitboards* _bitboards;
+    void update_white_and_black_pieces();
+    Bitboards* _pieces[2];
 
 };
 

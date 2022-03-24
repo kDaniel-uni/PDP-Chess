@@ -11,34 +11,36 @@
 using namespace std;
 
 board::board(){
-    _bitboards = new Bitboards(false);
+    _pieces[0] = new Bitboards(true,false);
+    _pieces[1] = new Bitboards(false,false);
 }
 
-void board::upgrade_white_and_black_pieces(){
-    _bitboards->White_pieces = _bitboards->White_pawns | _bitboards->White_rooks | _bitboards->White_knights | _bitboards->White_bishops | _bitboards->White_queen | _bitboards->White_king;
-    _bitboards->Black_pieces = _bitboards->Black_pawns | _bitboards->Black_rooks | _bitboards->Black_knights | _bitboards->Black_bishops | _bitboards->Black_queen | _bitboards->Black_king;
+void board::update_white_and_black_pieces(){
+    for (int i = 0; i<2;i++){
+        _pieces[i]->all = _pieces[i]->pawns | _pieces[i]->rooks | _pieces[i]->knights | _pieces[i]->bishops | _pieces[i]->queen | _pieces[i]->king;
+    }
 }
 
 std::string board::to_string(){
-    return io_bitboard::to_string(_bitboards);
+    return io_bitboard::to_string(*_pieces);
 }
 
 void board::from_string(string data){
-    _bitboards = io_bitboard::from_string(data.c_str());
-    upgrade_white_and_black_pieces();
+    *_pieces = io_bitboard::from_string(data.c_str());
+    update_white_and_black_pieces();
 }
 
 bool board::is_game_over(){
-    if(_bitboards->White_king == 0 || _bitboards->Black_king == 0){
+    if(_pieces[0]->king == 0 || _pieces[1]->king == 0){
         return true;
     }
     return false;
 }
 
 std::string board::result(){
-    if(_bitboards->White_king == 0){
+    if(_pieces[0]->king== 0){
         return "The winner is player black";
-    }else if(_bitboards->Black_king == 0){
+    }else if(_pieces[1]->king == 0){
         return "The winner is player White";
     }else{
         return "there is no winner";
