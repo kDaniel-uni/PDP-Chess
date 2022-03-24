@@ -8,7 +8,8 @@ include_directories(src/include)
 
 add_library(lib src/game.cpp
         src/board.cpp
-        src/bitboard_operations.cpp)
+        src/bitboard_operations.cpp
+        src/legal_move.cpp)
 
 target_include_directories(lib
         PRIVATE
