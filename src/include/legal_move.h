@@ -11,6 +11,7 @@
 #include "move.h"
 
 namespace pdp_chess{
+    int* converte_to_2D(uint8_t u);
     std::vector<movement> legal_move(const board& board, bool white);
     std::vector<movement> legal_move_pawns(const board& board, bool white);
     std::vector<movement> legal_move_rooks(const board& board, bool white);
