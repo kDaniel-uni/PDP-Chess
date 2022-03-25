@@ -16,7 +16,9 @@ public:
     game();
     void drawBoard() const;
     void fromString(std::string string);
+    void play_move(movement move);
     board* _board;
+    bool get_player_round(); // return true if next player to play is white
 
 private:
     ai_player* _white_player;

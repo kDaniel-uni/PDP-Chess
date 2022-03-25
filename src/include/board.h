@@ -23,6 +23,7 @@ public :
     void moving(movement mv);
     void reset_to_classic();
     void reset_to_empty();
+    int get_color(int index); // 1 if is white pieces, 0 if it's black pieces.
 
 };
 

@@ -17,14 +17,14 @@ int main (int argc, char *argv[]) {
     if (arg == "1"){
         mv.start_position = 15;
         mv.target_position = 31;
-        g->_board->moving(mv);
+        g->play_move(mv);
         if (g->_board->to_string() == "RNBQKBNRPPPPPPP----------------P----------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
     }else if( arg == "2"){
         mv.start_position = 1;
         mv.target_position = 16;
-        g->_board->moving(mv);
+        g->play_move(mv);
         if (g->_board->to_string() == "R-BQKBNRPPPPPPPPN-------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }

@@ -27,3 +27,14 @@ void game::drawBoard() const{
 
     std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
 }
+
+void game::play_move(movement move){
+    this->_history.push_back(move);
+    _board->moving(move);
+}
+
+bool game::get_player_round(){
+    bool white = false;
+    movement move = _history.back();
+    return (bool)!_board->get_color(move.target_position);
+}

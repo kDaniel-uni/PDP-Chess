@@ -155,3 +155,12 @@ void board::reset_to_empty() {
     _pieces[0] = new Bitboards(false, true);
     _pieces[1] = new Bitboards(true, true);
 }
+
+int board::get_color(int index){
+    for (int color = 0 ; color < 2; color++){
+        if ((_pieces[color]->all.value >> index)&1){
+            return color;
+        }
+    }
+    return -1;
+}
