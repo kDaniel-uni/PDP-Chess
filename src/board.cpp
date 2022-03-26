@@ -106,7 +106,7 @@ void  board::moving(movement mv){
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->rooks)){
                 if (index == mv.start_position){
-                    _pieces[color]->rooks.value = (_pieces[color]->rooks.value - pow(2, mv.start_position)) +  pow(2,mv.target_position);
+                    _pieces[color]->rooks.value = (_pieces[color]->rooks.value - (pow(2, mv.start_position))) +  pow(2,mv.target_position);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->knights)){

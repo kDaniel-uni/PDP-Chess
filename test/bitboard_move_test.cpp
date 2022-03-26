@@ -42,6 +42,34 @@ int main (int argc, char *argv[]) {
         if (g->_board->to_string() == "------------------------------------------P---------------------"){
             return EXIT_SUCCESS;
         }
+    }else if ( arg == "4"){
+
+        g->fromString("-----Q---------------------R-------------------------------q---r");
+        mv.start_position = 27;
+        mv.target_position = 59;
+        g->play_move(mv);
+        if (g->_board->to_string() != "-----Q-----------------------------------------------------R---r"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position = 63;
+        mv.target_position = 59;
+        g->play_move(mv);
+        if (g->_board->to_string() != "-----Q-----------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position = 5;
+        mv.target_position = 3;
+        g->play_move(mv);
+        if (g->_board->to_string() != "---Q-------------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position= 59;
+        mv.target_position = 3;
+        g->play_move(mv);
+        if (g->_board->to_string() == "---r------------------------------------------------------------"){
+            return EXIT_SUCCESS;
+        }
+
     }
     return EXIT_FAILURE;
 
