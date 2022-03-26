@@ -75,7 +75,7 @@ struct Bitboards
         for(int i = 0; i<6; i++){
             Bitboard* b = list[i];
             for(int j = 0; j<BOARD_SIZE; j++){
-                if((b>>j) & 1){
+                if((b.value>>j) & 1){
                     if(i==0)
                         value += pawns_value;
                     if(i==1)
