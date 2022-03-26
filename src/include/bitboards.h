@@ -77,17 +77,17 @@ struct Bitboards
             for(int j = 0; j<BOARD_SIZE; j++){
                 if((b->value>>j) & 1){
                     if(i==0)
-                        value += pawns_value;
+                        value += heuristic_pawns_value;
                     if(i==1)
-                        value += rooks_value;
+                        value += heuristic_rooks_value;
                     if(i==2)
-                        value += knights_value;
+                        value += heuristic_knights_value;
                     if(i==3)
-                        value += bishops_value;
+                        value += heuristic_bishops_value;
                     if(i==4)
-                        value += queen_value;
+                        value += heuristic_queen_value;
                     if(i==5)
-                        value += king_value;
+                        value += heuristic_king_value;
                 }
             }
         }
