@@ -26,9 +26,9 @@ void board::update_white_and_black_pieces() {
 
 int board::get_board_value(bool white_black_turn){
     if(white_black_turn)
-        return _pieces[1].get_bitboard_value() - _pieces[0].get_bitboard_value();
+        return _pieces[1]->get_bitboard_value() - _pieces[0]->get_bitboard_value();
     else
-        return _pieces[0].get_bitboard_value() - _pieces[1].get_bitboard_value();    
+        return _pieces[0]->get_bitboard_value() - _pieces[1]->get_bitboard_value();    
 }
 
 std::string board::to_string() {
