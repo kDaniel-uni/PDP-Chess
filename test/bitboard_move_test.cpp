@@ -28,6 +28,20 @@ int main (int argc, char *argv[]) {
         if (g->_board->to_string() == "R-BQKBNRPPPPPPPPN-------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
+    }else if ( arg == "3"){
+        g->fromString("---------------------------P------q-----------------------------");
+        mv.start_position = 27;
+        mv.target_position = 34;
+        g->play_move(mv);
+        if (g->_board->to_string() != "----------------------------------P-----------------------------"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position = 34;
+        mv.target_position = 42;
+        g->play_move(mv);
+        if (g->_board->to_string() == "------------------------------------------P---------------------"){
+            return EXIT_SUCCESS;
+        }
     }
     return EXIT_FAILURE;
 

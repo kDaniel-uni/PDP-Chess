@@ -18,9 +18,47 @@ namespace io_bitboard {
         }
         return positions;
     }
+
+
+    void eat_piece(uint8_t index, Bitboards& bitboards){
+        for(auto pos : io_bitboard::get_positions(bitboards.pawns)){
+            if (pos == index){
+                bitboards.pawns.value = bitboards.pawns.value - pow(2,index);
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.bishops)){
+            if (pos == index){
+                bitboards.bishops.value = bitboards.bishops.value - pow(2,index);
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.king)){
+            if (pos == index){
+                bitboards.king.value = bitboards.king.value - pow(2,index);
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.knights)){
+            if (pos == index){
+                bitboards.knights.value = bitboards.knights.value - pow(2,index);
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.queen)){
+            if (pos == index){
+                bitboards.queen.value = bitboards.queen.value - pow(2,index);
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.rooks)){
+            if (pos == index){
+                bitboards.rooks.value = bitboards.rooks.value - pow(2,index);
+                return ;
+            }
+        }
+    }
 }
-
-
 
 namespace filters{
 

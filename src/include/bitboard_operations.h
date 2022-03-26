@@ -14,6 +14,8 @@ namespace io_bitboard{
 
     std::vector<uint8_t> get_positions(const Bitboard& bitboard);
 
+    void eat_piece(uint8_t index, Bitboards& bitboards);
+
 }
 
 

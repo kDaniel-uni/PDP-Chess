@@ -44,3 +44,4 @@ add_test(black_pawns_in_base_pos_test bitboard_operation_test 2)
 
 add_test(move_test_pawns bitboard_move_test 1)
 add_test(move_test_knight bitboard_move_test 2)
+add_test(move_test_eat bitboard_move_test 3)

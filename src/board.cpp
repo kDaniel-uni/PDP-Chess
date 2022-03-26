@@ -92,6 +92,12 @@ void board::from_string(const char *data) {
     update_white_and_black_pieces();
 }
 void  board::moving(movement mv){
+        if ((_pieces[0]->all.value >> mv.target_position) & 1) {
+            io_bitboard::eat_piece(mv.target_position, *_pieces[0]);
+        }
+        if ((_pieces[1]->all.value >> mv.target_position) &1){
+            io_bitboard::eat_piece(mv.target_position, *_pieces[1]);
+        }
         for(int color = 0; color<2 ; color++ ){
             for(auto index : io_bitboard::get_positions(_pieces[color]->pawns)){
                 if (index == mv.start_position){
