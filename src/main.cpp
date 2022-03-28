@@ -12,5 +12,9 @@ int main(int argc, char *argv[])
     g->drawBoard();
     g->fromString("------------KQ-B-------------------------------------------------");
     g->drawBoard();
+    printf("%d\n", g->_board->get_board_value(true));
+    g->fromString("------------KQ-B----------------------------ppp------------------");
+    g->drawBoard();
+    printf("%d\n", g->_board->get_board_value(true));
     return argc == 3 ? EXIT_SUCCESS : EXIT_FAILURE; // optional return value
 }
