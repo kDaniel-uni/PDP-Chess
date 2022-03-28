@@ -16,6 +16,8 @@ namespace io_bitboard{
 
     void eat_piece(uint8_t index, Bitboards& bitboards);
 
+    void move_piece(uint64_t mask, Bitboard& bitboard);
+
 }
 
 

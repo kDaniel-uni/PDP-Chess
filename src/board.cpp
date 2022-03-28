@@ -104,34 +104,32 @@ void  board::moving(movement mv){
         for(int color = 0; color<2 ; color++ ){
             for(auto index : io_bitboard::get_positions(_pieces[color]->pawns)){
                 if (index == mv.start_position){
-                    _pieces[color]->pawns.value = _pieces[color]->pawns.value ^= mask;
+                    io_bitboard::move_piece(mask,_pieces[color]->pawns);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->rooks)){
                 if (index == mv.start_position){
-                    std::cout<<" On rentre dans le rook de couleur = " << color << std::endl;
-
-                    _pieces[color]->rooks.value = _pieces[color]->rooks.value ^= mask;
+                    io_bitboard::move_piece(mask,_pieces[color]->rooks);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->knights)){
                 if (index == mv.start_position){
-                    _pieces[color]->knights.value = _pieces[color]->knights.value ^= mask;
+                   io_bitboard::move_piece(mask,_pieces[color]->knights);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->bishops)){
                 if (index == mv.start_position){
-                    _pieces[color]->bishops.value = _pieces[color]->bishops.value ^= mask;
+                    io_bitboard::move_piece(mask,_pieces[color]->bishops);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->queen)){
                 if (index == mv.start_position){
-                    _pieces[color]->queen.value = _pieces[color]->queen.value ^= mask;
+                    io_bitboard::move_piece(mask,_pieces[color]->queen);
                 }
             }
             for(auto index : io_bitboard::get_positions(_pieces[color]->king)){
                 if (index == mv.start_position){
-                    _pieces[color]->king.value = _pieces[color]->king.value ^= mask;
+                    io_bitboard::move_piece(mask,_pieces[color]->king);
                 }
             }
             update_white_and_black_pieces();

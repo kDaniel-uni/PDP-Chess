@@ -60,6 +60,10 @@ namespace io_bitboard {
             }
         }
     }
+
+    void move_piece(uint64_t mask, Bitboard& bitboard){
+        bitboard.value = bitboard.value ^= mask;
+    }
 }
 
 namespace filters{
