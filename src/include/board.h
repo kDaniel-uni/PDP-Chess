@@ -7,6 +7,7 @@
 #include <string>
 #include <array>
 #include "bitboards.h"
+#include "heuristic.h"
 
 class board{
 private :
@@ -20,7 +21,7 @@ public :
     void update_white_and_black_pieces();
     Bitboards* _pieces[2];
     int heuristic_board_value;
-    int get_board_value(bool white_black_turn); //true for white, false for black
+    int get_board_value(bool white_black_turn, heuristic* h); //true for white, false for black
     void reset_to_classic();
     void reset_to_empty();
 

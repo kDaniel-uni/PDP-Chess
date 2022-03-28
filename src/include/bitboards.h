@@ -1,6 +1,7 @@
 //
 // Pdp_echec university project
 //
+#include "heuristic.h"
 
 #ifndef PDP_ECHEC_BITBOARDS_H
 #define PDP_ECHEC_BITBOARDS_H
@@ -69,24 +70,24 @@ struct Bitboards
         king.value = (base << 60);
     }
 
-    int get_bitboard_value(){
+    int get_bitboard_value(heuristic* h){
         int value = 0;
         for(int i = 0; i<6; i++){
             Bitboard* b = list[i];
             for(int j = 0; j<BOARD_SIZE; j++){
                 if((b->value>>j) & 1){
                     if(i==0)
-                        value += 1;
+                        value += h->pawns_value;
                     if(i==1)
-                        value += 5;
+                        value += h->rooks_value;
                     if(i==2)
-                        value += 3;
+                        value += h->bishops_value;
                     if(i==3)
-                        value += 3;
+                        value += h->knights_value;
                     if(i==4)
-                        value += 9;
+                        value += h->queen_value;
                     if(i==5)
-                        value += 200;
+                        value += h->king_value;
                 }
             }
         }
