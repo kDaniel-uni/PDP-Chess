@@ -94,7 +94,6 @@ void board::from_string(const char *data) {
 void  board::moving(movement mv){
         uint64_t base= 1;
         uint64_t mask = (base<<mv.start_position)+(base<<mv.target_position);
-        std::cout<<"valeur mask  = " << mask << std::endl;
         if ((_pieces[0]->all.value >> mv.target_position) & 1) {
             io_bitboard::eat_piece(mv.target_position, *_pieces[0]);
         }

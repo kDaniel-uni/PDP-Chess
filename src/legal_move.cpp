@@ -12,7 +12,22 @@
 
 namespace pdp_chess{
 
-    //std::vector<uint64_t> legal_move(Bitboards bitboard, bool white);
+    std::vector<movement> legal_move(const board& board, bool white){
+        std::vector<movement> res;
+        std::vector<movement> res2 = legal_move_pawns(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        res2 = legal_move_rooks(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        res2 = legal_move_bishops(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        res2 = legal_move_knights(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        res2 = legal_move_queen(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        res2 = legal_move_king(board, white);
+        res.insert(res.end(), res2.begin(), res2.end());
+        return res;
+    }
 
 
 
@@ -224,7 +239,7 @@ namespace pdp_chess{
 
     std::vector<movement> legal_move_knights(const board& board, bool white){
         std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->bishops)){
+        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->knights)){
             move_this_position( board, index, index-17, index%8 - 1, white, res);
             move_this_position( board, index, index-15, index%8 + 1, white, res);
             move_this_position( board, index, index-10, index%8 - 2, white, res);
