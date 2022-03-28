@@ -16,12 +16,12 @@ int minmax(board board, int depth, ai_player ai_player){
     }
     if(ai_player){
         int value_max = INT_MIN;
-        move legal_moves = board.generate_legal_moves();
+        moves move[] legal_moves = board.generate_legal_moves();
         for(move move : legal_moves){
-            board.push(moves);
+            board.push(move);
             value = minmax(board, depth-1, false);
             board.pop();
-            if value > value_max{
+            if(value > value_max){
                 value_max = valeur;
             }
             return value;
@@ -31,7 +31,7 @@ int minmax(board board, int depth, ai_player ai_player){
             int value_min = INT_MAX;
             move legal_moves = board.generate_legal_moves();
             for(move move : legal_moves){
-                board.push(moves);
+                board.push(move);
                 value = minmax(board,depth-1,true);
                 board.pop();
                 if value < value_min{
