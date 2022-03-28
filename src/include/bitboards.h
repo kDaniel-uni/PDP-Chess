@@ -4,7 +4,6 @@
 
 #ifndef PDP_ECHEC_BITBOARDS_H
 #define PDP_ECHEC_BITBOARDS_H
-#include "heuristic.h"
 
 const int BOARD_SIZE = 64;
 
@@ -77,17 +76,17 @@ struct Bitboards
             for(int j = 0; j<BOARD_SIZE; j++){
                 if((b->value>>j) & 1){
                     if(i==0)
-                        value += heuristic_pawns_value;
+                        value += 1;
                     if(i==1)
-                        value += heuristic_rooks_value;
+                        value += 5;
                     if(i==2)
-                        value += heuristic_knights_value;
+                        value += 3;
                     if(i==3)
-                        value += heuristic_bishops_value;
+                        value += 3;
                     if(i==4)
-                        value += heuristic_queen_value;
+                        value += 9;
                     if(i==5)
-                        value += heuristic_king_value;
+                        value += 200;
                 }
             }
         }
