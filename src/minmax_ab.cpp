@@ -6,6 +6,7 @@
 #include "move.h"
 #include "ai_player.h"
 #include <algorithm>
+#include <limits> 
 
 using namespace std;
 
@@ -16,8 +17,8 @@ int minmax_alphabeta(board board, int depth, int alpha, int beta, ai_player ai_p
         return 0;
     }
     if(ai_player){
-        int value_max = INT_MIN;
-        moves move[] legal_moves = board.generate_legal_moves();
+        int value_max = std::numeric_limits<int>::min();
+        move[] legal_moves = board.generate_legal_moves();
         for (move move : legal_moves)
         {
             board.push(move);
@@ -34,8 +35,8 @@ int minmax_alphabeta(board board, int depth, int alpha, int beta, ai_player ai_p
         }
     }
     else{
-        int value_min = INT_MAX;
-        moves move[] legal_moves = board.generate_legal_moves();
+        int value_min = std::numeric_limits<int>::max();
+        move[] legal_moves = board.generate_legal_moves();
         for (move move : legal_moves)
         {
             board.push(move);
