@@ -8,10 +8,15 @@
 #include "string"
 #include "vector"
 #include "bitboards.h"
+#include "move.h"
 
 namespace io_bitboard{
 
     std::vector<uint8_t> get_positions(const Bitboard& bitboard);
+
+    void eat_piece(uint8_t index, Bitboards& bitboards);
+
+    void move_piece(uint64_t mask, Bitboard& bitboard);
 
 }
 

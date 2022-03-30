@@ -91,6 +91,51 @@ void board::from_string(const char *data) {
     }
     update_white_and_black_pieces();
 }
+void  board::moving(movement mv){
+        uint64_t base= 1;
+        uint64_t mask = (base<<mv.start_position)+(base<<mv.target_position);
+        if ((_pieces[0]->all.value >> mv.target_position) & 1) {
+            io_bitboard::eat_piece(mv.target_position, *_pieces[0]);
+        }
+        if ((_pieces[1]->all.value >> mv.target_position) & 1){
+            io_bitboard::eat_piece(mv.target_position, *_pieces[1]);
+        }
+        for(int color = 0; color<2 ; color++ ){
+            for(auto index : io_bitboard::get_positions(_pieces[color]->pawns)){
+                if (index == mv.start_position){
+                    io_bitboard::move_piece(mask,_pieces[color]->pawns);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->rooks)){
+                if (index == mv.start_position){
+                    io_bitboard::move_piece(mask,_pieces[color]->rooks);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->knights)){
+                if (index == mv.start_position){
+                   io_bitboard::move_piece(mask,_pieces[color]->knights);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->bishops)){
+                if (index == mv.start_position){
+                    io_bitboard::move_piece(mask,_pieces[color]->bishops);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->queen)){
+                if (index == mv.start_position){
+                    io_bitboard::move_piece(mask,_pieces[color]->queen);
+                }
+            }
+            for(auto index : io_bitboard::get_positions(_pieces[color]->king)){
+                if (index == mv.start_position){
+                    io_bitboard::move_piece(mask,_pieces[color]->king);
+                }
+            }
+            update_white_and_black_pieces();
+
+            
+        }
+    }
 
 bool board::is_game_over() {
     if (_pieces[0]->king.value == 0 || _pieces[1]->king.value == 0) {
@@ -117,4 +162,13 @@ void board::reset_to_classic() {
 void board::reset_to_empty() {
     _pieces[0] = new Bitboards(false, true);
     _pieces[1] = new Bitboards(true, true);
+}
+
+int board::get_color(int index){
+    for (int color = 0 ; color < 2; color++){
+        if ((_pieces[color]->all.value >> index)&1){
+            return color;
+        }
+    }
+    return -1;
 }

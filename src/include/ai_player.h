@@ -12,7 +12,7 @@
 class ai_player {
 public :
     virtual ~ai_player() {}
-    virtual move find_next_move() = 0;
+    virtual movement find_next_move() = 0;
     virtual std::string get_parameters() = 0;
 
 };

@@ -18,6 +18,52 @@ namespace io_bitboard {
         }
         return positions;
     }
+
+
+    void eat_piece(uint8_t index, Bitboards& bitboards){
+        uint64_t base = 1;
+        uint64_t mask = base<<index;
+        for(auto pos : io_bitboard::get_positions(bitboards.pawns)){
+            if (pos == index){
+                bitboards.pawns.value = bitboards.pawns.value ^= mask;
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.bishops)){
+            if (pos == index){
+                bitboards.bishops.value = bitboards.bishops.value ^= mask;
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.king)){
+            if (pos == index){
+                bitboards.king.value = bitboards.king.value ^= mask;
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.knights)){
+            if (pos == index){
+                bitboards.knights.value = bitboards.knights.value ^= mask;
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.queen)){
+            if (pos == index){
+                bitboards.queen.value = bitboards.queen.value ^= mask;
+                return ;
+            }
+        }
+        for(auto pos : io_bitboard::get_positions(bitboards.rooks)){
+            if (pos == index){
+                bitboards.rooks.value = bitboards.rooks.value ^= mask;
+                return ;
+            }
+        }
+    }
+
+    void move_piece(uint64_t mask, Bitboard& bitboard){
+        bitboard.value = bitboard.value ^= mask;
+    }
 }
 
 namespace filters{
