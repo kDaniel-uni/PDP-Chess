@@ -3,8 +3,8 @@
 //
 
 #include <string.h>
-#include "bitboard_operations.h"
-#include "move.h"
+#include "board/bitboard_operations.h"
+#include "move/move.h"
 #include "game.h"
 
 int main (int argc, char *argv[]) {

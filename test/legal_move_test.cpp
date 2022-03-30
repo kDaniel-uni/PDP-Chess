@@ -1,8 +1,8 @@
 #include <string.h>
-#include "bitboard_operations.h"
-#include "move.h"
+#include "board/bitboard_operations.h"
+#include "move/move.h"
 #include "game.h"
-#include "legal_move.h"
+#include "move/legal_move.h"
 
 int main (int argc, char *argv[]) {
     std::string arg = argv[1];

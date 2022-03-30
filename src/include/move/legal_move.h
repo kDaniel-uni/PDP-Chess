@@ -5,7 +5,7 @@
 #ifndef PDP_ECHEC_LEGAL_MOVE_H
 #define PDP_ECHEC_LEGAL_MOVE_H
 #include "game.h"
-#include "bitboards.h"
+#include "board/bitboards.h"
 #include "string"
 #include "vector"
 #include "move.h"

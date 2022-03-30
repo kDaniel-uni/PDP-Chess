@@ -5,10 +5,10 @@
 #include <string>
 #include <vector>
 #include <math.h>
-#include "legal_move.h"
+#include "move/legal_move.h"
 #include "game.h"
-#include "bitboard_operations.h"
-#include "move.h"
+#include "board/bitboard_operations.h"
+#include "move/move.h"
 
 namespace pdp_chess{
 

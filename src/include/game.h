@@ -6,9 +6,9 @@
 #define PDP_ECHEC_GAME_H
 
 
-#include "ai_player.h"
-#include "board.h"
-#include "bitboard_operations.h"
+#include "algorithm/ai_player.h"
+#include "board/board.h"
+#include "board/bitboard_operations.h"
 #include <vector>
 
 class game {

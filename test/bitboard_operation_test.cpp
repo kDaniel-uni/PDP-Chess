@@ -3,7 +3,7 @@
 //
 
 #include <string>
-#include "bitboard_operations.h"
+#include "board/bitboard_operations.h"
 #include "game.h"
 #include <iostream>
 

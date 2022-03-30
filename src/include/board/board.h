@@ -7,8 +7,8 @@
 #include <string>
 #include <array>
 #include "bitboards.h"
-#include "move.h"
-#include "heuristic.h"
+#include "move/move.h"
+#include "algorithm/heuristic.h"
 
 class board{
 private :

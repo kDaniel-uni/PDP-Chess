@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include "move.h"
+#include "move/move.h"
 
 class ai_player {
 public :

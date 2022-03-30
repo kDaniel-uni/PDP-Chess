@@ -2,7 +2,7 @@
 // Pdp_echec university project
 //
 
-#include "bitboard_operations.h"
+#include "board/bitboard_operations.h"
 #include <algorithm>
 #include <iostream>
 #include <math.h>

@@ -6,17 +6,17 @@ enable_testing()
 
 include_directories(src/include)
 
-add_library(lib src/game.cpp
-        src/board.cpp
-        src/bitboard_operations.cpp
-        src/legal_move.cpp)
+add_library(lib src/src/game.cpp
+        src/src/board/board.cpp
+        src/src/board/bitboard_operations.cpp
+        src/src/move/legal_move.cpp)
 
 target_include_directories(lib
         PRIVATE
         src/include)
 
 
-add_executable(pdp_echec src/main.cpp)
+add_executable(pdp_echec src/src/main.cpp)
 target_link_libraries(pdp_echec PUBLIC lib)
 
 add_executable(placeholder_test test/placeholder_test.cpp)
