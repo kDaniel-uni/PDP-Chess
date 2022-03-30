@@ -8,6 +8,7 @@
 #include <math.h>
 #include "board.h"
 #include "bitboard_operations.h"
+#include "heuristic.h"
 
 using namespace std;
 
@@ -22,6 +23,14 @@ void board::update_white_and_black_pieces() {
             _pieces[i]->all.value += bitboard->value;
         }
     }
+}
+
+int board::get_board_value(bool white_black_turn, heuristic* h){
+    int  value = _pieces[1]->get_bitboard_value(h) - _pieces[0]->get_bitboard_value(h);
+    if(white_black_turn)
+        return value;
+    else
+        return -1*value;
 }
 
 std::string board::to_string() {
