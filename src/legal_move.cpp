@@ -34,23 +34,23 @@ namespace pdp_chess{
     std::vector<movement> legal_move_pawns(const board& board, bool white){
         std::vector<movement> res;
         uint8_t index2;
-        if( white){
+        if( white ){
             for (uint8_t index : io_bitboard::get_positions(board._pieces[1]->pawns)) { //white
-                if( ( index >= 8) & (index <= 15)  ){ //firts move for a pawns
+                if( ( index >= 8) & (index <= 15)  ){ //pawn base position
                     if( !( (board._pieces[1]->all.value >> (index+16)) & 1 ) & !((board._pieces[1]->all.value >> (index+8)) & 1) & !((board._pieces[0]->all.value >> (index+16)) & 1) & !((board._pieces[0]->all.value >> (index+8)) & 1) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index+16)};
+                        movement mv = {index , (uint8_t)(index+16)};
                         res.push_back(mv);
                     }
                 }
                 if( !((board._pieces[1]->all.value  >> (index+8)) & 1) ){ //advance from one
-                    struct movement mv = {index , static_cast<uint8_t>(index+8)};
+                    movement mv = {index , (uint8_t)(index+8)};
                     res.push_back(mv);
                 }
                 index2 = index%8;
                 if( (board._pieces[0]->all.value  >> (index+7)) & 1 ){ //eat
                     index2--;
                     if( (index2 >=0) & (index2 < 8) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index+7)};
+                        movement mv = {index , (uint8_t)(index+7)};
                         res.push_back(mv);
                     }
                 }
@@ -58,38 +58,39 @@ namespace pdp_chess{
                 if( (board._pieces[0]->all.value  >> (index+9)) & 1 ){ //eat
                     index2++;
                     if ( (index2 >=0) & (index2 < 8) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index+9)};
+                        movement mv = {index , (uint8_t)(index+9)};
                         res.push_back(mv);
                     }
                 }
             }
-        }else{
-            for (uint8_t index : io_bitboard::get_positions(board._pieces[0]->pawns)) {//black
-                if( (index >= 48) & (index <= 55) ){                                     //firts move for a pawns
-                    if( !((board._pieces[1]->all.value >> (index-16)) & 1) & !((board._pieces[1]->all.value >> (index-8)) & 1) & !((board._pieces[0]->all.value >> (index-16)) & 1) & !((board._pieces[0]->all.value >> (index-8)) & 1) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index-16)};
-                        res.push_back(mv);
-                    }
-                }
-                if( !((board._pieces[0]->all.value >> (index-8)) & 1) ){//advance from one
-                    struct movement mv = {index , static_cast<uint8_t>(index-8)};
+            return res;
+        }
+
+        for (uint8_t index : io_bitboard::get_positions(board._pieces[0]->pawns)) {//black
+            if( (index >= 48) & (index <= 55) ){                                     //firts move for a pawns
+                if( !((board._pieces[1]->all.value >> (index-16)) & 1) & !((board._pieces[1]->all.value >> (index-8)) & 1) & !((board._pieces[0]->all.value >> (index-16)) & 1) & !((board._pieces[0]->all.value >> (index-8)) & 1) ){
+                    movement mv = {index , (uint8_t)(index-16)};
                     res.push_back(mv);
                 }
-                index2 = index%8;
-                if( (board._pieces[1]->all.value >> (index-7)) & 1){//eat
-                    index2++;
-                    if( (index2 >=0) & (index2 < 8) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index-7)};
-                        res.push_back(mv);
-                    }
+            }
+            if( !((board._pieces[0]->all.value >> (index-8)) & 1) ){//advance from one
+                movement mv = {index , (uint8_t)(index-8)};
+                res.push_back(mv);
+            }
+            index2 = index%8;
+            if( (board._pieces[1]->all.value >> (index-7)) & 1){//eat
+                index2++;
+                if( (index2 >=0) & (index2 < 8) ){
+                    movement mv = {index , (uint8_t)(index-7)};
+                    res.push_back(mv);
                 }
-                index2 = index%8;
-                if( (board._pieces[1]->all.value >> (index-9)) & 1){//eat
-                    index2--;
-                    if ( (index2 >=0) & (index2 < 8) ){
-                        struct movement mv = {index , static_cast<uint8_t>(index-9)};
-                        res.push_back(mv);
-                    }
+            }
+            index2 = index%8;
+            if( (board._pieces[1]->all.value >> (index-9)) & 1){//eat
+                index2--;
+                if ( (index2 >=0) & (index2 < 8) ){
+                    movement mv = {index , (uint8_t)(index-9)};
+                    res.push_back(mv);
                 }
             }
         }
@@ -102,11 +103,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> i) & 1 ){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                struct movement mv = {position_start , static_cast<uint8_t>(i)};
+                movement mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , static_cast<uint8_t>(i)};
+                movement mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -114,11 +115,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> i) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                struct movement mv = {position_start , static_cast<uint8_t>(i)};
+                movement mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , static_cast<uint8_t>(i)};
+                movement mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -128,11 +129,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -142,11 +143,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -168,11 +169,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63)){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start, index2};
+                movement mv = {position_start, index2};
                 res.push_back(mv);
             }
         }
@@ -182,11 +183,11 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -196,11 +197,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -210,11 +211,11 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                struct movement mv = {position_start , index2};
+                movement mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -233,7 +234,7 @@ namespace pdp_chess{
         if( (position_target < 0 | position_target > 63) | (position_x_target < 0 | position_x_target > 7) | (board._pieces[color_piece]->all.value >> position_target) & 1 ){
             return;
         }
-        struct movement mv = {position_start , position_target};
+        movement mv = {position_start , position_target};
         res.push_back(mv);
     }
 
