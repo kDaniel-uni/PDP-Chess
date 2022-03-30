@@ -16,4 +16,4 @@
 
 - Mettre const après une fonction permet de lui dire qu'elle ne doit pas modifier l'objet. (Exemple : int64 getPawns() const;)
 
-- Remplacer les valeurs des différentes pièces par souci de lisibilité. (Exemple : 36 devient (1<<2) + (1<<5)).
+- Remplacer les valeurs des différentes pièces par souci de lisibilité. (Exemple : 36 devient (1<<2) + (1<<5))
