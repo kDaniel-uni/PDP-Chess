@@ -2,9 +2,9 @@
 // Pdp_echec university project
 //
 
-#include "board/board.h"
-#include "move/move.h"
-#include "algorithm/ai_player.h"
+#include "board.h"
+#include "move.h"
+#include "ai_player.h"
 #include <limits>
 
 using namespace std;

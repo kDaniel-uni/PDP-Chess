@@ -1,7 +1,7 @@
 //
 // Pdp_echec university project
 //
-#include "algorithm/heuristic.h"
+#include "heuristic.h"
 
 #ifndef PDP_ECHEC_BITBOARDS_H
 #define PDP_ECHEC_BITBOARDS_H

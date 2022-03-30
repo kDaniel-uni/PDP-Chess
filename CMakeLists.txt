@@ -5,6 +5,15 @@ set(CMAKE_CXX_STANDARD 14)
 enable_testing()
 
 include_directories(src/include)
+include_directories(src/include/algorithm)
+include_directories(src/include/board)
+include_directories(src/include/move)
+include_directories(src/include/third_party)
+
+include_directories(src/src)
+include_directories(src/src/algorithm)
+include_directories(src/src/move)
+include_directories(src/src/board)
 
 add_library(lib src/src/game.cpp
         src/src/board/board.cpp

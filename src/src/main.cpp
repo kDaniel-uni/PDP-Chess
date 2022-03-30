@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "game.h"
-#include "algorithm/heuristic.h"
+#include "heuristic.h"
 
 int main(int argc, char *argv[])
 {

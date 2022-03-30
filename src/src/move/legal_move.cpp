@@ -2,13 +2,10 @@
 // Pdp_echec university project
 //
 
-#include <string>
 #include <vector>
-#include <math.h>
-#include "move/legal_move.h"
+#include "legal_move.h"
 #include "game.h"
-#include "board/bitboard_operations.h"
-#include "move/move.h"
+#include "bitboard_operations.h"
 
 namespace pdp_chess{
 

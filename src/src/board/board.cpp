@@ -6,9 +6,8 @@
 #include <array>
 #include <iostream>
 #include <math.h>
-#include "board/board.h"
-#include "board/bitboard_operations.h"
-#include "algorithm/heuristic.h"
+#include "board.h"
+#include "bitboard_operations.h"
 
 using namespace std;
 

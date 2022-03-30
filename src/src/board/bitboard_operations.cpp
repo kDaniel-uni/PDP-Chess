@@ -2,10 +2,8 @@
 // Pdp_echec university project
 //
 
-#include "board/bitboard_operations.h"
+#include "bitboard_operations.h"
 #include <algorithm>
-#include <iostream>
-#include <math.h>
 
 namespace io_bitboard {
 
