@@ -14,10 +14,13 @@ namespace pdp_chess {
     Board::Board() {
         _pieces[black] = new Bitboards(black, true);
         _pieces[white] = new Bitboards(white, true);
+        updateWhiteAndBlackPieces();
     }
 
     void Board::updateWhiteAndBlackPieces() {
+
         for (int i = 0; i < 2; i++) {
+            _pieces[i]->all.value = 0;
             for (auto bitboard : _pieces[i]->list) {
                 _pieces[i]->all.value |= bitboard->value;
             }
@@ -105,10 +108,10 @@ namespace pdp_chess {
         _history.push_back(move);
     }
 
-    void Board::pop() {
+    /*void Board::pop() {
         applyMoveToBitboards(_history.back());
         _history.pop_back();
-    }
+    }*/
 
     bool Board::isGameOver() {
         if (_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) {
@@ -130,12 +133,14 @@ namespace pdp_chess {
     void Board::resetToClassic() {
         _pieces[black]->setBitboards(black, false);
         _pieces[white]->setBitboards(white, false);
+        updateWhiteAndBlackPieces();
         _history.clear();
     }
 
     void Board::resetToEmpty() {
         _pieces[black]->setBitboards(black, true);
         _pieces[white]->setBitboards(white, true);
+        updateWhiteAndBlackPieces();
         _history.clear();
     }
 
@@ -148,48 +153,17 @@ namespace pdp_chess {
         return -1;
     }
 
-    void Board::applyMoveToBitboards(Move mv) {
-        updateWhiteAndBlackPieces();
-        uint64_t base = 1;
-        uint64_t mask = (base << mv.start_position) + (base << mv.target_position);
-        if ((_pieces[black]->all.value >> mv.target_position) & 1) {
-            eatPiece(mv.target_position, *_pieces[black]);
+    void Board::applyMoveToBitboards(Move& move) {
+
+        if ((_pieces[black]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *_pieces[black]);
+        } else if ((_pieces[white]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *_pieces[white]);
+        } else {
+            move.target_type = '-';
         }
-        if ((_pieces[white]->all.value >> mv.target_position) & 1) {
-            eatPiece(mv.target_position, *_pieces[white]);
-        }
-        for (int color = 0; color < 2; color++) {
-            for (auto index : getPositions(_pieces[color]->pawns)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->pawns);
-                }
-            }
-            for (auto index : getPositions(_pieces[color]->rooks)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->rooks);
-                }
-            }
-            for (auto index : getPositions(_pieces[color]->knights)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->knights);
-                }
-            }
-            for (auto index : getPositions(_pieces[color]->bishops)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->bishops);
-                }
-            }
-            for (auto index : getPositions(_pieces[color]->queen)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->queen);
-                }
-            }
-            for (auto index : getPositions(_pieces[color]->king)) {
-                if (index == mv.start_position) {
-                    movePiece(mask, _pieces[color]->king);
-                }
-            }
-            updateWhiteAndBlackPieces();
-        }
+
+        movePiece(move, *_pieces[move.start_type < 90]);
+
     }
 }

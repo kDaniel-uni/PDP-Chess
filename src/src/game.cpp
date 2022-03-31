@@ -44,6 +44,7 @@ namespace pdp_chess {
         bool white = false;
         //Move move = _history.back();
         //return (bool)!board.getColor(move.target_position);
+        return true;
     }
 
 }

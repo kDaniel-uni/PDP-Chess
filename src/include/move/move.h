@@ -11,9 +11,9 @@ namespace pdp_chess {
 
     struct Move{
         uint8_t start_position;
-        //char start_type;
+        char start_type;
         uint8_t target_position;
-        //char target_type;
+        char target_type;
     };
 
 }
