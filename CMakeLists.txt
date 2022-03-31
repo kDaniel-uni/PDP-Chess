@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(pdp_echec)
+project(pdp_chess)
 include(CTest)
 set(CMAKE_CXX_STANDARD 14)
 enable_testing()
@@ -18,18 +18,16 @@ include_directories(src/src/board)
 add_library(lib src/src/game.cpp
         src/src/board/board.cpp
         src/src/board/bitboard_operations.cpp
-        src/src/move/legal_move.cpp)
+        src/src/move/legal_move.cpp
+        src/src/board/bitboards.cpp)
 
 target_include_directories(lib
         PRIVATE
         src/include)
 
 
-add_executable(pdp_echec src/src/main.cpp)
-target_link_libraries(pdp_echec PUBLIC lib)
-
-add_executable(placeholder_test test/placeholder_test.cpp)
-target_link_libraries(placeholder_test PUBLIC lib)
+add_executable(pdp_chess src/src/main.cpp)
+target_link_libraries(pdp_chess PUBLIC lib)
 
 add_executable(board_io_test test/board_io_test.cpp)
 target_link_libraries(board_io_test PUBLIC lib)
@@ -43,8 +41,6 @@ target_link_libraries(bitboard_move_test PUBLIC lib)
 add_executable(legal_move_test test/legal_move_test.cpp)
 target_link_libraries(legal_move_test PUBLIC lib)
 
-
-add_test(placeholder placeholder_test)
 
 add_test(board_empty_init_test board_io_test 1)
 add_test(board_classic_init_test board_io_test 2)

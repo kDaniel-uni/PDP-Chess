@@ -1,26 +1,29 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_LEGAL_MOVE_H
-#define PDP_ECHEC_LEGAL_MOVE_H
+#ifndef PDP_CHESS_LEGAL_MOVE_H
+#define PDP_CHESS_LEGAL_MOVE_H
+
 #include "game.h"
-#include "board/bitboards.h"
+#include "bitboards.h"
 #include "string"
 #include "vector"
 #include "move.h"
 
-namespace pdp_chess{
-    void move_this_position(const board& board,uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<movement>& res);
-    void move_line_vertical_horizontal(const board& board, uint8_t position_start, bool color_piece, std::vector<movement>& res);
-    void move_diagonal(const board& board, uint8_t position_start, bool color_piece, std::vector<movement>& res);
-    std::vector<movement> legal_move(const board& board, bool white);
-    std::vector<movement> legal_move_pawns(const board& board, bool white);
-    std::vector<movement> legal_move_rooks(const board& board, bool white);
-    std::vector<movement> legal_move_bishops(const board& board, bool white);
-    std::vector<movement> legal_move_knights(const board& board, bool white);
-    std::vector<movement> legal_move_queen(const board& board, bool white);
-    std::vector<movement> legal_move_king(const board& board, bool white);
+namespace pdp_chess {
+
+    void moveThisPosition(const Board& board, uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<Move>& res);
+    void moveLineVerticalHorizontal(const Board& board, uint8_t position_start, bool color_piece, std::vector<Move>& res);
+    void moveDiagonal(const Board& board, uint8_t position_start, bool color_piece, std::vector<Move>& res);
+    std::vector<Move> legal_move(const Board& board, bool white);
+    std::vector<Move> legal_move_pawns(const Board& board, bool white);
+    std::vector<Move> legal_move_rooks(const Board& board, bool white);
+    std::vector<Move> legal_move_bishops(const Board& board, bool white);
+    std::vector<Move> legal_move_knights(const Board& board, bool white);
+    std::vector<Move> legal_move_queen(const Board& board, bool white);
+    std::vector<Move> legal_move_king(const Board& board, bool white);
+
 }
 
-#endif //PDP_ECHEC_LEGAL_MOVE_H
+#endif //PDP_CHESS_LEGAL_MOVE_H

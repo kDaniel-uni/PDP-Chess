@@ -1,16 +1,18 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_AI_FACTORY_H
-#define PDP_ECHEC_AI_FACTORY_H
+#ifndef PDP_CHESS_AI_FACTORY_H
+#define PDP_CHESS_AI_FACTORY_H
 
+namespace pdp_chess {
 
-class ai_factory {
-public:
-    virtual ~ai_factory() {}
-    virtual void create_ai_player() = 0;
-};
+    class AiFactory {
+    public:
+        virtual ~AiFactory() {}
+        virtual void createAiPlayer() = 0;
+    };
 
+}
 
-#endif //PDP_ECHEC_AI_FACTORY_H
+#endif //PDP_CHESS_AI_FACTORY_H

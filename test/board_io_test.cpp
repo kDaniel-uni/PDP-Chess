@@ -1,19 +1,22 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
 #include "game.h"
 #include "iostream"
 
+using namespace pdp_chess;
+
 int main (int argc, char *argv[]) {
 
     std::string arg = argv[1];
-    game* _game = new game();
+    Game game = Game();
 
     if (arg == "1"){
 
-        _game->_board->reset_to_empty();
-        std::string test_s = _game->_board->to_string();
+        //game.board.resetToEmpty();
+        std::string test_s = game.board.toString();
+        game.drawBoard();
 
         if (test_s == "----------------------------------------------------------------"){
             return EXIT_SUCCESS;
@@ -21,27 +24,27 @@ int main (int argc, char *argv[]) {
 
     } else if (arg == "2"){
 
-        _game->_board->reset_to_classic();
-        std::string test_s = _game->_board->to_string();
-
+        game.board.resetToClassic();
+        std::string test_s = game.board.toString();
+        game.drawBoard();
         if (test_s == "RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 
     } else if (arg == "3"){
 
-        _game->_board->from_string("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
-        std::string test_s = _game->_board->to_string();
-
+        game.board.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+        std::string test_s = game.board.toString();
+        game.drawBoard();
         if (test_s == "RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
 
     } else if (arg == "4"){
 
-        _game->_board->from_string("rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ");
-        std::string test_s = _game->_board->to_string();
-
+        game.board.fromString("rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ");
+        std::string test_s = game.board.toString();
+        game.drawBoard();
         if (test_s == "rnbkqb---nrpppp--pp------pp---KB--NR-----------P-P----PPPPPPRNBQ"){
             return EXIT_SUCCESS;
         }

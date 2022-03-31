@@ -1,33 +1,36 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_BOARD_H
-#define PDP_ECHEC_BOARD_H
+#ifndef PDP_CHESS_BOARD_H
+#define PDP_CHESS_BOARD_H
+
 #include <string>
 #include <array>
 #include "bitboards.h"
-#include "move/move.h"
-#include "algorithm/heuristic.h"
+#include "move.h"
+#include "heuristic.h"
 
-class board{
-private :
+namespace pdp_chess {
 
-public :
-    board();
-    std::string result();
-    bool is_game_over();
-    std::string to_string();
-    void from_string(const char* filename); //load a game wrote in the filename, if no filename, load the default game.
-    void update_white_and_black_pieces();
-    Bitboards* _pieces[2];
-    void moving(movement mv);
-    int heuristic_board_value;
-    int get_board_value(bool white_black_turn, heuristic* h); //true for white, false for black
-    void reset_to_classic();
-    void reset_to_empty();
-    int get_color(int index); // 1 if is white pieces, 0 if it's black pieces.
+    class Board {
+    public :
+        int heuristic_board_value;
+        Bitboards* _pieces[2];
 
-};
+        Board();
+        std::string result();
+        bool isGameOver();
+        std::string toString() const;
+        void fromString(const char *filename); //load a game wrote in the filename, if no filename, load the default game.
+        void updateWhiteAndBlackPieces();
+        void moving(Move mv);
+        int getBoardValue(bool white_black_turn, Heuristic *h); //true for white, false for black
+        void resetToClassic();
+        void resetToEmpty();
+        int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.
+    };
 
-#endif //PDP_ECHEC_BOARD_H
+}
+
+#endif //PDP_CHESS_BOARD_H
