@@ -14,7 +14,7 @@ int main (int argc, char *argv[]) {
 
     if (arg == "1"){
 
-        //game.board.resetToEmpty();
+        game.board.resetToEmpty();
         std::string test_s = game.board.toString();
         game.drawBoard();
 

@@ -20,47 +20,47 @@ namespace pdp_chess {
 
     void eatPiece(uint8_t index, Bitboards& bitboards){
         uint64_t base = 1;
-        uint64_t mask = base<<index;
+        uint64_t mask = base << index;
         for(auto pos : getPositions(bitboards.pawns)){
             if (pos == index){
-                bitboards.pawns.value = bitboards.pawns.value ^= mask;
-                return ;
+                bitboards.pawns.value ^= mask;
+                return;
             }
         }
         for(auto pos : getPositions(bitboards.bishops)){
             if (pos == index){
-                bitboards.bishops.value = bitboards.bishops.value ^= mask;
-                return ;
+                bitboards.bishops.value ^= mask;
+                return;
             }
         }
         for(auto pos : getPositions(bitboards.king)){
             if (pos == index){
-                bitboards.king.value = bitboards.king.value ^= mask;
-                return ;
+                bitboards.king.value ^= mask;
+                return;
             }
         }
         for(auto pos : getPositions(bitboards.knights)){
             if (pos == index){
-                bitboards.knights.value = bitboards.knights.value ^= mask;
-                return ;
+                bitboards.knights.value ^= mask;
+                return;
             }
         }
         for(auto pos : getPositions(bitboards.queen)){
             if (pos == index){
-                bitboards.queen.value = bitboards.queen.value ^= mask;
-                return ;
+                bitboards.queen.value ^= mask;
+                return;
             }
         }
         for(auto pos : getPositions(bitboards.rooks)){
             if (pos == index){
-                bitboards.rooks.value = bitboards.rooks.value ^= mask;
-                return ;
+                bitboards.rooks.value ^= mask;
+                return;
             }
         }
     }
 
     void movePiece(uint64_t mask, Bitboard& bitboard){
-        bitboard.value = bitboard.value ^= mask;
+        bitboard.value ^= mask;
     }
 
     uint64_t getWhitePawnsInBasePosition(const Bitboard& bitboard){

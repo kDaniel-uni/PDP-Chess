@@ -19,7 +19,7 @@ namespace pdp_chess {
     void Board::updateWhiteAndBlackPieces() {
         for (int i = 0; i < 2; i++) {
             for (auto bitboard : _pieces[i]->list) {
-                _pieces[i]->all.value += bitboard->value;
+                _pieces[i]->all.value |= bitboard->value;
             }
         }
     }
@@ -101,13 +101,14 @@ namespace pdp_chess {
     }
 
     void Board::moving(Move mv) {
+        updateWhiteAndBlackPieces();
         uint64_t base = 1;
         uint64_t mask = (base << mv.start_position) + (base << mv.target_position);
-        if ((_pieces[0]->all.value >> mv.target_position) & 1) {
-            eatPiece(mv.target_position, *_pieces[0]);
+        if ((_pieces[black]->all.value >> mv.target_position) & 1) {
+            eatPiece(mv.target_position, *_pieces[black]);
         }
-        if ((_pieces[1]->all.value >> mv.target_position) & 1) {
-            eatPiece(mv.target_position, *_pieces[1]);
+        if ((_pieces[white]->all.value >> mv.target_position) & 1) {
+            eatPiece(mv.target_position, *_pieces[white]);
         }
         for (int color = 0; color < 2; color++) {
             for (auto index : getPositions(_pieces[color]->pawns)) {
@@ -162,13 +163,13 @@ namespace pdp_chess {
     }
 
     void Board::resetToClassic() {
-        _pieces[black] = new Bitboards(black, false);
-        _pieces[white] = new Bitboards(white, false);
+        _pieces[black]->setBitboards(black, false);
+        _pieces[white]->setBitboards(white, false);
     }
 
     void Board::resetToEmpty() {
-        _pieces[black] = new Bitboards(black, true);
-        _pieces[white] = new Bitboards(white, true);
+        _pieces[black]->setBitboards(black, true);
+        _pieces[white]->setBitboards(white, true);
     }
 
     int Board::getColor(int index) {
