@@ -9,6 +9,7 @@ namespace pdp_chess {
 
     Game::Game() {
         board = Board();
+        _current_color = white;
     }
 
     void Game::fromString(std::string string) {
@@ -30,15 +31,20 @@ namespace pdp_chess {
         std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
     }
 
+    /*void Game::step(){
+        _players[_current_color]->findNextMove();
+    }*/
+
     void Game::playMove(Move move){
-        this->_history.push_back(move);
-        board.moving(move);
+        board.push(move);
+        _current_color = (color)!_current_color;
     }
 
     bool Game::getPlayerRound(){
         bool white = false;
-        Move move = _history.back();
-        return (bool)!board.getColor(move.target_position);
+        //Move move = _history.back();
+        //return (bool)!board.getColor(move.target_position);
+        return true;
     }
 
 }

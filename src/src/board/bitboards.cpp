@@ -11,7 +11,7 @@ namespace pdp_chess {
         setBitboards(is_white, is_empty);
     }
 
-    int Bitboards::getBitboardValue(Heuristic *h) {
+    /*int Bitboards::getBitboardValue(Heuristic *h) {
         int value = 0;
         for (int i = 0; i < 6; i++) {
             Bitboard* b = list[i];
@@ -33,7 +33,7 @@ namespace pdp_chess {
             }
         }
         return value;
-    }
+    }*/
 
     void Bitboards::setBitboards(bool is_white, bool is_empty) {
         pawns.type = (char) ('p' - (is_white * 32));

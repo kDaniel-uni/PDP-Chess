@@ -31,23 +31,25 @@ namespace pdp_chess{
     std::vector<Move> legal_move_pawns(const Board& board, bool is_white){
         std::vector<Move> res;
         uint8_t index2;
+        char type = (char) ('p' - (is_white * 32));
+        
         if( is_white ){
             for (uint8_t index : getPositions(board._pieces[white]->pawns)) { //white
                 if( ( index >= 8) & (index <= 15)  ){ //pawn base position
                     if( !( (board._pieces[white]->all.value >> (index+16)) & 1 ) & !((board._pieces[white]->all.value >> (index+8)) & 1) & !((board._pieces[black]->all.value >> (index+16)) & 1) & !((board._pieces[black]->all.value >> (index+8)) & 1) ){
-                        Move mv = {index , (uint8_t)(index+16)};
+                        Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+16)};
                         res.push_back(mv);
                     }
                 }
                 if( !((board._pieces[white]->all.value  >> (index+8)) & 1) ){ //advance from one
-                    Move mv = {index , (uint8_t)(index+8)};
+                    Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+8)};
                     res.push_back(mv);
                 }
                 index2 = index%8;
                 if( (board._pieces[black]->all.value  >> (index+7)) & 1 ){ //eat
                     index2--;
                     if( (index2 >=0) & (index2 < 8) ){
-                        Move mv = {index , (uint8_t)(index+7)};
+                        Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+7)};
                         res.push_back(mv);
                     }
                 }
@@ -55,7 +57,7 @@ namespace pdp_chess{
                 if( (board._pieces[black]->all.value  >> (index+9)) & 1 ){ //eat
                     index2++;
                     if ( (index2 >=0) & (index2 < 8) ){
-                        Move mv = {index , (uint8_t)(index+9)};
+                        Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+9)};
                         res.push_back(mv);
                     }
                 }
@@ -66,19 +68,19 @@ namespace pdp_chess{
         for (uint8_t index : getPositions(board._pieces[0]->pawns)) {//black
             if( (index >= 48) & (index <= 55) ){                                     //firts move for a pawns
                 if( !((board._pieces[white]->all.value >> (index-16)) & 1) & !((board._pieces[white]->all.value >> (index-8)) & 1) & !((board._pieces[black]->all.value >> (index-16)) & 1) & !((board._pieces[black]->all.value >> (index-8)) & 1) ){
-                    Move mv = {index , (uint8_t)(index-16)};
+                    Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-16)};
                     res.push_back(mv);
                 }
             }
             if( !((board._pieces[white]->all.value >> (index-8)) & 1) ){//advance from one
-                Move mv = {index , (uint8_t)(index-8)};
+                Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-8)};
                 res.push_back(mv);
             }
             index2 = index%8;
             if( (board._pieces[black]->all.value >> (index-7)) & 1){//eat
                 index2++;
                 if( (index2 >=0) & (index2 < 8) ){
-                    Move mv = {index , (uint8_t)(index-7)};
+                    Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-7)};
                     res.push_back(mv);
                 }
             }
@@ -86,7 +88,7 @@ namespace pdp_chess{
             if( (board._pieces[black]->all.value >> (index-9)) & 1){//eat
                 index2--;
                 if ( (index2 >=0) & (index2 < 8) ){
-                    Move mv = {index , (uint8_t)(index-9)};
+                    Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-9)};
                     res.push_back(mv);
                 }
             }
@@ -100,11 +102,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> i) & 1 ){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                Move mv = {position_start , (uint8_t)(i)};
+                Move mv = {.start_position = position_start , .target_position = (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , (uint8_t)(i)};
+                Move mv = {.start_position = position_start , .target_position = (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -112,11 +114,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> i) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                Move mv = {position_start , (uint8_t)(i)};
+                Move mv = {.start_position = position_start , .target_position = (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , (uint8_t)(i)};
+                Move mv = {.start_position = position_start , .target_position = (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -126,11 +128,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                Move mv = {position_start , index2};
+                Move mv = {.start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , index2};
+                Move mv = {.start_position = position_start , .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -140,11 +142,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                Move mv = {position_start , index2};
+                Move mv = {.start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , index2};
+                Move mv = {.start_position = position_start , .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -155,6 +157,13 @@ namespace pdp_chess{
         for (uint8_t index : getPositions(board._pieces[white]->rooks)){
             moveLineVerticalHorizontal(board, index, white, res);
         }
+        
+        char type = (char) ('r' - (white * 32));
+        
+        for (auto& element : res){
+            element.start_type = type;
+        }
+        
         return res;
     }
 
@@ -166,11 +175,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63)){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start, index2};
+                Move mv = { .start_position = position_start, .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -180,11 +189,11 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -194,11 +203,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -208,11 +217,11 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
                 break;
             }else{
-                Move mv = {position_start , index2};
+                Move mv = { .start_position = position_start , .target_position = index2};
                 res.push_back(mv);
             }
         }
@@ -223,6 +232,13 @@ namespace pdp_chess{
         for (uint8_t index : getPositions(board._pieces[white]->bishops)) {
             moveDiagonal(board, index, white, res);
         }
+        
+        char type = (char) ('b' - (white * 32));
+        
+        for (auto& element : res){
+            element.start_type = type;
+        }
+        
         return res;
     }
 
@@ -231,7 +247,7 @@ namespace pdp_chess{
         if( (position_target < 0 | position_target > 63) | (position_x_target < 0 | position_x_target > 7) | (board._pieces[color_piece]->all.value >> position_target) & 1 ){
             return;
         }
-        Move mv = {position_start , position_target};
+        Move mv = {.start_position = position_start , .target_position = position_target};
         res.push_back(mv);
     }
 
@@ -247,6 +263,13 @@ namespace pdp_chess{
             moveThisPosition( board, index, index+15, index%8 - 1, white, res);
             moveThisPosition( board, index, index+17, index%8 + 1, white, res);
         }
+
+        char type = (char) ('n' - (white * 32));
+
+        for (auto& element : res){
+            element.start_type = type;
+        }
+
         return res;
     }
 
@@ -256,6 +279,13 @@ namespace pdp_chess{
             moveDiagonal(board, index, white, res);
             moveLineVerticalHorizontal(board, index, white, res);
         }
+
+        char type = (char) ('q' - (white * 32));
+
+        for (auto& element : res){
+            element.start_type = type;
+        }
+
         return res;
     }
 
@@ -271,6 +301,13 @@ namespace pdp_chess{
             moveThisPosition( board, index, index+8, index%8, white, res);
             moveThisPosition( board, index, index+9, index%8 + 1, white, res);
         }
+
+        char type = (char) ('k' - (white * 32));
+
+        for (auto& element : res){
+            element.start_type = type;
+        }
+
         return res;
     }
 

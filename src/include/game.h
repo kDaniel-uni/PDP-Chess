@@ -9,7 +9,6 @@
 #include "ai_player.h"
 #include "board.h"
 #include "bitboard_operations.h"
-#include <vector>
 
 namespace pdp_chess {
 
@@ -26,8 +25,8 @@ namespace pdp_chess {
     private:
         AiPlayer* _white_player;
         AiPlayer* _black_player;
-        AiPlayer* _current_player;
-        std::vector<Move> _history;
+        AiPlayer* _players[2] = {_black_player, _white_player};
+        color _current_color;
     };
 
 }

@@ -18,6 +18,7 @@ int main (int argc, char *argv[]) {
 
     if (arg == "1"){
         mv.start_position = 15;
+        mv.start_type = 'P';
         mv.target_position = 31;
         g.playMove(mv);
         if (g.board.toString() == "RNBQKBNRPPPPPPP----------------P----------------pppppppprnbqkbnr"){
@@ -25,6 +26,7 @@ int main (int argc, char *argv[]) {
         }
     }else if( arg == "2"){
         mv.start_position = 1;
+        mv.start_type = 'N';
         mv.target_position = 16;
         g.playMove(mv);
         if (g.board.toString() == "R-BQKBNRPPPPPPPPN-------------------------------pppppppprnbqkbnr"){
@@ -33,12 +35,14 @@ int main (int argc, char *argv[]) {
     }else if ( arg == "3"){
         g.fromString("---------------------------P------q-----------------------------");
         mv.start_position = 27;
+        mv.start_type = 'P';
         mv.target_position = 34;
         g.playMove(mv);
         if (g.board.toString() != "----------------------------------P-----------------------------"){
             return EXIT_FAILURE;
         }
         mv.start_position = 34;
+        mv.start_type = 'P';
         mv.target_position = 42;
         g.playMove(mv);
         if (g.board.toString() == "------------------------------------------P---------------------"){
@@ -50,6 +54,7 @@ int main (int argc, char *argv[]) {
         g.drawBoard();
 
         mv.start_position = 27;
+        mv.start_type = 'R';
         mv.target_position = 59;
         g.playMove(mv);
         g.drawBoard();
@@ -58,6 +63,7 @@ int main (int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
         mv.start_position = 63;
+        mv.start_type = 'r';
         mv.target_position = 59;
         g.playMove(mv);
         g.drawBoard();
@@ -66,6 +72,7 @@ int main (int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
         mv.start_position = 5;
+        mv.start_type = 'Q';
         mv.target_position = 3;
         g.playMove(mv);
         g.drawBoard();
@@ -74,6 +81,7 @@ int main (int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
         mv.start_position= 59;
+        mv.start_type = 'r';
         mv.target_position = 3;
         g.playMove(mv);
         g.drawBoard();

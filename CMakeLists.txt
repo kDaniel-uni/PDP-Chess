@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(pdp_chess)
 include(CTest)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 enable_testing()
 
 include_directories(src/include)
@@ -19,7 +19,8 @@ add_library(lib src/src/game.cpp
         src/src/board/board.cpp
         src/src/board/bitboard_operations.cpp
         src/src/move/legal_move.cpp
-        src/src/board/bitboards.cpp)
+        src/src/board/bitboards.cpp
+        src/src/algorithm/heuristic.cpp)
 
 target_include_directories(lib
         PRIVATE

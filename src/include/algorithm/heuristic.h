@@ -5,6 +5,8 @@
 #ifndef PDP_CHESS_HEURISTIC_H
 #define PDP_CHESS_HEURISTIC_H
 
+#include "board.h"
+
 namespace pdp_chess {
 
     class Heuristic {
@@ -16,14 +18,8 @@ namespace pdp_chess {
         int queen_value;
         int king_value;
 
-        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v) {
-            pawns_value = p_v;
-            rooks_value = r_v;
-            bishops_value = b_v;
-            knights_value = kn_v;
-            queen_value = q_v;
-            king_value = k_v;
-        };
+        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v);
+        int evaluateBoard(const Board& board);
     };
 
 }
