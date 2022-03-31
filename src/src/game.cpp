@@ -36,15 +36,14 @@ namespace pdp_chess {
     }*/
 
     void Game::playMove(Move move){
-        this->_history.push_back(move);
-        board.moving(move);
+        board.push(move);
         _current_color = (color)!_current_color;
     }
 
     bool Game::getPlayerRound(){
         bool white = false;
-        Move move = _history.back();
-        return (bool)!board.getColor(move.target_position);
+        //Move move = _history.back();
+        //return (bool)!board.getColor(move.target_position);
     }
 
 }

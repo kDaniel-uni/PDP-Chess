@@ -100,7 +100,55 @@ namespace pdp_chess {
         updateWhiteAndBlackPieces();
     }
 
-    void Board::moving(Move mv) {
+    void Board::push(Move move) {
+        applyMoveToBitboards(move);
+        _history.push_back(move);
+    }
+
+    void Board::pop() {
+        applyMoveToBitboards(_history.back());
+        _history.pop_back();
+    }
+
+    bool Board::isGameOver() {
+        if (_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    std::string Board::result() {
+        if (_pieces[black]->king.value == 0) {
+            return "The winner is player white";
+        } else if (_pieces[white]->king.value == 0) {
+            return "The winner is player black";
+        } else {
+            return "there is no winner";
+        }
+    }
+
+    void Board::resetToClassic() {
+        _pieces[black]->setBitboards(black, false);
+        _pieces[white]->setBitboards(white, false);
+        _history.clear();
+    }
+
+    void Board::resetToEmpty() {
+        _pieces[black]->setBitboards(black, true);
+        _pieces[white]->setBitboards(white, true);
+        _history.clear();
+    }
+
+    int Board::getColor(int index) {
+        for (int color = 0; color < 2; color++) {
+            if ((_pieces[color]->all.value >> index) & 1) {
+                return color;
+            }
+        }
+        return -1;
+    }
+
+    void Board::applyMoveToBitboards(Move mv) {
         updateWhiteAndBlackPieces();
         uint64_t base = 1;
         uint64_t mask = (base << mv.start_position) + (base << mv.target_position);
@@ -144,41 +192,4 @@ namespace pdp_chess {
             updateWhiteAndBlackPieces();
         }
     }
-
-    bool Board::isGameOver() {
-        if (_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) {
-            return true;
-        }
-        return false;
-    }
-
-    std::string Board::result() {
-        if (_pieces[black]->king.value == 0) {
-            return "The winner is player white";
-        } else if (_pieces[white]->king.value == 0) {
-            return "The winner is player black";
-        } else {
-            return "there is no winner";
-        }
-    }
-
-    void Board::resetToClassic() {
-        _pieces[black]->setBitboards(black, false);
-        _pieces[white]->setBitboards(white, false);
-    }
-
-    void Board::resetToEmpty() {
-        _pieces[black]->setBitboards(black, true);
-        _pieces[white]->setBitboards(white, true);
-    }
-
-    int Board::getColor(int index) {
-        for (int color = 0; color < 2; color++) {
-            if ((_pieces[color]->all.value >> index) & 1) {
-                return color;
-            }
-        }
-        return -1;
-    }
-
 }
