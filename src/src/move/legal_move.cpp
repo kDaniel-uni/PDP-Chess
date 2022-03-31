@@ -9,9 +9,9 @@
 
 namespace pdp_chess{
 
-    std::vector<movement> legal_move(const board& board, bool white){
-        std::vector<movement> res;
-        std::vector<movement> res2 = legal_move_pawns(board, white);
+    std::vector<Move> legal_move(const Board& board, bool white){
+        std::vector<Move> res;
+        std::vector<Move> res2 = legal_move_pawns(board, white);
         res.insert(res.end(), res2.begin(), res2.end());
         res2 = legal_move_rooks(board, white);
         res.insert(res.end(), res2.begin(), res2.end());
@@ -28,34 +28,34 @@ namespace pdp_chess{
 
 
 
-    std::vector<movement> legal_move_pawns(const board& board, bool white){
-        std::vector<movement> res;
+    std::vector<Move> legal_move_pawns(const Board& board, bool is_white){
+        std::vector<Move> res;
         uint8_t index2;
-        if( white ){
-            for (uint8_t index : io_bitboard::get_positions(board._pieces[1]->pawns)) { //white
+        if( is_white ){
+            for (uint8_t index : getPositions(board._pieces[white]->pawns)) { //white
                 if( ( index >= 8) & (index <= 15)  ){ //pawn base position
-                    if( !( (board._pieces[1]->all.value >> (index+16)) & 1 ) & !((board._pieces[1]->all.value >> (index+8)) & 1) & !((board._pieces[0]->all.value >> (index+16)) & 1) & !((board._pieces[0]->all.value >> (index+8)) & 1) ){
-                        movement mv = {index , (uint8_t)(index+16)};
+                    if( !( (board._pieces[white]->all.value >> (index+16)) & 1 ) & !((board._pieces[white]->all.value >> (index+8)) & 1) & !((board._pieces[black]->all.value >> (index+16)) & 1) & !((board._pieces[black]->all.value >> (index+8)) & 1) ){
+                        Move mv = {index , (uint8_t)(index+16)};
                         res.push_back(mv);
                     }
                 }
-                if( !((board._pieces[1]->all.value  >> (index+8)) & 1) ){ //advance from one
-                    movement mv = {index , (uint8_t)(index+8)};
+                if( !((board._pieces[white]->all.value  >> (index+8)) & 1) ){ //advance from one
+                    Move mv = {index , (uint8_t)(index+8)};
                     res.push_back(mv);
                 }
                 index2 = index%8;
-                if( (board._pieces[0]->all.value  >> (index+7)) & 1 ){ //eat
+                if( (board._pieces[black]->all.value  >> (index+7)) & 1 ){ //eat
                     index2--;
                     if( (index2 >=0) & (index2 < 8) ){
-                        movement mv = {index , (uint8_t)(index+7)};
+                        Move mv = {index , (uint8_t)(index+7)};
                         res.push_back(mv);
                     }
                 }
                 index2 = index%8;
-                if( (board._pieces[0]->all.value  >> (index+9)) & 1 ){ //eat
+                if( (board._pieces[black]->all.value  >> (index+9)) & 1 ){ //eat
                     index2++;
                     if ( (index2 >=0) & (index2 < 8) ){
-                        movement mv = {index , (uint8_t)(index+9)};
+                        Move mv = {index , (uint8_t)(index+9)};
                         res.push_back(mv);
                     }
                 }
@@ -63,30 +63,30 @@ namespace pdp_chess{
             return res;
         }
 
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[0]->pawns)) {//black
+        for (uint8_t index : getPositions(board._pieces[0]->pawns)) {//black
             if( (index >= 48) & (index <= 55) ){                                     //firts move for a pawns
-                if( !((board._pieces[1]->all.value >> (index-16)) & 1) & !((board._pieces[1]->all.value >> (index-8)) & 1) & !((board._pieces[0]->all.value >> (index-16)) & 1) & !((board._pieces[0]->all.value >> (index-8)) & 1) ){
-                    movement mv = {index , (uint8_t)(index-16)};
+                if( !((board._pieces[white]->all.value >> (index-16)) & 1) & !((board._pieces[white]->all.value >> (index-8)) & 1) & !((board._pieces[black]->all.value >> (index-16)) & 1) & !((board._pieces[black]->all.value >> (index-8)) & 1) ){
+                    Move mv = {index , (uint8_t)(index-16)};
                     res.push_back(mv);
                 }
             }
-            if( !((board._pieces[0]->all.value >> (index-8)) & 1) ){//advance from one
-                movement mv = {index , (uint8_t)(index-8)};
+            if( !((board._pieces[white]->all.value >> (index-8)) & 1) ){//advance from one
+                Move mv = {index , (uint8_t)(index-8)};
                 res.push_back(mv);
             }
             index2 = index%8;
-            if( (board._pieces[1]->all.value >> (index-7)) & 1){//eat
+            if( (board._pieces[black]->all.value >> (index-7)) & 1){//eat
                 index2++;
                 if( (index2 >=0) & (index2 < 8) ){
-                    movement mv = {index , (uint8_t)(index-7)};
+                    Move mv = {index , (uint8_t)(index-7)};
                     res.push_back(mv);
                 }
             }
             index2 = index%8;
-            if( (board._pieces[1]->all.value >> (index-9)) & 1){//eat
+            if( (board._pieces[black]->all.value >> (index-9)) & 1){//eat
                 index2--;
                 if ( (index2 >=0) & (index2 < 8) ){
-                    movement mv = {index , (uint8_t)(index-9)};
+                    Move mv = {index , (uint8_t)(index-9)};
                     res.push_back(mv);
                 }
             }
@@ -94,17 +94,17 @@ namespace pdp_chess{
         return res;
     }
 
-    void move_line_vertical_horizontal(const board& board, uint8_t position_start, bool color_piece, std::vector<movement>& res){
+    void moveLineVerticalHorizontal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
         uint8_t index2;
         for (int i = position_start+8 ; i < 64 ; i=i+8){ //vertical up
             if( (board._pieces[color_piece]->all.value >> i) & 1 ){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                movement mv = {position_start , (uint8_t)(i)};
+                Move mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , (uint8_t)(i)};
+                Move mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -112,11 +112,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> i) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> i) & 1){
-                movement mv = {position_start , (uint8_t)(i)};
+                Move mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , (uint8_t)(i)};
+                Move mv = {position_start , (uint8_t)(i)};
                 res.push_back(mv);
             }
         }
@@ -126,11 +126,11 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -140,25 +140,25 @@ namespace pdp_chess{
             if( (board._pieces[color_piece]->all.value >> index2) & 1){
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
     }
 
-    std::vector<movement> legal_move_rooks(const board& board, bool white){
-        std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->rooks)){
-            move_line_vertical_horizontal(board, index, white, res);
+    std::vector<Move> legal_move_rooks(const Board& board, bool white){
+        std::vector<Move> res;
+        for (uint8_t index : getPositions(board._pieces[white]->rooks)){
+            moveLineVerticalHorizontal(board, index, white, res);
         }
         return res;
     }
 
-    void move_diagonal(const board& board, uint8_t position_start, bool color_piece, std::vector<movement>& res){
+    void moveDiagonal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
         uint8_t index2;
         index2 = position_start;
         for ( int  i = position_start%8 +1 ; i<8 ; i++){ //diagonal up right
@@ -166,11 +166,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63)){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start, index2};
+                Move mv = {position_start, index2};
                 res.push_back(mv);
             }
         }
@@ -180,11 +180,11 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -194,11 +194,11 @@ namespace pdp_chess{
             if( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if ( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
@@ -208,68 +208,68 @@ namespace pdp_chess{
             if ( ((board._pieces[color_piece]->all.value >> index2) & 1) || (  index2 < 0) || (  index2 > 63) ){ //piece of its color or move leave the board
                 break;
             }else if( (board._pieces[!color_piece]->all.value >> index2) & 1 ){
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
                 break;
             }else{
-                movement mv = {position_start , index2};
+                Move mv = {position_start , index2};
                 res.push_back(mv);
             }
         }
     }
 
-    std::vector<movement> legal_move_bishops(const board& board, bool white){
-        std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->bishops)) {
-            move_diagonal(board, index, white, res);
+    std::vector<Move> legal_move_bishops(const Board& board, bool white){
+        std::vector<Move> res;
+        for (uint8_t index : getPositions(board._pieces[white]->bishops)) {
+            moveDiagonal(board, index, white, res);
         }
         return res;
     }
 
 
-    void move_this_position(const board& board,uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<movement>& res){
+    void moveThisPosition(const Board &board, uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<Move>& res){
         if( (position_target < 0 | position_target > 63) | (position_x_target < 0 | position_x_target > 7) | (board._pieces[color_piece]->all.value >> position_target) & 1 ){
             return;
         }
-        movement mv = {position_start , position_target};
+        Move mv = {position_start , position_target};
         res.push_back(mv);
     }
 
-    std::vector<movement> legal_move_knights(const board& board, bool white){
-        std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->knights)){
-            move_this_position( board, index, index-17, index%8 - 1, white, res);
-            move_this_position( board, index, index-15, index%8 + 1, white, res);
-            move_this_position( board, index, index-10, index%8 - 2, white, res);
-            move_this_position( board, index, index-6, index%8 + 2, white, res);
-            move_this_position( board, index, index+6, index%8 - 2, white, res);
-            move_this_position( board, index, index+10, index%8 + 2, white, res);
-            move_this_position( board, index, index+15, index%8 - 1, white, res);
-            move_this_position( board, index, index+17, index%8 + 1, white, res);
+    std::vector<Move> legal_move_knights(const Board& board, bool white){
+        std::vector<Move> res;
+        for (uint8_t index : getPositions(board._pieces[white]->knights)){
+            moveThisPosition( board, index, index-17, index%8 - 1, white, res);
+            moveThisPosition( board, index, index-15, index%8 + 1, white, res);
+            moveThisPosition( board, index, index-10, index%8 - 2, white, res);
+            moveThisPosition( board, index, index-6, index%8 + 2, white, res);
+            moveThisPosition( board, index, index+6, index%8 - 2, white, res);
+            moveThisPosition( board, index, index+10, index%8 + 2, white, res);
+            moveThisPosition( board, index, index+15, index%8 - 1, white, res);
+            moveThisPosition( board, index, index+17, index%8 + 1, white, res);
         }
         return res;
     }
 
-    std::vector<movement> legal_move_queen(const board& board, bool white){
-        std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->queen)) {
-            move_diagonal(board, index, white, res);
-            move_line_vertical_horizontal(board, index, white, res);
+    std::vector<Move> legal_move_queen(const Board& board, bool white){
+        std::vector<Move> res;
+        for (uint8_t index : getPositions(board._pieces[white]->queen)) {
+            moveDiagonal(board, index, white, res);
+            moveLineVerticalHorizontal(board, index, white, res);
         }
         return res;
     }
 
-    std::vector<movement> legal_move_king(const board& board, bool white){
-        std::vector<movement> res;
-        for (uint8_t index : io_bitboard::get_positions(board._pieces[white]->king)){
-            move_this_position( board, index, index-9, index%8 - 1, white, res);
-            move_this_position( board, index, index-8, index%8, white, res);
-            move_this_position( board, index, index-7, index%8 + 1, white, res);
-            move_this_position( board, index, index-1, index%8 - 1, white, res);
-            move_this_position( board, index, index+1, index%8 + 1, white, res);
-            move_this_position( board, index, index+7, index%8 - 1, white, res);
-            move_this_position( board, index, index+8, index%8, white, res);
-            move_this_position( board, index, index+9, index%8 + 1, white, res);
+    std::vector<Move> legal_move_king(const Board& board, bool white){
+        std::vector<Move> res;
+        for (uint8_t index : getPositions(board._pieces[white]->king)){
+            moveThisPosition( board, index, index-9, index%8 - 1, white, res);
+            moveThisPosition( board, index, index-8, index%8, white, res);
+            moveThisPosition( board, index, index-7, index%8 + 1, white, res);
+            moveThisPosition( board, index, index-1, index%8 - 1, white, res);
+            moveThisPosition( board, index, index+1, index%8 + 1, white, res);
+            moveThisPosition( board, index, index+7, index%8 - 1, white, res);
+            moveThisPosition( board, index, index+8, index%8, white, res);
+            moveThisPosition( board, index, index+9, index%8 + 1, white, res);
         }
         return res;
     }
