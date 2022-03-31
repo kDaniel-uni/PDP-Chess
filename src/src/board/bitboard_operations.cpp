@@ -45,6 +45,20 @@ namespace pdp_chess {
         }
     }
 
+    void createPiece(Move& move, Bitboards& bitboards){
+        uint64_t base = 1;
+        uint64_t mask = (base << move.target_position);
+
+        for (auto& bitboard : bitboards.list){
+            if (bitboard->type == move.target_type){
+                bitboard->value |= mask;
+                bitboards.all.value |= mask;
+                return;
+            }
+        }
+
+    }
+
     uint64_t getWhitePawnsInBasePosition(const Bitboard& bitboard){
         uint64_t white_pawn_base_position = (1<<15) + (1<<14) + (1<<13) + (1<<12) + (1<<11) + (1<<10) + (1<<9) + (1<<8);
         return bitboard.value & white_pawn_base_position;

@@ -18,6 +18,8 @@ namespace pdp_chess{
 
     void movePiece(Move& move, Bitboards& bitboards);
 
+    void createPiece(Move& move, Bitboards& bitboards);
+
     uint64_t getWhitePawnsInBasePosition(const Bitboard& bitboard);
 
     uint64_t getBlackPawnsInBasePosition(const Bitboard& bitboard);

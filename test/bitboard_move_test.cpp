@@ -24,6 +24,7 @@ int main (int argc, char *argv[]) {
         if (g.board.toString() == "RNBQKBNRPPPPPPP----------------P----------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
+
     }else if( arg == "2"){
         mv.start_position = 1;
         mv.start_type = 'N';
@@ -32,6 +33,7 @@ int main (int argc, char *argv[]) {
         if (g.board.toString() == "R-BQKBNRPPPPPPPPN-------------------------------pppppppprnbqkbnr"){
             return EXIT_SUCCESS;
         }
+
     }else if ( arg == "3"){
         g.fromString("---------------------------P------q-----------------------------");
         mv.start_position = 27;
@@ -48,6 +50,7 @@ int main (int argc, char *argv[]) {
         if (g.board.toString() == "------------------------------------------P---------------------"){
             return EXIT_SUCCESS;
         }
+
     }else if ( arg == "4"){
 
         g.fromString("-----Q---------------------R-------------------------------q---r");
@@ -87,6 +90,76 @@ int main (int argc, char *argv[]) {
         g.drawBoard();
 
         if (g.board.toString() == "---r------------------------------------------------------------"){
+            return EXIT_SUCCESS;
+        }
+
+    }else if ( arg == "5"){
+
+        g.fromString("-----Q---------------------R-------------------------------q---r");
+        g.drawBoard();
+
+        mv.start_position = 27;
+        mv.start_type = 'R';
+        mv.target_position = 59;
+        g.playMove(mv);
+        g.drawBoard();
+
+        if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position = 63;
+        mv.start_type = 'r';
+        mv.target_position = 59;
+        g.playMove(mv);
+        g.drawBoard();
+
+        if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position = 5;
+        mv.start_type = 'Q';
+        mv.target_position = 3;
+        g.playMove(mv);
+        g.drawBoard();
+
+        if (g.board.toString() != "---Q-------------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+        mv.start_position= 59;
+        mv.start_type = 'r';
+        mv.target_position = 3;
+        g.playMove(mv);
+        g.drawBoard();
+
+        if (g.board.toString() != "---r------------------------------------------------------------"){
+            return EXIT_FAILURE;
+        }
+
+        g.board.pop();
+        g.drawBoard();
+
+        if (g.board.toString() != "---Q-------------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+
+        g.board.pop();
+        g.drawBoard();
+
+        if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
+            return EXIT_FAILURE;
+        }
+
+        g.board.pop();
+        g.drawBoard();
+
+        if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
+            return EXIT_FAILURE;
+        }
+
+        g.board.pop();
+        g.drawBoard();
+
+        if (g.board.toString() == "-----Q---------------------R-------------------------------q---r"){
             return EXIT_SUCCESS;
         }
 

@@ -108,10 +108,10 @@ namespace pdp_chess {
         _history.push_back(move);
     }
 
-    /*void Board::pop() {
-        applyMoveToBitboards(_history.back());
+    void Board::pop() {
+        undoMove(_history.back());
         _history.pop_back();
-    }*/
+    }
 
     bool Board::isGameOver() {
         if (_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) {
@@ -165,5 +165,17 @@ namespace pdp_chess {
 
         movePiece(move, *_pieces[move.start_type < 90]);
 
+    }
+
+    void Board::undoMove(Move &move) {
+        Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
+
+        movePiece(reverse_move, *_pieces[move.start_type < 90]);
+
+        if (reverse_move.target_type == '-'){
+            return;
+        }
+
+        createPiece(move, *_pieces[move.target_type < 90]);
     }
 }

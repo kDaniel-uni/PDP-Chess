@@ -28,6 +28,7 @@ namespace pdp_chess {
         void push(Move mv);
         void pop();
         void applyMoveToBitboards(Move& mv);
+        void undoMove(Move& move);
         void resetToClassic();
         void resetToEmpty();
         int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.

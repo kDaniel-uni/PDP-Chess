@@ -55,6 +55,7 @@ add_test(move_pawns_test bitboard_move_test 1)
 add_test(move_knight_test bitboard_move_test 2)
 add_test(move_eat_test bitboard_move_test 3)
 add_test(move_chain_eat_test bitboard_move_test 4)
+add_test(move_undo_redo_test bitboard_move_test 5)
 
 add_test(legal_move_pawns_test legal_move_test 1)
 add_test(legal_move_rooks_test legal_move_test 2)
