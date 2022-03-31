@@ -7,14 +7,13 @@
 
 #include <string>
 #include "move.h"
+#include "heuristic.h"
 
 namespace pdp_chess {
 
     class AiPlayer {
     private :
         Heuristic _heuristic;
-
-
 
     public :
         virtual ~AiPlayer() {}

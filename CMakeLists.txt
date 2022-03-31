@@ -19,7 +19,8 @@ add_library(lib src/src/game.cpp
         src/src/board/board.cpp
         src/src/board/bitboard_operations.cpp
         src/src/move/legal_move.cpp
-        src/src/board/bitboards.cpp)
+        src/src/board/bitboards.cpp
+        src/src/algorithm/heuristic.cpp)
 
 target_include_directories(lib
         PRIVATE
@@ -35,7 +36,7 @@ target_link_libraries(board_io_test PUBLIC lib)
 add_executable(bitboard_operation_test test/bitboard_operation_test.cpp)
 target_link_libraries(bitboard_operation_test PUBLIC lib)
 
-add_executable(bitboard_move_test test/bitboard_move_test.cpp src/src/algorithm/heuristic.cpp)
+add_executable(bitboard_move_test test/bitboard_move_test.cpp)
 target_link_libraries(bitboard_move_test PUBLIC lib)
 
 add_executable(legal_move_test test/legal_move_test.cpp)

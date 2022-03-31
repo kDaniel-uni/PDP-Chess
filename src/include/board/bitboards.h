@@ -5,8 +5,6 @@
 #ifndef PDP_CHESS_BITBOARDS_H
 #define PDP_CHESS_BITBOARDS_H
 
-#include "heuristic.h"
-
 namespace pdp_chess {
 
     const int BOARD_SIZE = 64;
@@ -50,8 +48,6 @@ namespace pdp_chess {
         Bitboard* list[6] = {&pawns, &rooks, &knights, &bishops, &queen, &king};
 
         Bitboards(bool is_white, bool is_empty);
-
-        int getBitboardValue(Heuristic *h);
 
         void setBitboards(bool is_white, bool is_empty);
     };

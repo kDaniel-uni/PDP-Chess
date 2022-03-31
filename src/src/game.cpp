@@ -31,13 +31,13 @@ namespace pdp_chess {
         std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
     }
 
-    void Game::step(){
+    /*void Game::step(){
         _players[_current_color]->findNextMove();
-    }
+    }*/
 
     void Game::playMove(Move move){
         this->_history.push_back(move);
-        board.moving(move, _current_color);
+        board.moving(move);
         _current_color = (color)!_current_color;
     }
 
