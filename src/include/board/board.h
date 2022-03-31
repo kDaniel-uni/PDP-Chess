@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_BOARD_H
-#define PDP_ECHEC_BOARD_H
+#ifndef PDP_CHESS_BOARD_H
+#define PDP_CHESS_BOARD_H
 
 #include <string>
 #include <array>
@@ -33,4 +33,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_BOARD_H
+#endif //PDP_CHESS_BOARD_H

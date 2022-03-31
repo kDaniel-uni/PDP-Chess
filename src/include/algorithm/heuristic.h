@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_HEURISTIC_H
-#define PDP_ECHEC_HEURISTIC_H
+#ifndef PDP_CHESS_HEURISTIC_H
+#define PDP_CHESS_HEURISTIC_H
 
 namespace pdp_chess {
 
@@ -28,4 +28,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_HEURISTIC_H
+#endif //PDP_CHESS_HEURISTIC_H

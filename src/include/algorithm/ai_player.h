@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_AI_PLAYER_H
-#define PDP_ECHEC_AI_PLAYER_H
+#ifndef PDP_CHESS_AI_PLAYER_H
+#define PDP_CHESS_AI_PLAYER_H
 
 #include <string>
 #include "move.h"
@@ -20,4 +20,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_AI_PLAYER_H
+#endif //PDP_CHESS_AI_PLAYER_H

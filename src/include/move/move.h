@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_MOVE_H
-#define PDP_ECHEC_MOVE_H
+#ifndef PDP_CHESS_MOVE_H
+#define PDP_CHESS_MOVE_H
 
 namespace pdp_chess {
 
@@ -14,4 +14,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_MOVE_H
+#endif //PDP_CHESS_MOVE_H

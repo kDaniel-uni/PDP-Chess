@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_GAME_H
-#define PDP_ECHEC_GAME_H
+#ifndef PDP_CHESS_GAME_H
+#define PDP_CHESS_GAME_H
 
 
 #include "ai_player.h"
@@ -32,4 +32,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_GAME_H
+#endif //PDP_CHESS_GAME_H

@@ -1,5 +1,5 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
 #include "stdint.h"

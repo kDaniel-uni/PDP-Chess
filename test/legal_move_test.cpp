@@ -1,3 +1,7 @@
+//
+// Pdp_chess university project
+//
+
 #include <string.h>
 #include "bitboard_operations.h"
 #include "move.h"

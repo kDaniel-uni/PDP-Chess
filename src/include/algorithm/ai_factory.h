@@ -1,9 +1,9 @@
 //
-// Pdp_echec university project
+// Pdp_chess university project
 //
 
-#ifndef PDP_ECHEC_AI_FACTORY_H
-#define PDP_ECHEC_AI_FACTORY_H
+#ifndef PDP_CHESS_AI_FACTORY_H
+#define PDP_CHESS_AI_FACTORY_H
 
 namespace pdp_chess {
 
@@ -15,4 +15,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_ECHEC_AI_FACTORY_H
+#endif //PDP_CHESS_AI_FACTORY_H
