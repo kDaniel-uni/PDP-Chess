@@ -11,10 +11,15 @@
 namespace pdp_chess {
 
     class AiPlayer {
+    private :
+        Heuristic _heuristic;
+
+
+
     public :
         virtual ~AiPlayer() {}
-        virtual Move findNextMove() = 0;
-    virtual std::string getParameters() = 0;
+        virtual Move findNextMove(Board& board, color current_color) = 0;
+        virtual std::string getParameters() = 0;
 
     };
 

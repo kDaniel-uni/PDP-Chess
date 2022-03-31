@@ -35,7 +35,7 @@ target_link_libraries(board_io_test PUBLIC lib)
 add_executable(bitboard_operation_test test/bitboard_operation_test.cpp)
 target_link_libraries(bitboard_operation_test PUBLIC lib)
 
-add_executable(bitboard_move_test test/bitboard_move_test.cpp)
+add_executable(bitboard_move_test test/bitboard_move_test.cpp src/src/algorithm/heuristic.cpp)
 target_link_libraries(bitboard_move_test PUBLIC lib)
 
 add_executable(legal_move_test test/legal_move_test.cpp)
