@@ -36,7 +36,7 @@ namespace pdp_chess {
     }*/
 
     void Game::playMove(Move move){
-        board.push(move);
+        board.doMove(move);
         _current_color = (color)!_current_color;
     }
 

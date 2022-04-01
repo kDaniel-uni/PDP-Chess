@@ -135,28 +135,28 @@ int main (int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
 
-        g.board.pop();
+        g.board.undoMove();
         g.drawBoard();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
-        g.board.pop();
+        g.board.undoMove();
         g.drawBoard();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
-        g.board.pop();
+        g.board.undoMove();
         g.drawBoard();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
         }
 
-        g.board.pop();
+        g.board.undoMove();
         g.drawBoard();
 
         if (g.board.toString() == "-----Q---------------------R-------------------------------q---r"){

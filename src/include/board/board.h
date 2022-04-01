@@ -25,10 +25,8 @@ namespace pdp_chess {
         std::string toString() const;
         void fromString(const char *filename); //load a game wrote in the filename, if no filename, load the default game.
         void updateWhiteAndBlackPieces();
-        void push(Move mv);
-        void pop();
-        void applyMoveToBitboards(Move& mv);
-        void undoMove(Move& move);
+        void doMove(Move mv);
+        void undoMove();
         void resetToClassic();
         void resetToEmpty();
         int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.

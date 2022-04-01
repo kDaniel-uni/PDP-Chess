@@ -17,7 +17,6 @@ namespace pdp_chess {
         return positions;
     }
 
-
     void eatPiece(Move& move, Bitboards& bitboards){
         uint64_t base = 1;
         uint64_t mask = base << move.target_position;

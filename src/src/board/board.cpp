@@ -103,13 +103,30 @@ namespace pdp_chess {
         updateWhiteAndBlackPieces();
     }
 
-    void Board::push(Move move) {
-        applyMoveToBitboards(move);
+    void Board::doMove(Move move) {
+        if ((_pieces[black]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *_pieces[black]);
+        } else if ((_pieces[white]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *_pieces[white]);
+        } else {
+            move.target_type = '-';
+        }
+        movePiece(move, *_pieces[move.start_type < 90]);
+
         _history.push_back(move);
     }
 
-    void Board::pop() {
-        undoMove(_history.back());
+    void Board::undoMove() {
+        Move move = _history.back();
+        Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
+
+        movePiece(reverse_move, *_pieces[move.start_type < 90]);
+        if (reverse_move.target_type == '-'){
+            _history.pop_back();
+            return;
+        }
+        createPiece(move, *_pieces[move.target_type < 90]);
+
         _history.pop_back();
     }
 
@@ -151,31 +168,5 @@ namespace pdp_chess {
             }
         }
         return -1;
-    }
-
-    void Board::applyMoveToBitboards(Move& move) {
-
-        if ((_pieces[black]->all.value >> move.target_position) & 1) {
-            eatPiece(move, *_pieces[black]);
-        } else if ((_pieces[white]->all.value >> move.target_position) & 1) {
-            eatPiece(move, *_pieces[white]);
-        } else {
-            move.target_type = '-';
-        }
-
-        movePiece(move, *_pieces[move.start_type < 90]);
-
-    }
-
-    void Board::undoMove(Move &move) {
-        Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
-
-        movePiece(reverse_move, *_pieces[move.start_type < 90]);
-
-        if (reverse_move.target_type == '-'){
-            return;
-        }
-
-        createPiece(move, *_pieces[move.target_type < 90]);
     }
 }
