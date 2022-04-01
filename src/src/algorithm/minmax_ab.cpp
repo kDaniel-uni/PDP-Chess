@@ -6,8 +6,9 @@
 #include "move.h"
 #include "ai_player.h"
 #include "legal_move.h"
+#include "heuristic.h"
 #include <algorithm>
-#include <limits> 
+#include <limits>
 
 namespace pdp_chess {
     class MinMax_ab : public AiPlayer{
