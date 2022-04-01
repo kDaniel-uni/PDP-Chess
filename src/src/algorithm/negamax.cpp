@@ -15,6 +15,24 @@ namespace pdp_chess {
         std::string getParameters(){
 
         }
+
+        int negaMax(Board board, int depth, bool ai_player_turn){
+            int value = 0;
+            if(depth==0 || board.isGameOver()){
+                return Heuristic::evaluateBoard(board);
+            }
+            int value_max = stf::numeric_limits<int>::min();
+            std::vector<Move> legal_moves = legal_moves(board, ai_player_turn);
+            for(Move move : legal_moves){
+                board.doMove(move);
+                value = -negaMax(depth-1);
+                board.undoMove(move);
+                if(value > value_max){
+                    value_max = value;
+                }
+            }
+            return value_max;
+        }
     };
 
 }

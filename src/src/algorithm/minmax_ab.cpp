@@ -28,8 +28,7 @@ namespace pdp_chess {
         int minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn){
             int value = 0;
             if(depth==0 || board.isGameOver()){
-                //return ValeurPlateau(board);
-                return 0;
+                return Heuristic::evaluateBoard(board);
             }
             if(ai_player_turn){
                 int value_max = std::numeric_limits<int>::min();
