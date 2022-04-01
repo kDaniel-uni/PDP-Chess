@@ -19,6 +19,7 @@ add_library(lib src/src/game.cpp
         src/src/board/board.cpp
         src/src/board/bitboard_operations.cpp
         src/src/move/legal_move.cpp
+        src/src/move/legal_move_v2.cpp
         src/src/board/bitboards.cpp
         src/src/algorithm/heuristic.cpp)
 
