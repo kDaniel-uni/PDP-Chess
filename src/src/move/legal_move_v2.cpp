@@ -4,6 +4,27 @@
 
 namespace pdp_chess {
 
+    uint64_t pawnsMove(int color, int position){
+        uint64_t b = 1;
+        uint64_t bitboard = (b << position);
+        uint64_t mask = 0;
+
+        if(color){
+            if( (position > 7) & (position < 16) ){
+                mask |= (bitboard << 16);
+            }
+            mask |= (bitboard << 8);
+        }
+
+        else{
+            if( (position > 47) & (position < 56) ){
+                mask |= (bitboard >> 16);
+            }
+            mask |= (bitboard >> 8);
+        }
+
+        return mask;
+    }
 
     uint64_t pawnsAttacks(int color, int position){
         uint64_t b = 1;
@@ -26,6 +47,40 @@ namespace pdp_chess {
             if((bitboard >> 9) & not_h_border){
                 mask |= (bitboard >> 9);
             }
+        }
+
+        return mask;
+    }
+
+    uint64_t knightsMove(int position){
+        uint64_t b = 1;
+        uint64_t bitboard = (b << position);
+        uint64_t mask = 0;
+
+        if( (bitboard >> 17) & not_h_border){
+            mask |= (bitboard >> 17);
+        }
+        if( (bitboard >> 15) & not_a_border){
+            mask |= (bitboard >> 15);
+        }
+        if( (bitboard >> 10) & not_gh_border){
+            mask |= (bitboard >> 10);
+        }
+        if( (bitboard >> 6) & not_ab_border){
+            mask |= (bitboard >> 6);
+        }
+
+        if( (bitboard << 17) & not_a_border){
+            mask |= (bitboard << 17);
+        }
+        if( (bitboard << 15) & not_h_border){
+            mask |= (bitboard << 15);
+        }
+        if( (bitboard << 10) & not_ab_border){
+            mask |= (bitboard << 10);
+        }
+        if( (bitboard << 6) & not_gh_border){
+            mask |= (bitboard << 6);
         }
 
         return mask;
@@ -64,9 +119,14 @@ namespace pdp_chess {
     std::vector<Move> legalMove(const Board& board, bool white){
         // init lookup table attacks
         uint64_t pawns_attack_table[2][64];
+        uint64_t pawns_move_table[2][64];
+        uint64_t knights_move[64];
         for(int position = 0; position < 64; position ++){
             pawns_attack_table[white][position] = pawnsAttacks(white,position);
             pawns_attack_table[black][position] = pawnsAttacks(black,position);
+            pawns_move_table[white][position] = pawnsMove(white,position);
+            pawns_move_table[black][position] = pawnsMove(black,position);
+            knights_move[position] = knightsMove(position);
         }
         std::vector<Move> moves;
         return moves;

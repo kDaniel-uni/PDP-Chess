@@ -13,11 +13,15 @@
 namespace pdp_chess {
     uint64_t const not_a_border = 18374403900871474942ULL;
     uint64_t const not_h_border = 9187201950435737471ULL;
+    uint64_t const not_ab_border = 18229723555195321596ULL;
+    uint64_t const not_gh_border = 4557430888798830399ULL;
 
 
     std::vector<Move> legalMove(const Board& board, bool white);
 
     uint64_t pawnsAttacks(int color, int position); // color {black = 0 ; white = 1}
+    uint64_t pawnsMove(int color, int position);
+    uint64_t knightsMove(int position);
 
     std::string bitboardToString(uint64_t mask);// for a debug usage
     void printBitboard(uint64_t mask); // for a debug usage
