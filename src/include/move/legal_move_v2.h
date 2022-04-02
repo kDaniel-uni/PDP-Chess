@@ -22,6 +22,7 @@ namespace pdp_chess {
     uint64_t pawnsAttacks(int color, int position); // color {black = 0 ; white = 1}
     uint64_t pawnsMove(int color, int position);
     uint64_t knightsMove(int position);
+    uint64_t kingsMoves(int position);
 
     std::string bitboardToString(uint64_t mask);// for a debug usage
     void printBitboard(uint64_t mask); // for a debug usage
