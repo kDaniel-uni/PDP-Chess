@@ -17,7 +17,7 @@ namespace pdp_chess {
 
     std::vector<Move> legalMove(const Board& board, bool white);
 
-    uint64_t pawnsAttacks(int color, int position); // color {white = 0 ; black = 1}
+    uint64_t pawnsAttacks(int color, int position); // color {black = 0 ; white = 1}
 
     std::string bitboardToString(uint64_t mask);// for a debug usage
     void printBitboard(uint64_t mask); // for a debug usage

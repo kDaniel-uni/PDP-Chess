@@ -1,30 +1,30 @@
 
 #include "legal_move_v2.h"
-
+#include <math.h>
 
 namespace pdp_chess {
 
 
     uint64_t pawnsAttacks(int color, int position){
-        uint64_t b;
-        uint64_t bitboard = (b >> position);
+        uint64_t b = 1;
+        uint64_t bitboard = (b << position);
         uint64_t mask = 0;
 
         if(color){
-            if((bitboard >> 7) & not_a_border){
-                mask |= (bitboard >> 7);
-            }
-            if((bitboard >> 9) & not_h_border){
-                mask |= (bitboard >> 9);
-            }
-        }
-
-        else{
             if((bitboard << 7) & not_h_border){
                 mask |= (bitboard << 7);
             }
             if((bitboard << 9) & not_a_border){
                 mask |= (bitboard << 9);
+            }
+        }
+
+        else{
+            if((bitboard >> 7) & not_a_border){
+                mask |= (bitboard >> 7);
+            }
+            if((bitboard >> 9) & not_h_border){
+                mask |= (bitboard >> 9);
             }
         }
 
