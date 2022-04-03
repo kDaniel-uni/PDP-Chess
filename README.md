@@ -12,11 +12,15 @@ Ce projet peut se lancer sur Ubuntu 20.04, Ubuntu 21.10 ainsi que sur Mac OS Cat
 
 ## Installation
 
-//
+Pour installer le projet, se placer dans le dossier "pdp-echec" puis utiliser les commandes suivantes :
+- "cmake ." afin de générer le makefile.
+- make afin de construire le projet.
 
 ## Utilisation
+Pour lancer la batterie de tests unitaire utiliser la commande "ctest".
+Pour lancer l'application, utiliser la commande "./pdp_chess"     
+// A etoffer une fois qu'on auras la listes d'arguments (json)
 
-//
 
 ## Auteurs
 
@@ -29,25 +33,9 @@ Zucchelli Thomas
 ## TODO
 
 - Compléter le cahier des besoins.
-- Se mettre en accords pour le coding style ( à voir tous ensemble)
+- Préparer le diaporama en vu de l'audit prévu le mercredi 13 avril
 
 ## REPARTITION DES TACHES
 
-Tous : Changement de la structure des bitboards.
+Voir Trello.
 
--Karl :
-
--Morgan :
-
--Marvin :
-
--Thomas :
-
--Florian :
-    - deplacement des pieces suivant un move.
-
-## TEST UNITAIRE
-
-Pour les tests il faudrais se définir les noms qu'on utiliseras pour que ça soit homogène suivant ce que ça test.
-Un fichier pour chaque test afin que l'on repère directement quel test foire.
-Pour lancer les tests  "ctest" après avoir make.
