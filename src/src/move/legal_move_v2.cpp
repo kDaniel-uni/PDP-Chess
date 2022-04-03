@@ -4,7 +4,11 @@
 
 namespace pdp_chess {
 
-    uint64_t pawnsMove(int color, int position){
+
+    Legalmove::Legalmove(){
+        initLookupTable();
+    }
+    uint64_t Legalmove::pawnsMove(int color, int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
@@ -26,25 +30,25 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t pawnsAttacks(int color, int position){
+    uint64_t Legalmove::pawnsAttacks(int color, int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
 
         if(color){
-            if((bitboard << 7) & not_h_border){
+            if((bitboard << 7) & _not_h_border){
                 mask |= (bitboard << 7);
             }
-            if((bitboard << 9) & not_a_border){
+            if((bitboard << 9) & _not_a_border){
                 mask |= (bitboard << 9);
             }
         }
 
         else{
-            if((bitboard >> 7) & not_a_border){
+            if((bitboard >> 7) & _not_a_border){
                 mask |= (bitboard >> 7);
             }
-            if((bitboard >> 9) & not_h_border){
+            if((bitboard >> 9) & _not_h_border){
                 mask |= (bitboard >> 9);
             }
         }
@@ -52,60 +56,60 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t knightsMove(int position){
+    uint64_t Legalmove::knightsMove(int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
 
-        if( (bitboard >> 17) & not_h_border){
+        if( (bitboard >> 17) & _not_h_border){
             mask |= (bitboard >> 17);
         }
-        if( (bitboard >> 15) & not_a_border){
+        if( (bitboard >> 15) & _not_a_border){
             mask |= (bitboard >> 15);
         }
-        if( (bitboard >> 10) & not_gh_border){
+        if( (bitboard >> 10) & _not_gh_border){
             mask |= (bitboard >> 10);
         }
-        if( (bitboard >> 6) & not_ab_border){
+        if( (bitboard >> 6) & _not_ab_border){
             mask |= (bitboard >> 6);
         }
 
-        if( (bitboard << 17) & not_a_border){
+        if( (bitboard << 17) & _not_a_border){
             mask |= (bitboard << 17);
         }
-        if( (bitboard << 15) & not_h_border){
+        if( (bitboard << 15) & _not_h_border){
             mask |= (bitboard << 15);
         }
-        if( (bitboard << 10) & not_ab_border){
+        if( (bitboard << 10) & _not_ab_border){
             mask |= (bitboard << 10);
         }
-        if( (bitboard << 6) & not_gh_border){
+        if( (bitboard << 6) & _not_gh_border){
             mask |= (bitboard << 6);
         }
 
         return mask;
     }
-    uint64_t kingsMoves(int position){
+    uint64_t Legalmove::kingsMoves(int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
 
-        if((bitboard << 7) & not_h_border){
+        if((bitboard << 7) & _not_h_border){
             mask |= (bitboard << 7);
         }
-        if((bitboard << 9) & not_a_border){
+        if((bitboard << 9) & _not_a_border){
             mask |= (bitboard << 9);
         }
-        if((bitboard << 1) & not_a_border){
+        if((bitboard << 1) & _not_a_border){
             mask |= (bitboard << 1);
         }
-        if((bitboard >> 1) & not_h_border){
+        if((bitboard >> 1) & _not_h_border){
             mask |= (bitboard >> 1);
         }
-        if((bitboard >> 7) & not_a_border){
+        if((bitboard >> 7) & _not_a_border){
             mask |= (bitboard >> 7);
         }
-        if((bitboard >> 9) & not_h_border){
+        if((bitboard >> 9) & _not_h_border){
             mask |= (bitboard >> 9);
         }
 
@@ -115,7 +119,7 @@ namespace pdp_chess {
         
     }
 
-    std::string bitboardToString(uint64_t mask){
+    std::string Legalmove::bitboardToString(uint64_t mask){
         std::string res;
         res.resize(64);
         int dec = BOARD_SIZE-1;
@@ -133,8 +137,8 @@ namespace pdp_chess {
         return res + std::to_string(mask);
     }
 
-    void printBitboard(uint64_t mask){
-        std::string chars = bitboardToString(mask);
+    void Legalmove::printBitboard(uint64_t mask){
+        std::string chars = Legalmove::bitboardToString(mask);
         for (int current_y = 0; current_y <= 7; current_y++){
                 for (int current_x = 7; current_x >= 0; current_x--){
                     std::cout << chars[current_y * 8 + current_x] << ' ';
@@ -145,23 +149,27 @@ namespace pdp_chess {
         std::cout << chars.substr(64) << std::endl;
     }
 
-    std::vector<Move> legalMove(const Board& board, bool white){
-        // init lookup table attacks
-        uint64_t pawns_attack_table[2][64];
-        uint64_t pawns_move_table[2][64];
-        uint64_t knights_move[64];
-        uint64_t kings_moves_table[64];
+
+    void Legalmove::initLookupTable(){
         for(int position = 0; position < 64; position ++){
-            pawns_attack_table[white][position] = pawnsAttacks(white,position);
-            pawns_attack_table[black][position] = pawnsAttacks(black,position);
-            pawns_move_table[white][position] = pawnsMove(white,position);
-            pawns_move_table[black][position] = pawnsMove(black,position);
-            knights_move[position] = knightsMove(position);
-            kings_moves_table[position]= kingsMoves(position);
+            _pawns_attack_table[white][position] = pawnsAttacks(white,position);
+            _pawns_attack_table[black][position] = pawnsAttacks(black,position);
+            _pawns_move_table[white][position] = pawnsMove(white,position);
+            _pawns_move_table[black][position] = pawnsMove(black,position);
+            _knights_move[position] = knightsMove(position);
+            _kings_moves_table[position]= kingsMoves(position);
         }
+    }
+
+
+    
+    std::vector<Move> Legalmove::legalMove(const Board& board, bool white){
+        // init lookup table attacks
+        
         std::vector<Move> moves;
         return moves;
     }
+
 
 
 }
