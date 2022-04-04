@@ -4,7 +4,6 @@
 
 namespace pdp_chess {
 
-
     Legalmove::Legalmove(){
         initLookupTable();
     }

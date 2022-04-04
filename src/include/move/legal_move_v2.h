@@ -13,7 +13,7 @@
 namespace pdp_chess {
         
     class Legalmove{
-        public:
+        private:
             uint64_t _pawns_attack_table[2][64]; 
             uint64_t _pawns_move_table[2][64];
             uint64_t _knights_move[64];
@@ -25,11 +25,6 @@ namespace pdp_chess {
             uint64_t const _not_ab_border = 18229723555195321596ULL;
             uint64_t const _not_gh_border = 4557430888798830399ULL;
 
-            
-
-            Legalmove();
-            std::vector<Move> legalMove(const Board& board, bool white);
-
             uint64_t pawnsAttacks(int color, int position); // color {black = 0 ; white = 1}
             uint64_t pawnsMove(int color, int position);
             uint64_t knightsMove(int position);
@@ -40,6 +35,9 @@ namespace pdp_chess {
             std::string bitboardToString(uint64_t mask);// for a debug usage
             void printBitboard(uint64_t mask); // for a debug usage
 
+        public:
+            Legalmove();
+            std::vector<Move> legalMove(const Board& board, bool white);
     };
 }
 
