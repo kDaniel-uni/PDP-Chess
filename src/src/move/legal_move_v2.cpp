@@ -223,42 +223,47 @@ namespace pdp_chess {
 
         std::vector<Move> buffer = pawnsLegalMove(board, color);
         moves.insert(moves.end(), buffer.begin(), buffer.end());
-
+        buffer = kingLegalMove(board,color);
+        moves.insert(moves.end(), buffer.begin(), buffer.end());
         return moves;
     }
 
-    std::vector<Move> Legalmove::pawnsLegalMove(const Board& board, bool color){
-        std::vector<Move> moves;
-
-        Bitboard bitboard = board._pieces[color]->pawns;
-
-        for (auto current_piece_position : pdp_chess::getPositions(bitboard)){
-            uint64_t targetable = _pawns_attack_table[color][current_piece_position] & board._pieces[!color]->all.value;
-            uint64_t walkable = _pawns_move_table[color][current_piece_position] - (_pawns_move_table[color][current_piece_position]
-                    & (board._pieces[!color]->all.value
-                    | board._pieces[color]->all.value));
-
-            if (targetable != 0){
-                for (auto target_position : pdp_chess::getPositions({targetable, 'p'})){
-                    Move move;
-                    move.start_position = current_piece_position;
-                    move.start_type = bitboard.type;
-                    move.target_position = target_position;
-                    moves.emplace_back(move);
-                }
-            }
-
-            if (walkable != 0){
-                for (auto target_position : pdp_chess::getPositions({walkable, 'p'})){
-                    Move move;
-                    move.start_position = current_piece_position;
-                    move.start_type = bitboard.type;
-                    move.target_position = target_position;
-                    moves.emplace_back(move);
-                }
+    std::vector<Move> Legalmove::pawnsLegalMove(const Board& board, bool white){
+       std::vector<Move> res;
+        uint64_t result;
+        uint64_t rushable;
+        uint64_t possibly_eat;
+        Move mv;
+        mv.start_type = board._pieces[white]->pawns.type;
+        for(int pos: getPositionsV2(board._pieces[white]->pawns.value)){
+            mv.start_position = pos;
+            rushable = _pawns_move_table[white][pos] - (_pawns_move_table[white][pos] & (board._pieces[!white]->all.value | board._pieces[white]->all.value));
+            possibly_eat = _pawns_attack_table[white][pos] & board._pieces[!white]->all.value;
+            result = possibly_eat | rushable;
+            for(int pos_target: getPositionsV2(result)){// target loop
+                mv.target_position = pos_target;
+                res.emplace_back(mv);
             }
         }
-        return moves;
+        return res;
+    }
+    std::vector<Move> Legalmove::kingLegalMove(const Board& board, bool white){
+       std::vector<Move> res;
+        uint64_t result;
+        uint64_t rushable;
+        uint64_t possibly_eat;
+        Move mv;
+        mv.start_type = board._pieces[white]->king.type;
+        for(int pos: getPositionsV2(board._pieces[white]->king.value)){
+            mv.start_position = pos;
+            rushable = _kings_moves_table[pos] - (_kings_moves_table[pos] & board._pieces[white]->all.value);
+            result = possibly_eat | rushable;
+            for(int pos_target:pdp_chess::getPositionsV2(result)){// target loop
+                mv.target_position = pos_target;
+                res.emplace_back(mv);
+            }
+        }
+        return res;
     }
 
 }
