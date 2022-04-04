@@ -120,53 +120,98 @@ namespace pdp_chess {
         
     }
 
-    uint64_t Legalmove::rooksMove(int position){
+    uint64_t Legalmove::rooksMove(int position, const Board& board, bool color){
         uint64_t mask = 0;
         int line = position/8;
         int column = position%8;
 
-        for( int i = line + 1 ; i < 8 ; i++){
-            mask |= (1ULL << ( i*8 + column ) );
+        for( int i = line + 1 ; i < 8 ; i++){//up
+            if( ( 1ULL << ( i*8 + column ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
+            mask |= ( 1ULL << ( i*8 + column ) );
+            if( ( 1ULL << ( i*8 + column ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
-        for( int i = line - 1 ; i > -1 ; i--){
-            mask |= (1ULL << ( i*8 + column ) );
+        for( int i = line - 1 ; i > -1 ; i--){//down
+            if( ( 1ULL << ( i*8 + column ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
+            mask |= ( 1ULL << ( i*8 + column ) );
+            if( ( 1ULL << ( i*8 + column ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
-        for( int j = column + 1 ; j < 8 ; j++){
-            mask |= (1ULL << ( line*8 + j ) );
+        for( int j = column + 1 ; j < 8 ; j++){//right
+            if( ( 1ULL << ( line*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
+            mask |= ( 1ULL << ( line*8 + j ) );
+            if( ( 1ULL << ( line*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
-        for( int j = column - 1 ; j > -1 ; j--){
-            mask |= (1ULL << ( line*8 + j ) );
+        for( int j = column - 1 ; j > -1 ; j--){//left
+            if( ( 1ULL << ( line*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
+            mask |= ( 1ULL << ( line*8 + j ) );
+            if( ( 1ULL << ( line*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
         return mask;
     }
 
-    uint64_t Legalmove::bishopsMove(int position){
+    uint64_t Legalmove::bishopsMove(int position, const Board& board, bool color ){
         uint64_t mask = 0;
         int line = position/8;
         int column = position%8;
         int i,j;
 
         for( i = line + 1 , j = column + 1 ; i < 8 && j < 8 ; i++, j++){//up right
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
             mask |= ( 1ULL << ( i*8 + j ) );
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
         for( i = line - 1 , j = column + 1 ; i > -1 && j < 8 ; i--, j++){//down right
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
             mask |= ( 1ULL << ( i*8 + j ) );
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
         for( i = line + 1 , j = column - 1 ; i < 8 && j > -1 ; i++, j--){//up left
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
             mask |= ( 1ULL << ( i*8 + j ) );
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
         for( i = line - 1 , j = column - 1 ; i > -1 && j > -1 ; i--, j--){//down left
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[color]->all.value ) ){
+                break;
+            }
             mask |= ( 1ULL << ( i*8 + j ) );
+            if( ( 1ULL << ( i*8 + j ) ) & ( board._pieces[!color]->all.value ) ){
+                break;
+            }
         }
 
         return mask;
     }
 
-    uint64_t Legalmove::queenMove(int position){
-        uint64_t mask = 0;
-        mask |= bishopsMove(position);
-        mask |= rooksMove(position);
-        return mask;
+    uint64_t Legalmove::queensMove(int position, const Board& board, bool color ){
+        return ( bishopsMove(position, board, color) | rooksMove(position, board, color) );
     }
 
     std::string Legalmove::bitboardToString(uint64_t mask){
@@ -208,9 +253,6 @@ namespace pdp_chess {
             _pawns_move_table[black][position] = pawnsMove(black,position);
             _knights_move[position] = knightsMove(position);
             _kings_moves_table[position] = kingsMoves(position);
-            _rooks_moves_table[position] = rooksMove(position);
-            _bishops_moves_table[position] = bishopsMove(position);
-            _queens_moves_table[position] = queenMove(position);
         }
     }
 
@@ -224,6 +266,12 @@ namespace pdp_chess {
         std::vector<Move> buffer = pawnsLegalMove(board, color);
         moves.insert(moves.end(), buffer.begin(), buffer.end());
         buffer = kingLegalMove(board,color);
+        moves.insert(moves.end(), buffer.begin(), buffer.end());
+        buffer = rooksLegalMove(board, color);
+        moves.insert(moves.end(), buffer.begin(), buffer.end());
+        buffer = bishopsLegalMove(board, color);
+        moves.insert(moves.end(), buffer.begin(), buffer.end());
+        buffer = queensLegalMove(board, color);
         moves.insert(moves.end(), buffer.begin(), buffer.end());
         return moves;
     }
@@ -264,6 +312,60 @@ namespace pdp_chess {
             }
         }
         return res;
+    }
+
+        std::vector<Move> Legalmove::rooksLegalMove(const Board& board, bool color){
+        std::vector<Move> moves;
+        Bitboard bitboard = board._pieces[color]->rooks;
+
+        for (auto current_piece_position : getPositionsV2(bitboard.value) ){
+            uint64_t targetable;
+            targetable = rooksMove(current_piece_position, board, color);
+            for (auto current_target_position : getPositionsV2(targetable) ){
+                Move move;
+                move.start_position = current_piece_position;
+                move.start_type = bitboard.type;
+                move.target_position = current_target_position;
+                moves.emplace_back(move);
+            }
+        }
+        return moves;
+    }
+
+    std::vector<Move> Legalmove::bishopsLegalMove(const Board& board, bool color){
+        std::vector<Move> moves;
+        Bitboard bitboard = board._pieces[color]->bishops;
+
+        for (auto current_piece_position : getPositionsV2(bitboard.value) ){
+            uint64_t targetable;
+            targetable = bishopsMove(current_piece_position, board, color);
+            for (auto current_target_position : getPositionsV2(targetable) ){
+                Move move;
+                move.start_position = current_piece_position;
+                move.start_type = bitboard.type;
+                move.target_position = current_target_position;
+                moves.emplace_back(move);
+            }
+        }
+        return moves;
+    }
+
+    std::vector<Move> Legalmove::queensLegalMove(const Board& board, bool color){
+        std::vector<Move> moves;
+        Bitboard bitboard = board._pieces[color]->queen;
+
+        for (auto current_piece_position : getPositionsV2(bitboard.value) ){
+            uint64_t targetable;
+            targetable = queensMove(current_piece_position, board, color);
+            for (auto current_target_position : getPositionsV2(targetable) ){
+                Move move;
+                move.start_position = current_piece_position;
+                move.start_type = bitboard.type;
+                move.target_position = current_target_position;
+                moves.emplace_back(move);
+            }
+        }
+        return moves;
     }
 
 }
