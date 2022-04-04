@@ -15,9 +15,10 @@ namespace pdp_chess {
         king_value = 200; 
         backward_value = 0.5;
         isolated_value = 0.5;
+        doubled_value = 0.5;
     }
 
-    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v) {
+    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v, float d_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -26,13 +27,34 @@ namespace pdp_chess {
         king_value = k_v;
         backward_value = back_v;
         isolated_value = i_v;
+        doubled_value = d_v;
     }
 
     float Heuristic::nbBackward(const Bitboard * bitboard){
         float cmp = 0;
-        for(int i = 8; i < BOARD_SIZE; i++){
+        for(int i = 0; i < BOARD_SIZE; i++){
             if((bitboard->value >> i) & 1) {
-                if((bitboard->value >> i - 8) & 1){
+                bool back = true;
+                if(i%8 != 0){
+                    for(int j = (i-1)%8; j <= i-1; j+=8){
+                        if((bitboard->value >> j) & 1){
+                            back = false;
+                        }
+                    }
+                }
+                if(i%8 != 7){
+                    for(int j = (i+1)%8; j <= i+1; j+=8){
+                        if((bitboard->value >> j) & 1){
+                            back = false;
+                        }
+                    }
+                }
+                for(int j = i%8; j < i; j+=8){
+                    if((bitboard->value >> j) & 1){
+                        back = false;
+                    }
+                }
+                if(back){
                     cmp++;
                 }
             }
@@ -42,7 +64,13 @@ namespace pdp_chess {
 
     float Heuristic::nbDoubled(const Bitboard * bitboard){
         float cmp = 0;
-        
+        for(int i = 8; i < BOARD_SIZE; i++){
+            if((bitboard->value >> i) & 1) {
+                if((bitboard->value >> i - 8) & 1){
+                    cmp++;
+                }
+            }
+        }
         return cmp;
     }
 
@@ -102,11 +130,9 @@ namespace pdp_chess {
                 }
             }
         }
-        printf("val = %f\n", value);
-        value += backward_value*nbBackward(bitboards->list[0]); 
-        printf("+back = %f\n", value);
+        value += doubled_value*nbDoubled(bitboards->list[0]); 
         value += isolated_value*nbIsolated(bitboards->list[0]);
-        printf("+iso = %f\n", value);
+        value += backward_value*nbBackward(bitboards->list[0]);
         return value;
     }
 

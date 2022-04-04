@@ -19,9 +19,10 @@ namespace pdp_chess {
         float king_value;
         float backward_value;
         float isolated_value;
+        float doubled_value;
 
         Heuristic();
-        Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v);
+        Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v, float d_v);
         float nbDoubled(const Bitboard  * bitboard);
         float nbBackward(const Bitboard * bitboard);
         float nbIsolated(const Bitboard * bitboard);
