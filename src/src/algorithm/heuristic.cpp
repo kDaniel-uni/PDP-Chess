@@ -4,6 +4,7 @@
 
 
 #include <heuristic.h>
+#include <legal_move.h>
 
 namespace pdp_chess {
     Heuristic::Heuristic(){
@@ -109,6 +110,19 @@ namespace pdp_chess {
         return cmp;
     }
 
+    float nbLegalMove(const Board& board, bool white_turn){
+        float legal_move_count = 0;
+
+        std::vector<Move> white_legal_move = legal_move(board, white_turn);
+        legal_move_count += white_legal_move.size();
+        std::vector<Move> black_legal_move = legal_move(board, !white_turn);
+        legal_move_count -= black_legal_move.size();
+        if(white_turn)
+            return legal_move_count;
+        else
+            return -1*legal_move_count;
+    }
+
     float Heuristic::evaluatePieces(const Bitboards * bitboards){
         float value = 0;
         for (int i = 0; i < 6; i++) {
@@ -138,6 +152,7 @@ namespace pdp_chess {
 
     float Heuristic::evaluateBoard(const Board &board, bool white_turn) {
         float value = evaluatePieces(board._pieces[white]) - evaluatePieces(board._pieces[black]);
+        //value += nbLegalMove(board, white_turn);
         if (white_turn)
             return value;
         else
