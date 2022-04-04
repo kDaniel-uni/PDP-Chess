@@ -26,8 +26,6 @@ namespace pdp_chess{
         return res;
     }
 
-
-
     std::vector<Move> legal_move_pawns(const Board& board, bool is_white){
         std::vector<Move> res;
         uint8_t index2;

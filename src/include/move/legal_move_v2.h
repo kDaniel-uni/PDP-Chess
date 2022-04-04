@@ -14,14 +14,10 @@ namespace pdp_chess {
         
     class Legalmove{
         private:
-            uint64_t _pawns_attack_table[2][64]; 
-            uint64_t _pawns_move_table[2][64];
-            uint64_t _knights_move[64];
+            uint64_t _pawns_attacks_table[2][64];
+            uint64_t _pawns_moves_table[2][64];
+            uint64_t _knights_moves_table[64];
             uint64_t _kings_moves_table[64];
-            uint64_t _rooks_moves_table[64];
-            uint64_t _bishops_moves_table[64];
-            uint64_t _queens_moves_table[64];
-
         
             uint64_t const _not_a_border = 18374403900871474942ULL;
             uint64_t const _not_h_border = 9187201950435737471ULL;
@@ -29,18 +25,19 @@ namespace pdp_chess {
             uint64_t const _not_gh_border = 4557430888798830399ULL;
 
             uint64_t pawnsAttacks(int color, int position); // color {black = 0 ; white = 1}
-            uint64_t pawnsMove(int color, int position);
-            uint64_t knightsMove(int position);
+            uint64_t pawnsMoves(int color, int position);
+            uint64_t knightsMoves(int position);
             uint64_t kingsMoves(int position);
-            uint64_t rooksMove(int position, const Board& board, bool color);
-            uint64_t bishopsMove(int position, const Board& board, bool color);
-            uint64_t queensMove(int position, const Board& board, bool color);
+            uint64_t rooksMoves(int position, const Board& board, bool color);
+            uint64_t bishopsMoves(int position, const Board& board, bool color);
+            uint64_t queensMoves(int position, const Board& board, bool color);
 
-            std::vector<Move> pawnsLegalMove(const Board& board, bool color);
-            std::vector<Move> kingLegalMove(const Board& board, bool color);
-            std::vector<Move> rooksLegalMove(const Board& board, bool color);
-            std::vector<Move> bishopsLegalMove(const Board& board, bool color);
-            std::vector<Move> queensLegalMove(const Board& board, bool color);
+            void pawnsLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+            void kingLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+            void knightsLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+            void bishopsLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+            void queensLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+            void rooksLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
 
             void initLookupTable();
 

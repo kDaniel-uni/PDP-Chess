@@ -66,14 +66,20 @@ add_test(move_chain_eat_test bitboard_move_test 4)
 add_test(move_undo_redo_test bitboard_move_test 5)
 
 add_test(legal_move_pawns_test legal_move_test 1)
-add_test(legal_move_rooks_test legal_move_test 2)
-add_test(legal_move_bishops_test legal_move_test 3)
-add_test(legal_move_knights_test legal_move_test 4)
-add_test(legal_move_queen_test legal_move_test 5)
-add_test(legal_move_king_test legal_move_test 6)
-
 add_test(legal_move_v2_pawns_test legal_move_v2_test 1)
+
+add_test(legal_move_rooks_test legal_move_test 2)
 add_test(legal_move_v2_rooks_test legal_move_v2_test 2)
+
+add_test(legal_move_bishops_test legal_move_test 3)
 add_test(legal_move_v2_bishops_test legal_move_v2_test 3)
-add_test(legal_move_v2_king_test legal_move_v2_test 4)
+
+add_test(legal_move_knights_test legal_move_test 4)
+add_test(legal_move_v2_knights_test legal_move_v2_test 4)
+
+add_test(legal_move_queen_test legal_move_test 5)
+add_test(legal_move_v2_queen_test legal_move_v2_test 5)
+
+add_test(legal_move_king_test legal_move_test 6)
+add_test(legal_move_v2_king_test legal_move_v2_test 6)
 
