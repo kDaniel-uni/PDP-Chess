@@ -118,6 +118,55 @@ namespace pdp_chess {
         
     }
 
+    uint64_t Legalmove::rooksMove(int position){
+        uint64_t mask = 0;
+        int line = position/8;
+        int column = position%8;
+
+        for( int i = line + 1 ; i < 8 ; i++){
+            mask |= (1ULL << ( i*8 + column ) );
+        }
+        for( int i = line - 1 ; i > -1 ; i--){
+            mask |= (1ULL << ( i*8 + column ) );
+        }
+        for( int j = column + 1 ; j < 8 ; j++){
+            mask |= (1ULL << ( line*8 + j ) );
+        }
+        for( int j = column - 1 ; j > -1 ; j--){
+            mask |= (1ULL << ( line*8 + j ) );
+        }
+        return mask;
+    }
+
+    uint64_t Legalmove::bishopsMove(int position){
+        uint64_t mask = 0;
+        int line = position/8;
+        int column = position%8;
+        int i,j;
+
+        for( i = line + 1 , j = column + 1 ; i < 8 && j < 8 ; i++, j++){//up right
+            mask |= ( 1ULL << ( i*8 + j ) );
+        }
+        for( i = line - 1 , j = column + 1 ; i > -1 && j < 8 ; i--, j++){//down right
+            mask |= ( 1ULL << ( i*8 + j ) );
+        }
+        for( i = line + 1 , j = column - 1 ; i < 8 && j > -1 ; i++, j--){//up left
+            mask |= ( 1ULL << ( i*8 + j ) );
+        }
+        for( i = line - 1 , j = column - 1 ; i > -1 && j > -1 ; i--, j--){//down left
+            mask |= ( 1ULL << ( i*8 + j ) );
+        }
+
+        return mask;
+    }
+
+    uint64_t Legalmove::queenMove(int position){
+        uint64_t mask = 0;
+        mask |= bishopsMove(position);
+        mask |= rooksMove(position);
+        return mask;
+    }
+
     std::string Legalmove::bitboardToString(uint64_t mask){
         std::string res;
         res.resize(64);
@@ -156,7 +205,10 @@ namespace pdp_chess {
             _pawns_move_table[white][position] = pawnsMove(white,position);
             _pawns_move_table[black][position] = pawnsMove(black,position);
             _knights_move[position] = knightsMove(position);
-            _kings_moves_table[position]= kingsMoves(position);
+            _kings_moves_table[position] = kingsMoves(position);
+            _rooks_moves_table[position] = rooksMove(position);
+            _bishops_moves_table[position] = bishopsMove(position);
+            _queens_moves_table[position] = queenMove(position);
         }
     }
 

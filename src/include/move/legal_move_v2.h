@@ -18,6 +18,9 @@ namespace pdp_chess {
             uint64_t _pawns_move_table[2][64];
             uint64_t _knights_move[64];
             uint64_t _kings_moves_table[64];
+            uint64_t _rooks_moves_table[64];
+            uint64_t _bishops_moves_table[64];
+            uint64_t _queens_moves_table[64];
 
         
             uint64_t const _not_a_border = 18374403900871474942ULL;
@@ -29,6 +32,9 @@ namespace pdp_chess {
             uint64_t pawnsMove(int color, int position);
             uint64_t knightsMove(int position);
             uint64_t kingsMoves(int position);
+            uint64_t rooksMove(int position);
+            uint64_t bishopsMove(int position);
+            uint64_t queenMove(int position);
 
             void initLookupTable();
 
