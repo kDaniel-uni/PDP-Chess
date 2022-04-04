@@ -31,27 +31,27 @@ namespace pdp_chess {
         doubled_value = d_v;
     }
 
-    float Heuristic::nbBackward(const Bitboard * bitboard){
+    float Heuristic::nbBackward(const Bitboard &bitboard){
         float cmp = 0;
         for(int i = 0; i < BOARD_SIZE; i++){
-            if((bitboard->value >> i) & 1) {
+            if((bitboard.value >> i) & 1) {
                 bool back = true;
                 if(i%8 != 0){
                     for(int j = (i-1)%8; j <= i-1; j+=8){
-                        if((bitboard->value >> j) & 1){
+                        if((bitboard.value >> j) & 1){
                             back = false;
                         }
                     }
                 }
                 if(i%8 != 7){
                     for(int j = (i+1)%8; j <= i+1; j+=8){
-                        if((bitboard->value >> j) & 1){
+                        if((bitboard.value >> j) & 1){
                             back = false;
                         }
                     }
                 }
                 for(int j = i%8; j < i; j+=8){
-                    if((bitboard->value >> j) & 1){
+                    if((bitboard.value >> j) & 1){
                         back = false;
                     }
                 }
@@ -63,11 +63,11 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float Heuristic::nbDoubled(const Bitboard * bitboard){
+    float Heuristic::nbDoubled(const Bitboard &bitboard){
         float cmp = 0;
         for(int i = 8; i < BOARD_SIZE; i++){
-            if((bitboard->value >> i) & 1) {
-                if((bitboard->value >> i - 8) & 1){
+            if((bitboard.value >> i) & 1) {
+                if((bitboard.value >> i - 8) & 1){
                     cmp++;
                 }
             }
@@ -75,14 +75,14 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float Heuristic::nbIsolated(const Bitboard * bitboard){
+    float Heuristic::nbIsolated(const Bitboard &bitboard){
         float cmp = 0;
         for(int i = 0; i < BOARD_SIZE; i++){
-            if((bitboard->value >> i) & 1) {
+            if((bitboard.value >> i) & 1) {
                 bool isolated = true;
                 if(i%8 != 0){
                     for(int j = i-1; j < BOARD_SIZE; j+=8){
-                        if((bitboard->value >> j) & 1){
+                        if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
                         }
@@ -90,14 +90,14 @@ namespace pdp_chess {
                 }
                 if(i%8 != 7){
                     for(int j = i+1; j < BOARD_SIZE; j+=8){
-                        if((bitboard->value >> j) & 1){
+                        if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
                         }
                     }
                 }
                 for(int j = i%8; j < BOARD_SIZE; j+=8){
-                    if((bitboard->value >> j) & 1 && j != i){
+                    if((bitboard.value >> j) & 1 && j != i){
                         isolated = false;
                         break;
                     }
@@ -110,7 +110,7 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float nbLegalMove(const Board& board, bool white_turn){
+    float Heuristic::nbLegalMove(const Board& board, bool white_turn){
         float legal_move_count = 0;
 
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
@@ -123,10 +123,10 @@ namespace pdp_chess {
             return -1*legal_move_count;
     }
 
-    float Heuristic::evaluatePieces(const Bitboards * bitboards){
+    float Heuristic::evaluatePieces(const Bitboards &bitboard){
         float value = 0;
         for (int i = 0; i < 6; i++) {
-            Bitboard* b = bitboards->list[i];
+            Bitboard* b = bitboard.list[i];
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if ((b->value >> j) & 1) {
                     if (i == 0)
@@ -144,14 +144,14 @@ namespace pdp_chess {
                 }
             }
         }
-        value += doubled_value*nbDoubled(bitboards->list[0]); 
-        value += isolated_value*nbIsolated(bitboards->list[0]);
-        value += backward_value*nbBackward(bitboards->list[0]);
+        value += doubled_value*nbDoubled(*bitboard.list[0]);
+        value += isolated_value*nbIsolated(*bitboard.list[0]);
+        value += backward_value*nbBackward(*bitboard.list[0]);
         return value;
     }
 
     float Heuristic::evaluateBoard(const Board &board, bool white_turn) {
-        float value = evaluatePieces(board._pieces[white]) - evaluatePieces(board._pieces[black]);
+        float value = evaluatePieces(*board._pieces[white]) - evaluatePieces(*board._pieces[black]);
         //value += nbLegalMove(board, white_turn);
         if (white_turn)
             return value;

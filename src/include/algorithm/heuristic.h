@@ -23,11 +23,11 @@ namespace pdp_chess {
 
         Heuristic();
         Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v, float d_v);
-        float nbDoubled(const Bitboard  * bitboard);
-        float nbBackward(const Bitboard * bitboard);
-        float nbIsolated(const Bitboard * bitboard);
+        float nbDoubled(const Bitboard &bitboard);
+        float nbBackward(const Bitboard &bitboard);
+        float nbIsolated(const Bitboard &bitboard);
         float nbLegalMove(const Board& Board, bool white_turn);
-        float evaluatePieces(const Bitboards * bitboard);
+        float evaluatePieces(const Bitboards &bitboard);
         float evaluateBoard(const Board& board, bool white_turn); //true for white turn, false for black turn
     };
 
