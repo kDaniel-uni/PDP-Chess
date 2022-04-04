@@ -26,8 +26,6 @@ namespace pdp_chess{
         return res;
     }
 
-
-
     std::vector<Move> legal_move_pawns(const Board& board, bool is_white){
         std::vector<Move> res;
         uint8_t index2;
@@ -41,7 +39,7 @@ namespace pdp_chess{
                         res.push_back(mv);
                     }
                 }
-                if( !((board._pieces[white]->all.value  >> (index+8)) & 1) ){ //advance from one
+                if( !((board._pieces[white]->all.value  >> (index+8)) & 1) & !((board._pieces[black]->all.value >> (index-8)) & 1) ){ //advance from one
                     Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+8)};
                     res.push_back(mv);
                 }
@@ -72,12 +70,12 @@ namespace pdp_chess{
                     res.push_back(mv);
                 }
             }
-            if( !((board._pieces[white]->all.value >> (index-8)) & 1) ){//advance from one
+            if( !((board._pieces[white]->all.value >> (index-8)) & 1) & !((board._pieces[black]->all.value >> (index-8)) & 1) ){//advance from one
                 Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-8)};
                 res.push_back(mv);
             }
             index2 = index%8;
-            if( (board._pieces[black]->all.value >> (index-7)) & 1){//eat
+            if( (board._pieces[white]->all.value >> (index-7)) & 1){//eat
                 index2++;
                 if( (index2 >=0) & (index2 < 8) ){
                     Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-7)};
@@ -85,7 +83,7 @@ namespace pdp_chess{
                 }
             }
             index2 = index%8;
-            if( (board._pieces[black]->all.value >> (index-9)) & 1){//eat
+            if( (board._pieces[white]->all.value >> (index-9)) & 1){//eat
                 index2--;
                 if ( (index2 >=0) & (index2 < 8) ){
                     Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-9)};

@@ -6,8 +6,7 @@
 #include "bitboard_operations.h"
 #include "move.h"
 #include "game.h"
-#include "legal_move.h"
-#include <iostream>
+#include "legal_move_v2.h"
 #include <chrono>
 
 using namespace pdp_chess;
@@ -16,6 +15,7 @@ int main (int argc, char *argv[]) {
     std::string arg = argv[1];
     Game g = Game();
     std::vector<Move> to_test;
+    Legalmove legal_moves = Legalmove();
 
     if (arg == "1"){
         g.board.fromString("--------P--------p----------------------------------------------");
@@ -25,7 +25,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 3){
                 return EXIT_FAILURE;
@@ -42,7 +42,7 @@ int main (int argc, char *argv[]) {
                 }
             }
 
-            to_test = pdp_chess::legal_move(g.board,false);
+            to_test = legal_moves.legalMove(g.board,false);
 
             if (to_test.size() != 2){
                 return EXIT_FAILURE;
@@ -73,7 +73,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 9){
                 return EXIT_FAILURE;
@@ -101,7 +101,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 6){
                 return EXIT_FAILURE;
@@ -129,7 +129,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 6){
                 return EXIT_FAILURE;
@@ -157,7 +157,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 9){
                 return EXIT_FAILURE;
@@ -176,7 +176,7 @@ int main (int argc, char *argv[]) {
         std::cout << duration << "ns total, average : " << duration / iterations << "ns." << std::endl;
 
         return EXIT_SUCCESS;
-
+        
     }else if( arg == "6"){
         g.board.fromString("K-------p------p------------------------------------------------");
         g.drawBoard();
@@ -185,7 +185,7 @@ int main (int argc, char *argv[]) {
         uint32_t iterations = 1000000;
         for(uint32_t i = 0; i < iterations; ++i)
         {
-            to_test = pdp_chess::legal_move(g.board,true);
+            to_test = legal_moves.legalMove(g.board,true);
 
             if (to_test.size() != 3){
                 return EXIT_FAILURE;
@@ -202,7 +202,7 @@ int main (int argc, char *argv[]) {
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
         std::cout << duration << "ns total, average : " << duration / iterations << "ns." << std::endl;
-
+        
         return EXIT_SUCCESS;
     }
     return EXIT_FAILURE;

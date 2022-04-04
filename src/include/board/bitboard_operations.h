@@ -14,6 +14,8 @@ namespace pdp_chess{
 
     std::vector<uint8_t> getPositions(const Bitboard& bitboard);
 
+    std::vector<uint8_t> getPositionsV2(uint64_t bitboard);
+
     void eatPiece(Move& move, Bitboards& bitboards);
 
     void movePiece(Move& move, Bitboards& bitboards);

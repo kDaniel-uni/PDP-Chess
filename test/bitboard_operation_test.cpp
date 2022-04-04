@@ -5,6 +5,7 @@
 #include <string>
 #include "board/bitboard_operations.h"
 #include "game.h"
+#include <chrono>
 #include <iostream>
 
 using namespace pdp_chess;
@@ -37,6 +38,53 @@ int main (int argc, char *argv[]) {
             return EXIT_SUCCESS;
         }
 
+    } else if (arg == "3"){
+
+        game.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+
+        auto begin = std::chrono::high_resolution_clock::now();
+        uint32_t iterations = 1000000;
+        for(uint32_t i = 0; i < iterations; ++i)
+        {
+            //std::vector<uint8_t> result = getPositions(game.board._pieces[white]->pawns);
+            std::vector<uint8_t> result = getPositions(game.board._pieces[white]->king);
+
+            //std::vector<uint8_t> expected_result = {8,9,10,11,12,13,14,15};
+            std::vector<uint8_t> expected_result = {4};
+
+            if (result != expected_result){
+                return EXIT_FAILURE;
+            }
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
+        std::cout << duration << "ns total, average : " << duration / iterations << "ns." << std::endl;
+
+        return EXIT_SUCCESS;
+
+    }else if (arg == "4"){
+
+        game.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+
+        auto begin = std::chrono::high_resolution_clock::now();
+        uint32_t iterations = 1000000;
+        for(uint32_t i = 0; i < iterations; ++i)
+        {
+            //std::vector<uint8_t> result = getPositionsV2(game.board._pieces[white]->pawns.value);
+            std::vector<uint8_t> result = getPositionsV2(game.board._pieces[white]->king.value);
+
+            //std::vector<uint8_t> expected_result = {8,9,10,11,12,13,14,15};
+            std::vector<uint8_t> expected_result = {4};
+
+            if (result != expected_result){
+                return EXIT_FAILURE;
+            }
+        }
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count();
+        std::cout << duration << "ns total, average : " << duration / iterations << "ns." << std::endl;
+
+        return EXIT_SUCCESS;
     }
 
     return EXIT_FAILURE;

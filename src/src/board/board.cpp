@@ -169,4 +169,25 @@ namespace pdp_chess {
         }
         return -1;
     }
+
+    char Board::findType(uint8_t index) const{
+
+        if ((_pieces[white]->all.value >> index) & 1){
+            for (Bitboard* bitboard : _pieces[white]->list){
+                if ((bitboard->value >> index) & 1){
+                    return bitboard->type;
+                }
+            }
+        }
+
+        if ((_pieces[black]->all.value >> index) & 1){
+            for (Bitboard* bitboard : _pieces[black]->list){
+                if ((bitboard->value >> index) & 1){
+                    return bitboard->type;
+                }
+            }
+        }
+
+        return '-';
+    }
 }

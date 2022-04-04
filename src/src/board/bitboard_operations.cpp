@@ -4,6 +4,7 @@
 
 #include "bitboard_operations.h"
 #include <algorithm>
+#include "math.h"
 
 namespace pdp_chess {
 
@@ -11,8 +12,19 @@ namespace pdp_chess {
         std::vector<uint8_t> positions;
         for (int i = 0; i < BOARD_SIZE; i++) {
             if ((bitboard.value >> i) & 1) {
-                positions.push_back(i);
+                positions.emplace_back(i);
             }
+        }
+        return positions;
+    }
+
+    std::vector<uint8_t> getPositionsV2(uint64_t bitboard) {
+        std::vector<uint8_t> positions;
+        uint64_t onebit;
+        while (bitboard != 0){
+            onebit = bitboard & -bitboard;
+            positions.emplace_back(log2(onebit));
+            bitboard -= onebit;
         }
         return positions;
     }
@@ -68,6 +80,5 @@ namespace pdp_chess {
         uint64_t black_pawn_base_position = (base<<55) + (base<<54) + (base<<53) + (base<<52) + (base<<51) + (base<<50) + (base<<49) + (base<<48);
         return bitboard.value & black_pawn_base_position;
     }
-
 }
 

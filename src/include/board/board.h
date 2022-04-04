@@ -30,6 +30,7 @@ namespace pdp_chess {
         void resetToClassic();
         void resetToEmpty();
         int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.
+        char findType(uint8_t index) const;
     };
 
 }
