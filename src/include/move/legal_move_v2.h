@@ -36,6 +36,8 @@ namespace pdp_chess {
             uint64_t bishopsMove(int position);
             uint64_t queenMove(int position);
 
+            std::vector<Move> pawnsLegalMove(const Board& board, bool color);
+
             void initLookupTable();
 
             std::string bitboardToString(uint64_t mask);// for a debug usage

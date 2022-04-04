@@ -4,6 +4,8 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 20)
 enable_testing()
 
+add_compile_options(-Ofast)
+
 include_directories(src/include)
 include_directories(src/include/algorithm)
 include_directories(src/include/board)
@@ -54,6 +56,8 @@ add_test(board_random_load_test board_io_test 4)
 
 add_test(white_pawns_in_base_pos_test bitboard_operation_test 1)
 add_test(black_pawns_in_base_pos_test bitboard_operation_test 2)
+add_test(get_positions_test bitboard_operation_test 3)
+add_test(get_positions_v2_test bitboard_operation_test 4)
 
 add_test(move_pawns_test bitboard_move_test 1)
 add_test(move_knight_test bitboard_move_test 2)

@@ -1,5 +1,6 @@
 
 #include "legal_move_v2.h"
+#include "bitboard_operations.h"
 #include <math.h>
 
 namespace pdp_chess {
@@ -7,6 +8,7 @@ namespace pdp_chess {
     Legalmove::Legalmove(){
         initLookupTable();
     }
+
     uint64_t Legalmove::pawnsMove(int color, int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
@@ -214,13 +216,49 @@ namespace pdp_chess {
 
 
     
-    std::vector<Move> Legalmove::legalMove(const Board& board, bool white){
+    std::vector<Move> Legalmove::legalMove(const Board& board, bool color){
         // init lookup table attacks
         
         std::vector<Move> moves;
+
+        std::vector<Move> buffer = pawnsLegalMove(board, color);
+        moves.insert(moves.end(), buffer.begin(), buffer.end());
+
         return moves;
     }
 
+    std::vector<Move> Legalmove::pawnsLegalMove(const Board& board, bool color){
+        std::vector<Move> moves;
 
+        Bitboard bitboard = board._pieces[color]->pawns;
+
+        for (auto current_piece_position : pdp_chess::getPositions(bitboard)){
+            uint64_t targetable = _pawns_attack_table[color][current_piece_position] & board._pieces[!color]->all.value;
+            uint64_t walkable = _pawns_move_table[color][current_piece_position] - (_pawns_move_table[color][current_piece_position]
+                    & (board._pieces[!color]->all.value
+                    | board._pieces[color]->all.value));
+
+            if (targetable != 0){
+                for (auto target_position : pdp_chess::getPositions({targetable, 'p'})){
+                    Move move;
+                    move.start_position = current_piece_position;
+                    move.start_type = bitboard.type;
+                    move.target_position = target_position;
+                    moves.emplace_back(move);
+                }
+            }
+
+            if (walkable != 0){
+                for (auto target_position : pdp_chess::getPositions({walkable, 'p'})){
+                    Move move;
+                    move.start_position = current_piece_position;
+                    move.start_type = bitboard.type;
+                    move.target_position = target_position;
+                    moves.emplace_back(move);
+                }
+            }
+        }
+        return moves;
+    }
 
 }
