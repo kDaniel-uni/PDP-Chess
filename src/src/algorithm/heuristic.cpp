@@ -14,9 +14,10 @@ namespace pdp_chess {
         queen_value = 9;
         king_value = 200; 
         backward_value = 0.5;
+        isolated_value = 0.5;
     }
 
-    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v) {
+    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -24,10 +25,11 @@ namespace pdp_chess {
         queen_value = q_v;
         king_value = k_v;
         backward_value = back_v;
+        isolated_value = i_v;
     }
 
     float Heuristic::nbBackward(const Bitboard * bitboard){
-        int cmp = 0;
+        float cmp = 0;
         for(int i = 8; i < BOARD_SIZE; i++){
             if((bitboard->value >> i) & 1) {
                 if((bitboard->value >> i - 8) & 1){
@@ -39,20 +41,44 @@ namespace pdp_chess {
     }
 
     float Heuristic::nbDoubled(const Bitboard * bitboard){
-        for(int i = 0; i < BOARD_SIZE; i++){
-            if((bitboard->value >> i) & 1) {
-            }
-        }
-        return 0;
+        float cmp = 0;
+        
+        return cmp;
     }
 
     float Heuristic::nbIsolated(const Bitboard * bitboard){
+        float cmp = 0;
         for(int i = 0; i < BOARD_SIZE; i++){
             if((bitboard->value >> i) & 1) {
-
+                bool isolated = true;
+                if(i%8 != 0){
+                    for(int j = i-1; j < BOARD_SIZE; j+=8){
+                        if((bitboard->value >> j) & 1){
+                            isolated = false;
+                            break;
+                        }
+                    }
+                }
+                if(i%8 != 7){
+                    for(int j = i+1; j < BOARD_SIZE; j+=8){
+                        if((bitboard->value >> j) & 1){
+                            isolated = false;
+                            break;
+                        }
+                    }
+                }
+                for(int j = i%8; j < BOARD_SIZE; j+=8){
+                    if((bitboard->value >> j) & 1 && j != i){
+                        isolated = false;
+                        break;
+                    }
+                }
+                if(isolated){
+                    cmp++;
+                }
             }
         }
-        return 0;
+        return cmp;
     }
 
     float Heuristic::evaluatePieces(const Bitboards * bitboards){
@@ -76,7 +102,11 @@ namespace pdp_chess {
                 }
             }
         }
+        printf("val = %f\n", value);
         value += backward_value*nbBackward(bitboards->list[0]); 
+        printf("+back = %f\n", value);
+        value += isolated_value*nbIsolated(bitboards->list[0]);
+        printf("+iso = %f\n", value);
         return value;
     }
 
