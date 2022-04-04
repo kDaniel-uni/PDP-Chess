@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
     g->drawBoard();
     g->fromString("------------KQ-B-------------------------------------------------");
     g->drawBoard();
-    /*printf("%d\n", g->board.getBoardValue(true, h));*/
+    printf("%d\n", h->evaluateBoard(g->board, true));
     g->fromString("------------KQ-B----------------------------ppp------------------");
     g->drawBoard();
-    /*printf("%d\n", g->board.getBoardValue(true, h));*/
+    printf("%d\n", h->evaluateBoard(g->board, true));
     return argc == 3 ? EXIT_SUCCESS : EXIT_FAILURE; // optional return value
 }

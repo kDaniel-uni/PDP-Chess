@@ -18,8 +18,13 @@ namespace pdp_chess {
         int queen_value;
         int king_value;
 
+        Heuristic();
         Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v);
-        int evaluateBoard(const Board& board);
+        int nbDoubled(const Bitboard &bitboard);
+        int nbBackward(const Bitboard &bitboard);
+        int nbIsolated(const Bitboard &bitboard);
+        int evaluatePieces(const Bitboards * bitboard);
+        int evaluateBoard(const Board& board, bool white_turn); //true for white turn, false for black turn
     };
 
 }
