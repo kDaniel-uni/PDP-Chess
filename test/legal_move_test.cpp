@@ -32,11 +32,11 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if((int)m.start_position != 8 ){
+                if(m.start_position != a2 ){
                     return EXIT_FAILURE;
                 }
                 else{
-                    if(((int)m.target_position != 24) && ((int)m.target_position != 16) && ((int)m.target_position != 17) ){
+                    if(m.target_position != a4 && m.target_position != a3 && m.target_position != b3 ){
                         return EXIT_FAILURE;
                     }
                 }
@@ -49,11 +49,11 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if((int)m.start_position != 17 ){
+                if(m.start_position != b3 ){
                     return EXIT_FAILURE;
                 }
                 else{
-                    if( ((int)m.target_position != 9) && ((int)m.target_position != 8) ){
+                    if( m.target_position != b2 && m.target_position != a2 ){
                         return EXIT_FAILURE;
                     }
                 }
@@ -80,9 +80,9 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if((int)m.start_position != 0 ){
+                if(m.start_position != a1 ){
                     return EXIT_FAILURE;
-                }else if( ((int)m.target_position != 8) && ((int)m.target_position != 16) && ((int)m.target_position != 1) && ((int)m.target_position != 2) && ((int)m.target_position != 3) && ((int)m.target_position != 4) && ((int)m.target_position != 5) && ((int)m.target_position != 6) && ((int)m.target_position != 7) ){
+                }else if( m.target_position != a2 && m.target_position != a3 && m.target_position != b1 && m.target_position != c1 && m.target_position != d1 && m.target_position != e1 && m.target_position != f1 && m.target_position != g1 && m.target_position != h1 ){
                     return EXIT_FAILURE;
                 }
             }
@@ -108,9 +108,9 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if( (int)m.start_position != 9){
+                if( m.start_position != b2){
                     return EXIT_FAILURE;
-                }else if( ((int)m.target_position != 0) && ((int)m.target_position != 16) &&((int)m.target_position != 2) && ((int)m.target_position != 18) && ((int)m.target_position != 27) && ((int)m.target_position != 36) ){
+                }else if( m.target_position != a1 && m.target_position != a3 &&m.target_position != c1 && m.target_position != c3 && m.target_position != d4 && m.target_position != e5 ){
                     return EXIT_FAILURE;
                 }
             }
@@ -136,9 +136,9 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if( (int)m.start_position != 17 && m.start_position != a1){
+                if( m.start_position != b3 && m.start_position != a1){
                     return EXIT_FAILURE;
-                }else if( ((int)m.target_position != 2) && ((int)m.target_position != 11) && ((int)m.target_position != 27) && ((int)m.target_position != 32) && ((int)m.target_position != 34) && m.target_position != a2){
+                }else if( m.target_position != c1 && m.target_position != d2 && m.target_position != d4 && m.target_position != a5 && m.target_position != c5 && m.target_position != a2){
                     return EXIT_FAILURE;
                 }
             }
@@ -164,9 +164,9 @@ int main (int argc, char *argv[]) {
             }
 
             for( Move m : to_test){
-                if ( (int)m.start_position != 7 && m.start_position != f1){
+                if ( m.start_position != h1 && m.start_position != f1){
                     return EXIT_FAILURE;
-                }else if( ((int)m.target_position != 6) && ((int)m.target_position != 14) && ((int)m.target_position != 21) && ((int)m.target_position != 28) && ((int)m.target_position != 15) && ((int)m.target_position != 23) && ((int)m.target_position != 31) && ((int)m.target_position != 39) && m.target_position != f2){
+                }else if( m.target_position != g1 && m.target_position != g2 && m.target_position != f3 && m.target_position != e4 && m.target_position != h2 && m.target_position != h3 && m.target_position != h4 && m.target_position != h5 && m.target_position != f2){
                     return EXIT_FAILURE;
                 }
             }
@@ -192,9 +192,9 @@ int main (int argc, char *argv[]) {
             }
 
             for(Move m : to_test){
-                if ( (int)m.start_position != 0){
+                if (m.start_position != a1){
                     return EXIT_FAILURE;
-                }else if( ((int)m.target_position != 1) && ((int)m.target_position != 8) && ((int)m.target_position != 9) ){
+                }else if( m.target_position != b1 && m.target_position != a2 && m.target_position != b2 ){
                     return EXIT_FAILURE;
                 }
             }

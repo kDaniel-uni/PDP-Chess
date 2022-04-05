@@ -23,7 +23,7 @@ add_library(lib src/src/game.cpp
         src/src/move/legal_move.cpp
         src/src/move/legal_move_v2.cpp
         src/src/board/bitboards.cpp
-        src/src/algorithm/heuristic.cpp test/legal_move_v2_test.cpp)
+        src/src/algorithm/heuristic.cpp)
 
 target_include_directories(lib
         PRIVATE
