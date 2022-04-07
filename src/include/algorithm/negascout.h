@@ -22,3 +22,5 @@ namespace pdp_chess {
 }
 
 #endif //PDP_CHESS_NEGASCOUT_H
+
+    int NegaScout(Board board, int depth, int alpha, int beta, boolean ai_player_turn);

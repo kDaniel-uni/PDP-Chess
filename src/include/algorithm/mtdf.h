@@ -2,6 +2,7 @@
 // Pdp_chess university project
 //
 
+    int mtdf(Board board, int f, int depth);
 #ifndef PDP_CHESS_MTDF_H
 #define PDP_CHESS_MTDF_H
 

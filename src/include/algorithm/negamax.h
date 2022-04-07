@@ -2,6 +2,7 @@
 // Pdp_chess university project
 //
 
+    int negaMax(Board board, int depth, bool ai_player_turn);
 #ifndef PDP_CHESS_NEGAMAX_H
 #define PDP_CHESS_NEGAMAX_H
 
