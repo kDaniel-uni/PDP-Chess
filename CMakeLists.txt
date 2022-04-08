@@ -11,11 +11,13 @@ include_directories(src/include/algorithm)
 include_directories(src/include/board)
 include_directories(src/include/move)
 include_directories(src/include/third_party)
+include_directories(src/include/player)
 
 include_directories(src/src)
 include_directories(src/src/algorithm)
 include_directories(src/src/move)
 include_directories(src/src/board)
+include_directories(src/src/player)
 
 add_library(lib src/src/game.cpp
         src/src/board/board.cpp
@@ -23,7 +25,7 @@ add_library(lib src/src/game.cpp
         src/src/move/legal_move.cpp
         src/src/move/legal_move_v2.cpp
         src/src/board/bitboards.cpp
-        src/src/algorithm/heuristic.cpp)
+        src/src/algorithm/heuristic.cpp src/src/player/human_player.cpp)
 
 target_include_directories(lib
         PRIVATE

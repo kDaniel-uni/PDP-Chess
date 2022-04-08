@@ -6,7 +6,7 @@
 #define PDP_CHESS_GAME_H
 
 
-#include "ai_player.h"
+#include "player/ai_player.h"
 #include "board.h"
 #include "bitboard_operations.h"
 
@@ -17,16 +17,16 @@ namespace pdp_chess {
         Board board;
 
         Game();
-        void drawBoard() const;
-        void fromString(std::string string);
+        Game(Player* white_player, Player* black_player);
+        void start();
         void playMove(Move move);
-        bool getPlayerRound(); // return true if next player to play is white
+        void fromString(std::string string);
 
     private:
-        AiPlayer* _white_player;
-        AiPlayer* _black_player;
-        AiPlayer* _players[2] = {_black_player, _white_player};
+        Player* _players[2];
         color _current_color;
+
+        void step();
     };
 
 }

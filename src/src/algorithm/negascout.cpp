@@ -1,6 +1,6 @@
 #include "board.h"
 #include "move.h"
-#include "ai_player.h"
+#include "player/ai_player.h"
 #include <algorithm>
 #include <limits> 
 

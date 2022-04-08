@@ -54,13 +54,13 @@ int main (int argc, char *argv[]) {
     }else if ( arg == "4"){
 
         g.fromString("-----Q---------------------R-------------------------------q---r");
-        g.drawBoard();
+        g.board.draw();
 
         mv.start_position = 27;
         mv.start_type = 'R';
         mv.target_position = 59;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
@@ -69,7 +69,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 59;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -78,7 +78,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'Q';
         mv.target_position = 3;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -87,7 +87,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 3;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() == "---r------------------------------------------------------------"){
             return EXIT_SUCCESS;
@@ -96,13 +96,13 @@ int main (int argc, char *argv[]) {
     }else if ( arg == "5"){
 
         g.fromString("-----Q---------------------R-------------------------------q---r");
-        g.drawBoard();
+        g.board.draw();
 
         mv.start_position = 27;
         mv.start_type = 'R';
         mv.target_position = 59;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
@@ -111,7 +111,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 59;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -120,7 +120,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'Q';
         mv.target_position = 3;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -129,35 +129,35 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 3;
         g.playMove(mv);
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "---r------------------------------------------------------------"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.drawBoard();
+        g.board.draw();
 
         if (g.board.toString() == "-----Q---------------------R-------------------------------q---r"){
             return EXIT_SUCCESS;

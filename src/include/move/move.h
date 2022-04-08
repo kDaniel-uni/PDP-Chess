@@ -5,8 +5,6 @@
 #ifndef PDP_CHESS_MOVE_H
 #define PDP_CHESS_MOVE_H
 
-#include "bitboards.h"
-
 namespace pdp_chess {
 
     struct Move{

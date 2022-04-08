@@ -6,20 +6,20 @@
 #define PDP_CHESS_AI_PLAYER_H
 
 #include <string>
+#include "player.h"
 #include "move.h"
 #include "heuristic.h"
 
 namespace pdp_chess {
 
-    class AiPlayer {
+    class AiPlayer : Player{
     private :
         Heuristic _heuristic;
 
     public :
         virtual ~AiPlayer() {}
-        virtual Move findNextMove(Board& board, color current_color) = 0;
+        Move askNextMove(Board& board, color current_color) override = 0;
         virtual std::string getParameters() = 0;
-
     };
 
 }
