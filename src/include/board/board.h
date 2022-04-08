@@ -15,11 +15,12 @@ namespace pdp_chess {
 
     class Board {
     public :
-        int heuristic_board_value;
+        int heuristic_board_value; //what is this ??????
         Bitboards* _pieces[2];
         std::vector<Move> _history;
 
         Board();
+        bool isDraw();
         std::string result();
         bool isGameOver();
         std::string toString() const;
@@ -32,6 +33,7 @@ namespace pdp_chess {
         int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.
         char findType(uint8_t index) const;
         void draw() const;
+        Board clone();
     };
 
 }

@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <iostream>
+#include <cstring>
 #include <math.h>
 #include "board.h"
 #include "bitboard_operations.h"
@@ -130,8 +131,26 @@ namespace pdp_chess {
         _history.pop_back();
     }
 
+    bool Board::isDraw(){
+        /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
+            return true; WIP
+        }*/
+        if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
+            return true;
+        }
+        Board historic_board = this->clone();
+        for(int i=0; i<4 ; i++){
+            historic_board.undoMove();
+        }
+        if(strcmp(historic_board.toString().c_str(),this->toString().c_str())==0){ // if the board was the same 4 move ago, result is draw
+            return true;
+        }
+        
+        return false;
+
+    }
     bool Board::isGameOver() {
-        if (_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) {
+        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) || isDraw()){
             return true;
         }
         return false;
@@ -204,5 +223,14 @@ namespace pdp_chess {
         }
 
         std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
+    }
+
+    Board Board::clone(){ //return a copy oh the current board
+        Board clone = Board();
+        std::string clonepiece = Board::toString();
+        clone.fromString(clonepiece.c_str());
+        std::vector<Move> clonehistory(_history);
+        clone._history = clonehistory;
+        return clone;
     }
 }
