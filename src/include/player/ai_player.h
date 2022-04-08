@@ -9,17 +9,20 @@
 #include "player.h"
 #include "move.h"
 #include "heuristic.h"
+#include "legal_move_v2.h"
 
 namespace pdp_chess {
 
     class AiPlayer : Player{
-    private :
-        Heuristic _heuristic;
+        
 
     public :
+        Heuristic _heuristic;
+        Legalmove* _legal_move;
+        int _depth;
+        
         virtual ~AiPlayer() {}
         Move askNextMove(Board& board, color current_color) override = 0;
-        virtual std::string getParameters() = 0;
     };
 
 }

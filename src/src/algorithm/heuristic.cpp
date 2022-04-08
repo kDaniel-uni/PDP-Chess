@@ -151,7 +151,7 @@ namespace pdp_chess {
     }
 
     float Heuristic::evaluateBoard(const Board &board, bool white_turn) {
-        float value = evaluatePieces(*board._pieces[white]) - evaluatePieces(*board._pieces[black]);
+        float value = evaluatePieces(*board._pieces[white_turn]) - evaluatePieces(*board._pieces[!white_turn]);
         //value += nbLegalMove(board, white_turn);
         if (white_turn)
             return value;

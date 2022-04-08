@@ -11,11 +11,11 @@
 namespace pdp_chess {
 
     class HumanPlayer : Player{
-    private:
+    public:
         Legalmove* legal_move;
 
         HumanPlayer();
-        Move askNextMove(Board& board, color current_color) override;
+        Move askNextMove(Board& board, bool current_color) override;
     };
 
 }
