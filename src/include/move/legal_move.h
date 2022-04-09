@@ -6,7 +6,7 @@
 #define PDP_CHESS_LEGAL_MOVE_H
 
 #include "game.h"
-#include "bitboards.h"
+#include "player_state.h"
 #include "string"
 #include "vector"
 #include "move.h"

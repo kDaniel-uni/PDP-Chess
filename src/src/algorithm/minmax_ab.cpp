@@ -10,6 +10,7 @@
 #include "minmax_ab.h"
 #include <algorithm>
 #include <limits>
+#include <iostream>
 
 namespace pdp_chess {
 
@@ -20,6 +21,8 @@ namespace pdp_chess {
     }
 
     Move MinMaxAb::askNextMove(Board& board, color current_color){
+        /*std::cout << "Current color : " << current_color << std::endl;
+        std::cout << "Current depth : " << _depth << std::endl;*/
             Move best_move;
             int value = 0;
             int alpha = std::numeric_limits<int>::min();
@@ -29,7 +32,7 @@ namespace pdp_chess {
                 std::vector<Move> legal_moves = _legal_move->legalMove(board,current_color);
                 for (Move move : legal_moves){
                     board.doMove(move);
-                    printf("first move %f\n", _heuristic->evaluateBoard(board, current_color) );
+                    //printf("first move %f\n", _heuristic->evaluateBoard(board, current_color) );
                     value = minmax_alphabeta(board, _depth-1, alpha, beta, !current_color);
                     board.undoMove();
                     if(value > value_max){
@@ -63,9 +66,13 @@ namespace pdp_chess {
         }
 
     int MinMaxAb::minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn){
+        /*std::cout << "Current color : " << ai_player_turn << std::endl;
+        std::cout << "Current depth : " << depth << std::endl;*/
         int value = 0;
         if(depth==0 || board.isGameOver()){
-            return _heuristic->evaluateBoard(board, ai_player_turn);
+            auto value = _heuristic->evaluateBoard(board, ai_player_turn);
+            //std::cout << "Value : " << value << std::endl;
+            return value;
         }
         if(ai_player_turn){
             int value_max = std::numeric_limits<int>::min();

@@ -7,7 +7,7 @@
 
 #include "string"
 #include "vector"
-#include "bitboards.h"
+#include "player_state.h"
 #include "move.h"
 
 namespace pdp_chess{

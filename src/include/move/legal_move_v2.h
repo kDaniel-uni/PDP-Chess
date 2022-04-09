@@ -4,7 +4,7 @@
 
 
 #include <cstdint>
-#include "bitboards.h"
+#include "player_state.h"
 #include <iostream>
 #include <vector>
 #include "board.h"
@@ -38,6 +38,11 @@ namespace pdp_chess {
             void bishopsLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
             void queensLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
             void rooksLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
+
+            uint64_t getTargetableFilter(const Board& board, bool color);
+
+            void generateMoves(const Bitboard& source_bitboard, uint8_t source_piece_position
+                               , std::vector<Move>& moves, uint64_t movable);
 
             void initLookupTable();
 

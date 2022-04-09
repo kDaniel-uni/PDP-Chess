@@ -2,8 +2,8 @@
 // Pdp_chess university project
 //
 
-#ifndef PDP_CHESS_BITBOARDS_H
-#define PDP_CHESS_BITBOARDS_H
+#ifndef PDP_CHESS_PLAYER_STATE_H
+#define PDP_CHESS_PLAYER_STATE_H
 
 namespace pdp_chess {
 
@@ -54,4 +54,4 @@ namespace pdp_chess {
 
 }
 
-#endif //PDP_CHESS_BITBOARDS_H
+#endif //PDP_CHESS_PLAYER_STATE_H

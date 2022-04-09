@@ -217,17 +217,17 @@ namespace pdp_chess {
                 }
             }
         }
-        printf("val = %f, ",value);
+        //printf("Initial value = %f, ",value);
         value -= doubled_value * nbDoubled(*player_state.list[0]);
-        printf("doubled = %f, ",value);
+        //printf("after doubled pieces = %f, ",value);
         value -= isolated_value * nbIsolated(*player_state.list[0]);
-        printf("isolated = %f, ",value);
+        //printf("after isolated pieces = %f, ",value);
         if (is_white) { 
             value -= backward_value * whiteNbBackward(*player_state.list[0]); 
         } else {
             value -= backward_value * blackNbBackward(*player_state.list[0]);
         }
-        printf("backward = %f\n",value);
+        //printf("after backward pieces = %f\n",value);
         return value;
     }
 

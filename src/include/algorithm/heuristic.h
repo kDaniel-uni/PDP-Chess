@@ -28,7 +28,7 @@ namespace pdp_chess {
         float whiteNbBackward(const Bitboard &bitboard);
         float nbIsolated(const Bitboard &bitboard);
         float nbLegalMove(const Board& Board, bool white_turn);
-        float evaluatePieces(const PlayerState &bitboard, bool is_white);
+        float evaluatePieces(const PlayerState &player_state, bool is_white);
         float evaluateBoard(const Board& board, bool white_turn); //true for white turn, false for black turn
     };
 

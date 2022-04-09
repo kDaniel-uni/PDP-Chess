@@ -270,6 +270,10 @@ bool testBasic(Game &game, bool is_v1, LegalMove &legalmove) {
 
 
 int main(int argc, char *argv[]) {
+
+    if (argc > 2) return EXIT_FAILURE;
+    if (argc == 1) return EXIT_FAILURE;
+
     std::string arg = argv[1];
     Game g = Game();
     LegalMove legal_moves = LegalMove();

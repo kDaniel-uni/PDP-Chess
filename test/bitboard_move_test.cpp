@@ -11,6 +11,9 @@ using namespace pdp_chess;
 
 int main (int argc, char *argv[]) {
 
+    if (argc > 2) return EXIT_FAILURE;
+    if (argc == 1) return EXIT_FAILURE;
+
     std::string arg = argv[1];
     Game g = Game();
     g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
@@ -60,7 +63,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'R';
         mv.target_position = 59;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
@@ -69,7 +72,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 59;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -78,7 +81,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'Q';
         mv.target_position = 3;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -87,7 +90,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 3;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() == "---r------------------------------------------------------------"){
             return EXIT_SUCCESS;
@@ -102,7 +105,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'R';
         mv.target_position = 59;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
@@ -111,7 +114,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 59;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -120,7 +123,7 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'Q';
         mv.target_position = 3;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
@@ -129,35 +132,35 @@ int main (int argc, char *argv[]) {
         mv.start_type = 'r';
         mv.target_position = 3;
         g.playMove(mv);
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "---r------------------------------------------------------------"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "---Q-------------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------r----"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() != "-----Q-----------------------------------------------------R---r"){
             return EXIT_FAILURE;
         }
 
         g.board.undoMove();
-        g.board.draw();
+        g.draw();
 
         if (g.board.toString() == "-----Q---------------------R-------------------------------q---r"){
             return EXIT_SUCCESS;

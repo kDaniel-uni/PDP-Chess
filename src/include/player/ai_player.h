@@ -13,7 +13,7 @@
 
 namespace pdp_chess {
 
-    class AiPlayer : Player{
+    class AiPlayer : public Player{
         
 
     public :
