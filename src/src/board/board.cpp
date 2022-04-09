@@ -158,11 +158,11 @@ namespace pdp_chess {
 
     std::string Board::result() {
         if (_pieces[black]->king.value == 0) {
-            return "The winner is player white";
+            return "Game won by white";
         } else if (_pieces[white]->king.value == 0) {
-            return "The winner is player black";
+            return "Game won by black";
         } else {
-            return "there is no winner";
+            return "No winner";
         }
     }
 

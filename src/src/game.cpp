@@ -31,6 +31,8 @@ namespace pdp_chess {
         while (!board.isGameOver()) {
             step();
         }
+
+        std::cout << board.result() << " in " << board._history.size() << " moves" << std::endl;
     }
 
 

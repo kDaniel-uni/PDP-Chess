@@ -17,7 +17,8 @@ namespace pdp_chess {
             MinMaxAb(Heuristic& h, LegalMove& l, int depth);
 
             Move askNextMove(Board& board, color current_color) override;
-            int minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn);
+            int alphaBeta(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
+            int betaAlpha(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
     };
 
 }

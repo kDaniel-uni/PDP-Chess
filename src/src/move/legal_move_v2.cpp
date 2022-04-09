@@ -293,12 +293,12 @@ namespace pdp_chess {
 
         for (auto current_piece_position : pdp_chess::getPositionsV2(bitboard.value)){
             uint64_t target_positions = _kings_moves_table[current_piece_position];
-            uint64_t targetable_by_opponent = getTargetableFilter(board, !color);
+            //uint64_t targetable_by_opponent = getTargetableFilter(board, !color);
 
             uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
-            uint64_t blocked_by_check = target_positions & targetable_by_opponent;
+            //uint64_t blocked_by_check = target_positions & targetable_by_opponent;
 
-            movable = target_positions - blocked_by_ally - blocked_by_check;
+            movable = target_positions - blocked_by_ally;// - blocked_by_check;
 
             if (movable == 0) {
                 return;

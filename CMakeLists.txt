@@ -26,7 +26,7 @@ add_library(lib src/src/game.cpp
         src/src/move/legal_move_v2.cpp
         src/src/board/player_state.cpp
         src/src/algorithm/heuristic.cpp 
-        src/src/algorithm/minmax_ab.cpp)
+        src/src/algorithm/minmax_ab.cpp src/src/algorithm/random_player.cpp)
 
 target_include_directories(lib
         PRIVATE

@@ -14,100 +14,89 @@
 
 namespace pdp_chess {
 
-    MinMaxAb::MinMaxAb(Heuristic& heuristic, LegalMove& legal_move, int depth) {
+    MinMaxAb::MinMaxAb(Heuristic &heuristic, LegalMove &legal_move, int depth) {
         _heuristic = &heuristic;
         _legal_move = &legal_move;
         _depth = depth;
     }
 
-    Move MinMaxAb::askNextMove(Board& board, color current_color){
-        /*std::cout << "Current color : " << current_color << std::endl;
-        std::cout << "Current depth : " << _depth << std::endl;*/
-            Move best_move;
-            int value = 0;
-            int alpha = std::numeric_limits<int>::min();
-            int beta = std::numeric_limits<int>::max();
-            if(current_color){
-                int value_max = std::numeric_limits<int>::min();
-                std::vector<Move> legal_moves = _legal_move->legalMove(board,current_color);
-                for (Move move : legal_moves){
-                    board.doMove(move);
-                    //printf("first move %f\n", _heuristic->evaluateBoard(board, current_color) );
-                    value = minmax_alphabeta(board, _depth-1, alpha, beta, !current_color);
-                    board.undoMove();
-                    if(value > value_max){
-                        value_max = value;
-                        best_move = move;
-                    }
-                    alpha = std::max(alpha, value);
-                    if(beta<=alpha){
-                        break;
-                    }
-                }
+    Move MinMaxAb::askNextMove(Board &board, color current_color) {
+        Move best_move;
+        //std::vector<Move> equal_moves;
+        int value;
+        int alpha = std::numeric_limits<int>::min();
+        int beta = std::numeric_limits<int>::max();
+
+        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::random_shuffle(legal_moves.begin(), legal_moves.end());
+        for (Move move : legal_moves) {
+            board.doMove(move);
+            value = betaAlpha(board, _depth - 1, alpha, beta, !current_color, current_color);
+            board.undoMove();
+
+           /* if (value == alpha){
+                equal_moves.emplace_back(move);
+            }*/
+
+            if (value > alpha) {
+                alpha = value;
+                best_move = move;
+                /*equal_moves.clear();
+                equal_moves.emplace_back(move);*/
             }
-            else{
-                int value_min = std::numeric_limits<int>::max();
-                std::vector<Move> legal_moves = _legal_move->legalMove(board,current_color);
-                for (Move move : legal_moves){
-                    board.doMove(move);
-                    value = minmax_alphabeta(board, _depth-1, alpha, beta, !current_color);
-                    board.undoMove();
-                    if(value < value_min){
-                        value_min = value;
-                        best_move = move;
-                    }
-                    beta = std::min(beta, value);
-                    if(beta<=alpha){
-                        break;
-                    }
-                }
-            }
+
+        }
+
+        board.doMove(best_move);
+        std::cout << "Meilleur coup : " << _heuristic->evaluateBoard(board, current_color) << std::endl;
+        board.undoMove();
+
+        /*if (equal_moves.size() <= 1){
             return best_move;
         }
 
-    int MinMaxAb::minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn){
-        /*std::cout << "Current color : " << ai_player_turn << std::endl;
-        std::cout << "Current depth : " << depth << std::endl;*/
-        int value = 0;
-        if(depth==0 || board.isGameOver()){
-            auto value = _heuristic->evaluateBoard(board, ai_player_turn);
+        int random_pos = rand() % equal_moves.size();
+        return equal_moves.at(random_pos);*/
+        return best_move;
+    }
+
+    int MinMaxAb::betaAlpha(Board board, int depth, int alpha, int beta, bool current_color, bool base_color) {
+        if (depth == 0 || board.isGameOver()) {
+            auto value = _heuristic->evaluateBoard(board, base_color);
             //std::cout << "Value : " << value << std::endl;
             return value;
         }
-        if(ai_player_turn){
-            int value_max = std::numeric_limits<int>::min();
-            std::vector<Move> legal_moves = _legal_move->legalMove(board,ai_player_turn);
-            for (Move move : legal_moves){
-                board.doMove(move);
-                value = minmax_alphabeta(board, depth-1, alpha, beta, !ai_player_turn);
-                board.undoMove();
-                if(value > value_max){
-                    value_max = value;
-                }
-                alpha = std::max(alpha, value);
-                if(beta<=alpha){
-                    break;
-                }
+
+        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        for (Move move : legal_moves) {
+            board.doMove(move);
+            beta = std::min(beta, alphaBeta(board, depth - 1, alpha, beta, !current_color, base_color));
+            board.undoMove();
+
+            if (alpha >= beta) {
+                return alpha;
             }
-            return value_max;
         }
-        else{
-            int value_min = std::numeric_limits<int>::max();
-            std::vector<Move> legal_moves = _legal_move->legalMove(board,ai_player_turn);
-            for (Move move : legal_moves){
-                board.doMove(move);
-                value = minmax_alphabeta(board, depth-1, alpha, beta, !ai_player_turn);
-                board.undoMove();
-                if(value < value_min){
-                    value_min = value;
-                }
-                beta = std::min(beta, value);
-                if(beta<=alpha){
-                    break;
-                }
-            }
-            return value_min;
-        }
+        return beta;
     }
 
+    int MinMaxAb::alphaBeta(Board board, int depth, int alpha, int beta, bool current_color, bool base_color) {
+        if (depth == 0 || board.isGameOver()) {
+            auto value = _heuristic->evaluateBoard(board, base_color);
+            //std::cout << "Value : " << value << std::endl;
+            return value;
+        }
+
+        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        for (Move move : legal_moves) {
+            board.doMove(move);
+            alpha = std::max(alpha, betaAlpha(board, depth - 1, alpha, beta, !current_color, base_color));
+            board.undoMove();
+
+            if (alpha >= beta) {
+                return beta;
+            }
+        }
+        return alpha;
+    }
 }

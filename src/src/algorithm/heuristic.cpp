@@ -7,16 +7,17 @@
 #include <legal_move.h>
 
 namespace pdp_chess {
-    Heuristic::Heuristic(){
-        pawns_value = 10;
-        rooks_value = 50;
-        bishops_value = 30;
-        knights_value = 30;
-        queen_value = 90;
-        king_value = 2000; 
-        backward_value = 5;
-        isolated_value = 5;
-        doubled_value = 5;
+
+    Heuristic::Heuristic(){ // x20
+        pawns_value = 20;
+        rooks_value = 100;
+        bishops_value = 60;
+        knights_value = 60;
+        queen_value = 180;
+        king_value = 4000;
+        backward_value = 10;
+        isolated_value = 10;
+        doubled_value = 10;
     }
 
     Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v) {
@@ -137,16 +138,30 @@ namespace pdp_chess {
         return cmp;
     }
 
+    int Heuristic::pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns) {
+        int score = 0;
+
+        for (auto index : getPositionsV2(current_pawns.value)){
+            uint8_t row = (index / 8);
+            score += row;
+        }
+
+        for (auto index : getPositionsV2(opponent_pawns.value)){
+            uint8_t row = (index / 8);
+            score -= (8 - row);
+        }
+
+        return score;
+    }
+
     int Heuristic::nbLegalMove(const Board& board, bool white_turn){
         int legal_move_count = 0;
 
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
         std::vector<Move> black_legal_move = legal_move(board, !white_turn);
         legal_move_count = white_legal_move.size() - black_legal_move.size();
-        if(white_turn)
-            return legal_move_count;
-        else
-            return -1*legal_move_count;
+
+        return (legal_move_count * 2);
     }
 
     int Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
@@ -170,8 +185,9 @@ namespace pdp_chess {
                 }
             }
         }
+
         //printf("Initial value = %f, ",value);
-        value -= doubled_value * nbDoubled(*player_state.list[0]);
+       /* value -= doubled_value * nbDoubled(*player_state.list[0]);
         //printf("after doubled pieces = %f, ",value);
         value -= isolated_value * nbIsolated(*player_state.list[0]);
         //printf("after isolated pieces = %f, ",value);
@@ -179,17 +195,15 @@ namespace pdp_chess {
             value -= backward_value * whiteNbBackward(*player_state.list[0]); 
         } else {
             value -= backward_value * blackNbBackward(*player_state.list[0]);
-        }
+        }*/
         //printf("after backward pieces = %f\n",value);
         return value;
     }
 
-    int Heuristic::evaluateBoard(const Board &board, bool white_turn) {
-        int value = evaluatePieces(*board._pieces[white], true) - evaluatePieces(*board._pieces[black], false);
-        //value += nbLegalMove(board, white_turn);
-        if (white_turn)
-            return value;
-        else
-            return -1 * value;
+    int Heuristic::evaluateBoard(const Board &board, bool color) {
+        int value = evaluatePieces(*board._pieces[color], color) - evaluatePieces(*board._pieces[!color], !color);
+        value += pawnForward(board._pieces[color]->pawns, board._pieces[!color]->pawns);
+        value += nbLegalMove(board, color);
+        return value;
     }
 }
