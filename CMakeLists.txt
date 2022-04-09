@@ -51,6 +51,9 @@ target_link_libraries(legal_move_test PUBLIC lib)
 add_executable(game_test test/game_test.cpp)
 target_link_libraries(game_test PUBLIC lib)
 
+add_executable(heuristic_test test/heuristic_test.cpp)
+target_link_libraries(heuristic_test PUBLIC lib)
+
 
 add_test(board_empty_init_test board_io_test 1)
 add_test(board_classic_init_test board_io_test 2)

@@ -8,18 +8,18 @@
 
 namespace pdp_chess {
     Heuristic::Heuristic(){
-        pawns_value = 1;
-        rooks_value = 5;
-        bishops_value = 3;
-        knights_value = 3;
-        queen_value = 9;
-        king_value = 200; 
-        backward_value = 0.5;
-        isolated_value = 0.5;
-        doubled_value = 0.5;
+        pawns_value = 10;
+        rooks_value = 50;
+        bishops_value = 30;
+        knights_value = 30;
+        queen_value = 90;
+        king_value = 2000; 
+        backward_value = 5;
+        isolated_value = 5;
+        doubled_value = 5;
     }
 
-    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v, float d_v) {
+    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -31,103 +31,55 @@ namespace pdp_chess {
         doubled_value = d_v;
     }
 
-    float Heuristic::whiteNbBackward(const Bitboard& bitboard){
-        float cmp = 0;
-        for(int i = 0; i < BOARD_SIZE; i++){
+    int Heuristic::whiteNbBackward(const Bitboard& bitboard){
+        int cmp = 0;
+        for(int i = 8; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
                 bool back = false;
                 if(i%8 != 0){
-                    for(int j = i+7; j < BOARD_SIZE; j+=8){ //On regarde les cases de la colonne de gauche au dessus de notre pion
-                        if((bitboard.value >> j) & 1){
+                    if((bitboard.value >> i+7) & 1){
                             back = true;
-                            break;
-                        }
                     }
-                    for(int j = (i-1)%8; j <= i-1; j+=8){ //On regarde les cases de la colonne de gauche en dessous de notre pion
-                        if((bitboard.value >> j) & 1){
+                    if((bitboard.value >> i-9) & 1){
                             back = false;
-                            break;
-                        }
                     }
                 }
                 if(i%8 != 7){
-                    for(int j = i+1; j < BOARD_SIZE; j+=8){ //On regarde les cases de la colonne de droite au dessus de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = true;
-                            break;
-                        }
-                    }
-                    for(int j = (i+1)%8; j <= i+1; j+=8){ //On regarde les cases de la colonne de droite en dessous de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = false;
-                            break;
-                        }
-                    }
-                }
-                for(int j = i+8; j < BOARD_SIZE; j+=8){ //On regarde les cases au dessus de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = true;
-                            break;
-                        }
-                    }
-                for(int j = i%8; j < i; j+=8){ //On regarde les cases au dessous de notre pion
-                    if((bitboard.value >> j) & 1){ 
-                        back = false;
-                        break;
-                    }
-                }
-                if(back){
-                    cmp++;
-                }
-            }
-        }
-        return cmp;
-    }
-    float Heuristic::blackNbBackward(const Bitboard& bitboard){
-        float cmp = 0;
-        for(int i = 0; i < BOARD_SIZE; i++){
-            if((bitboard.value >> i) & 1) {
-                bool back = false;
-                if(i%8 != 0){
-                    for(int j = (i-1)%8; j < i-1; j+=8){ //On regarde les cases de la colonne de gauche en dessous de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = true;
-                            break;
-                        }
-                    }
-                    for(int j = i-1; j < BOARD_SIZE; j+=8){ //On regarde les cases de la colonne de gauche au dessus de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = false;
-                            break;
-                        }
-                    }
-                }
-                if(i%8 != 7){
-                    for(int j = (i+1)%8; j < i-1; j+=8){ //On regarde les cases de la colonne de droite en dessous de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = true;
-                            break;
-                        }
-                    }
-                    for(int j = i+1; j < BOARD_SIZE; j+=8){ //On regarde les cases de la colonne de droite au dessus de notre pion
-                        if((bitboard.value >> j) & 1){
-                            back = false;
-                            break;
-                        }
-                    }
-                }/*
-                for(int j = i%8; j < i-8; j+=8){ //On regarde les cases en dessous de notre pion
-                    if((bitboard.value >> j) & 1){
+                    if((bitboard.value >> i+9) & 1){
                         back = true;
-                        break;
+                    }
+                    if((bitboard.value >> i-7) & 1){
+                        back = false;
                     }
                 }
-                for(int j = i%8; j < i; j+=8){
-                    if((bitboard.value >> j) & 1){ //On regarde les cases au dessus de notre pion
-                        back = false;
-                        break;
+                if(back){
+                    cmp++;
+                }
+            }
+        }
+        return cmp;
+    }
+    int Heuristic::blackNbBackward(const Bitboard& bitboard){
+        int cmp = 0;
+        for(int i = 0; i < BOARD_SIZE-8; i++){
+            if((bitboard.value >> i) & 1) {
+                bool back = false;
+                if(i%8 != 0){
+                    if((bitboard.value >> i-9) & 1){
+                       back = true;
                     }
-                }*/
+                    if((bitboard.value >> i+7) & 1){
+                        back = false;
+                    }
+                }
+                if(i%8 != 7){
+                    if((bitboard.value >> i-7) & 1){
+                        back = true;
+                    }
+                    if((bitboard.value >> i+9) & 1){
+                        back = false;
+                    }
+                }
                 if(back){
                     cmp++;
                 }
@@ -137,8 +89,8 @@ namespace pdp_chess {
     }
 
 
-    float Heuristic::nbDoubled(const Bitboard& bitboard){
-        float cmp = 0;
+    int Heuristic::nbDoubled(const Bitboard& bitboard){
+        int cmp = 0;
         for(int i = 8; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
                 if((bitboard.value >> i - 8) & 1){
@@ -149,13 +101,13 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float Heuristic::nbIsolated(const Bitboard& bitboard){
-        float cmp = 0;
+    int Heuristic::nbIsolated(const Bitboard& bitboard){
+        int cmp = 0;
         for(int i = 0; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
                 bool isolated = true;
                 if(i%8 != 0){
-                    for(int j = i-1; j < BOARD_SIZE; j+=8){
+                    for(int j = (i%8)-1; j < BOARD_SIZE; j+=8){
                         if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
@@ -163,7 +115,7 @@ namespace pdp_chess {
                     }
                 }
                 if(i%8 != 7){
-                    for(int j = i+1; j < BOARD_SIZE; j+=8){
+                    for(int j = (i%8)+1; j < BOARD_SIZE; j+=8){
                         if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
@@ -178,14 +130,15 @@ namespace pdp_chess {
                 }
                 if(isolated){
                     cmp++;
+                    printf("%d\n", i);
                 }
             }
         }
         return cmp;
     }
 
-    float Heuristic::nbLegalMove(const Board& board, bool white_turn){
-        float legal_move_count = 0;
+    int Heuristic::nbLegalMove(const Board& board, bool white_turn){
+        int legal_move_count = 0;
 
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
         std::vector<Move> black_legal_move = legal_move(board, !white_turn);
@@ -196,8 +149,8 @@ namespace pdp_chess {
             return -1*legal_move_count;
     }
 
-    float Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
-        float value = 0;
+    int Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
+        int value = 0;
         for (int i = 0; i < 6; i++) {
             Bitboard* b = player_state.list[i];
             for (int j = 0; j < BOARD_SIZE; j++) {
@@ -231,8 +184,8 @@ namespace pdp_chess {
         return value;
     }
 
-    float Heuristic::evaluateBoard(const Board &board, bool white_turn) {
-        float value = evaluatePieces(*board._pieces[white], true) - evaluatePieces(*board._pieces[black], false);
+    int Heuristic::evaluateBoard(const Board &board, bool white_turn) {
+        int value = evaluatePieces(*board._pieces[white], true) - evaluatePieces(*board._pieces[black], false);
         //value += nbLegalMove(board, white_turn);
         if (white_turn)
             return value;
