@@ -5,11 +5,11 @@
 
 namespace pdp_chess {
 
-    Legalmove::Legalmove(){
+    LegalMove::LegalMove(){
         initLookupTable();
     }
 
-    uint64_t Legalmove::pawnsMoves(int color, int position){
+    uint64_t LegalMove::pawnsMoves(int color, int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
@@ -31,7 +31,7 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t Legalmove::pawnsAttacks(int color, int position){
+    uint64_t LegalMove::pawnsAttacks(int color, int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
@@ -57,7 +57,7 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t Legalmove::knightsMoves(int position){
+    uint64_t LegalMove::knightsMoves(int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
@@ -90,7 +90,7 @@ namespace pdp_chess {
 
         return mask;
     }
-    uint64_t Legalmove::kingsMoves(int position){
+    uint64_t LegalMove::kingsMoves(int position){
         uint64_t b = 1;
         uint64_t bitboard = (b << position);
         uint64_t mask = 0;
@@ -120,7 +120,7 @@ namespace pdp_chess {
         
     }
 
-    uint64_t Legalmove::rooksMoves(int position, const Board& board, bool color){
+    uint64_t LegalMove::rooksMoves(int position, const Board& board, bool color){
         uint64_t mask = 0;
         int line = position/8;
         int column = position%8;
@@ -164,7 +164,7 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t Legalmove::bishopsMoves(int position, const Board& board, bool color ){
+    uint64_t LegalMove::bishopsMoves(int position, const Board& board, bool color ){
         uint64_t mask = 0;
         int line = position/8;
         int column = position%8;
@@ -210,11 +210,11 @@ namespace pdp_chess {
         return mask;
     }
 
-    uint64_t Legalmove::queensMoves(int position, const Board& board, bool color ){
+    uint64_t LegalMove::queensMoves(int position, const Board& board, bool color ){
         return ( bishopsMoves(position, board, color) | rooksMoves(position, board, color) );
     }
 
-    std::string Legalmove::bitboardToString(uint64_t mask){
+    std::string LegalMove::bitboardToString(uint64_t mask){
         std::string res;
         res.resize(64);
         int dec = BOARD_SIZE-1;
@@ -232,8 +232,8 @@ namespace pdp_chess {
         return res + std::to_string(mask);
     }
 
-    void Legalmove::printBitboard(uint64_t mask){
-        std::string chars = Legalmove::bitboardToString(mask);
+    void LegalMove::printBitboard(uint64_t mask){
+        std::string chars = LegalMove::bitboardToString(mask);
         for (int current_y = 0; current_y <= 7; current_y++){
                 for (int current_x = 7; current_x >= 0; current_x--){
                     std::cout << chars[current_y * 8 + current_x] << ' ';
@@ -245,7 +245,7 @@ namespace pdp_chess {
     }
 
 
-    void Legalmove::initLookupTable(){
+    void LegalMove::initLookupTable(){
         for(int position = 0; position < 64; position ++){
             _pawns_attacks_table[white][position] = pawnsAttacks(white,position);
             _pawns_attacks_table[black][position] = pawnsAttacks(black,position);
@@ -256,7 +256,7 @@ namespace pdp_chess {
         }
     }
     
-    std::vector<Move> Legalmove::legalMove(const Board& board, bool color){
+    std::vector<Move> LegalMove::legalMove(const Board& board, bool color){
         
         std::vector<Move> moves;
 
@@ -270,7 +270,7 @@ namespace pdp_chess {
         return moves;
     }
 
-    void Legalmove::pawnsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::pawnsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         uint64_t movable;
         uint64_t rushable;
         uint64_t possibly_eat;
@@ -297,7 +297,7 @@ namespace pdp_chess {
         }
     }
 
-    void Legalmove::kingLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::kingLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         uint64_t movable;
         Bitboard bitboard = board._pieces[color]->king;
 
@@ -319,7 +319,7 @@ namespace pdp_chess {
         }
     }
 
-    void Legalmove::knightsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::knightsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         uint64_t movable;
         Bitboard bitboard = board._pieces[color]->knights;
 
@@ -341,7 +341,7 @@ namespace pdp_chess {
         }
     }
 
-    void Legalmove::rooksLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::rooksLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         Bitboard bitboard = board._pieces[color]->rooks;
 
         for (auto current_piece_position : getPositionsV2(bitboard.value) ){
@@ -362,7 +362,7 @@ namespace pdp_chess {
         }
     }
 
-    void Legalmove::bishopsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::bishopsLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         Bitboard bitboard = board._pieces[color]->bishops;
 
         for (auto current_piece_position : getPositionsV2(bitboard.value) ){
@@ -383,7 +383,7 @@ namespace pdp_chess {
         }
     }
 
-    void Legalmove::queensLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
+    void LegalMove::queensLegalMoves(const Board& board, bool color, std::vector<Move>& moves){
         Bitboard bitboard = board._pieces[color]->queen;
 
         for (auto current_piece_position : getPositionsV2(bitboard.value) ){

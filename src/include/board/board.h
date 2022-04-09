@@ -16,7 +16,7 @@ namespace pdp_chess {
     class Board {
     public :
         int heuristic_board_value; //what is this ??????
-        Bitboards* _pieces[2];
+        PlayerState* _pieces[2];
         std::vector<Move> _history;
 
         Board();

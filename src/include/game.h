@@ -20,7 +20,7 @@ namespace pdp_chess {
         Game(Player* white_player, Player* black_player);
         void start();
         void playMove(Move move);
-        void fromString(std::string string);
+        void fromString(const std::string& string);
 
     private:
         Player* _players[2];

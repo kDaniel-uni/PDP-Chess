@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
 {
     Game* g = new Game();
     Heuristic h = Heuristic();
-    Legalmove lm = Legalmove();
-    MinMaxAb player = MinMaxAb(h, &lm, 3);
+    LegalMove lm = LegalMove();
+    MinMaxAb player = MinMaxAb(h, lm, 3);
     g->fromString("-------------------------Q-------------------------------------p");
     g->board.draw();
 

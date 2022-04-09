@@ -60,7 +60,7 @@ bool checkMoveInBasicLegalMoves(const Move &move) {
     }
 }
 
-bool testPawn(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testPawn(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("--------P--------p----------------------------------------------");
     game.board.draw();
@@ -107,7 +107,7 @@ bool testPawn(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testRooks(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testRooks(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("R---------------r-----------------------------------------------");
     game.board.draw();
@@ -135,7 +135,7 @@ bool testRooks(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testBishops(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testBishops(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("---------B--------------------------b---------------------------");
     game.board.draw();
@@ -162,7 +162,7 @@ bool testBishops(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testKnights(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testKnights(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("P----------n-----N----------------------------------------------");
     game.board.draw();
@@ -190,7 +190,7 @@ bool testKnights(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testQueen(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testQueen(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("-----P-Q--------------------q----------p------------------------");
     game.board.draw();
@@ -218,7 +218,7 @@ bool testQueen(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testKing(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testKing(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("K-------p------p------------------------------------------------");
     game.board.draw();
@@ -244,7 +244,7 @@ bool testKing(Game &game, bool is_v1, Legalmove &legalmove) {
     return true;
 }
 
-bool testBasic(Game &game, bool is_v1, Legalmove &legalmove) {
+bool testBasic(Game &game, bool is_v1, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
     game.board.draw();
@@ -272,7 +272,7 @@ bool testBasic(Game &game, bool is_v1, Legalmove &legalmove) {
 int main(int argc, char *argv[]) {
     std::string arg = argv[1];
     Game g = Game();
-    Legalmove legal_moves = Legalmove();
+    LegalMove legal_moves = LegalMove();
 
     if (arg == "1") {
         return !testPawn(g, true, legal_moves);

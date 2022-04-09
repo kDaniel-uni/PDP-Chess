@@ -30,7 +30,7 @@ namespace pdp_chess {
         char type;
     };
 
-    struct Bitboards {
+    struct PlayerState {
         Bitboard pawns;
 
         Bitboard rooks;
@@ -47,9 +47,9 @@ namespace pdp_chess {
 
         Bitboard* list[6] = {&pawns, &rooks, &knights, &bishops, &queen, &king};
 
-        Bitboards(bool is_white, bool is_empty);
+        PlayerState(bool is_white, bool is_empty);
 
-        void setBitboards(bool is_white, bool is_empty);
+        void setPlayerState(bool is_white, bool is_empty);
     };
 
 }

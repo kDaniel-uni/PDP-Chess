@@ -7,8 +7,8 @@
 
 namespace pdp_chess {
 
-    Bitboards::Bitboards(bool is_white, bool is_empty){
-        setBitboards(is_white, is_empty);
+    PlayerState::PlayerState(bool is_white, bool is_empty){
+        setPlayerState(is_white, is_empty);
     }
 
     /*int Bitboards::getBitboardValue(Heuristic *h) {
@@ -35,7 +35,7 @@ namespace pdp_chess {
         return value;
     }*/
 
-    void Bitboards::setBitboards(bool is_white, bool is_empty) {
+    void PlayerState::setPlayerState(bool is_white, bool is_empty) {
         pawns.type = (char) ('p' - (is_white * 32));
         rooks.type = (char) ('r' - (is_white * 32));
         knights.type = (char) ('n' - (is_white * 32));

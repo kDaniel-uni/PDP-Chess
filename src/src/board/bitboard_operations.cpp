@@ -29,41 +29,41 @@ namespace pdp_chess {
         return positions;
     }
 
-    void eatPiece(Move& move, Bitboards& bitboards){
+    void eatPiece(Move& move, PlayerState& player_state){
         uint64_t base = 1;
         uint64_t mask = base << move.target_position;
 
-        for (auto bitboard : bitboards.list){
+        for (auto bitboard : player_state.list){
             if ((bitboard->value >> move.target_position) & 1){
                 bitboard->value ^= mask;
-                bitboards.all.value ^= mask;
+                player_state.all.value ^= mask;
                 move.target_type = bitboard->type;
                 return;
             }
         }
     }
 
-    void movePiece(Move& move, Bitboards& bitboards){
+    void movePiece(Move& move, PlayerState& player_state){
         uint64_t base = 1;
         uint64_t mask = (base << move.start_position) + (base << move.target_position);
 
-        for (auto& bitboard : bitboards.list){
+        for (auto& bitboard : player_state.list){
             if (bitboard->type == move.start_type){
                 bitboard->value ^= mask;
-                bitboards.all.value ^= mask;
+                player_state.all.value ^= mask;
                 return;
             }
         }
     }
 
-    void createPiece(Move& move, Bitboards& bitboards){
+    void createPiece(Move& move, PlayerState& player_state){
         uint64_t base = 1;
         uint64_t mask = (base << move.target_position);
 
-        for (auto& bitboard : bitboards.list){
+        for (auto& bitboard : player_state.list){
             if (bitboard->type == move.target_type){
                 bitboard->value |= mask;
-                bitboards.all.value |= mask;
+                player_state.all.value |= mask;
                 return;
             }
         }

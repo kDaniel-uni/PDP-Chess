@@ -13,9 +13,9 @@
 
 namespace pdp_chess {
 
-    MinMaxAb::MinMaxAb(Heuristic h, Legalmove* l, int depth) {
-        _heuristic = h;
-        _legal_move = l;
+    MinMaxAb::MinMaxAb(Heuristic& heuristic, LegalMove& legal_move, int depth) {
+        _heuristic = &heuristic;
+        _legal_move = &legal_move;
         _depth = depth;
     }
 
@@ -29,7 +29,7 @@ namespace pdp_chess {
                 std::vector<Move> legal_moves = _legal_move->legalMove(board,current_color);
                 for (Move move : legal_moves){
                     board.doMove(move);
-                    printf("first move %f\n", _heuristic.evaluateBoard(board, current_color) );
+                    printf("first move %f\n", _heuristic->evaluateBoard(board, current_color) );
                     value = minmax_alphabeta(board, _depth-1, alpha, beta, !current_color);
                     board.undoMove();
                     if(value > value_max){
@@ -65,7 +65,7 @@ namespace pdp_chess {
     int MinMaxAb::minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn){
         int value = 0;
         if(depth==0 || board.isGameOver()){
-            return _heuristic.evaluateBoard(board, ai_player_turn);
+            return _heuristic->evaluateBoard(board, ai_player_turn);
         }
         if(ai_player_turn){
             int value_max = std::numeric_limits<int>::min();

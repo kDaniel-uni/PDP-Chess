@@ -13,8 +13,8 @@
 namespace pdp_chess {
 
     Board::Board() {
-        _pieces[black] = new Bitboards(black, true);
-        _pieces[white] = new Bitboards(white, true);
+        _pieces[black] = new PlayerState(black, true);
+        _pieces[white] = new PlayerState(white, true);
         updateWhiteAndBlackPieces();
     }
 
@@ -167,15 +167,15 @@ namespace pdp_chess {
     }
 
     void Board::resetToClassic() {
-        _pieces[black]->setBitboards(black, false);
-        _pieces[white]->setBitboards(white, false);
+        _pieces[black]->setPlayerState(black, false);
+        _pieces[white]->setPlayerState(white, false);
         updateWhiteAndBlackPieces();
         _history.clear();
     }
 
     void Board::resetToEmpty() {
-        _pieces[black]->setBitboards(black, true);
-        _pieces[white]->setBitboards(white, true);
+        _pieces[black]->setPlayerState(black, true);
+        _pieces[white]->setPlayerState(white, true);
         updateWhiteAndBlackPieces();
         _history.clear();
     }

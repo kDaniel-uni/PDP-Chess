@@ -16,11 +16,11 @@ namespace pdp_chess{
 
     std::vector<uint8_t> getPositionsV2(uint64_t bitboard);
 
-    void eatPiece(Move& move, Bitboards& bitboards);
+    void eatPiece(Move& move, PlayerState& player_state);
 
-    void movePiece(Move& move, Bitboards& bitboards);
+    void movePiece(Move& move, PlayerState& player_state);
 
-    void createPiece(Move& move, Bitboards& bitboards);
+    void createPiece(Move& move, PlayerState& player_state);
 
     uint64_t getWhitePawnsInBasePosition(const Bitboard& bitboard);
 

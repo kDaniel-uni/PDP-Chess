@@ -17,8 +17,8 @@ namespace pdp_chess {
         
 
     public :
-        Heuristic _heuristic;
-        Legalmove* _legal_move;
+        Heuristic* _heuristic;
+        LegalMove* _legal_move;
         int _depth;
         
         virtual ~AiPlayer() {}

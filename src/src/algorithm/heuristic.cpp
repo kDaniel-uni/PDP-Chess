@@ -123,10 +123,10 @@ namespace pdp_chess {
             return -1*legal_move_count;
     }
 
-    float Heuristic::evaluatePieces(const Bitboards &bitboard){
+    float Heuristic::evaluatePieces(const PlayerState &playerState){
         float value = 0;
         for (int i = 0; i < 6; i++) {
-            Bitboard* b = bitboard.list[i];
+            Bitboard* b = playerState.list[i];
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if ((b->value >> j) & 1) {
                     if (i == 0)
@@ -144,9 +144,9 @@ namespace pdp_chess {
                 }
             }
         }
-        value += doubled_value*nbDoubled(*bitboard.list[0]);
-        value += isolated_value*nbIsolated(*bitboard.list[0]);
-        value += backward_value*nbBackward(*bitboard.list[0]);
+        value += doubled_value*nbDoubled(*playerState.list[0]);
+        value += isolated_value*nbIsolated(*playerState.list[0]);
+        value += backward_value*nbBackward(*playerState.list[0]);
         return value;
     }
 

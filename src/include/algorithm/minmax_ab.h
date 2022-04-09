@@ -14,7 +14,7 @@ namespace pdp_chess {
     class MinMaxAb : public AiPlayer{
 
         public:
-            MinMaxAb(Heuristic h, Legalmove* l, int depth);
+            MinMaxAb(Heuristic& h, LegalMove& l, int depth);
 
             Move askNextMove(Board& board, color current_color) override;
             int minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn);
