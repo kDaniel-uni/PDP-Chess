@@ -10,7 +10,7 @@
 
 namespace pdp_chess {
 
-    class HumanPlayer : Player{
+    class HumanPlayer : public Player{
     public:
         Legalmove* legal_move;
 

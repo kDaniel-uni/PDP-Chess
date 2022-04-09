@@ -7,19 +7,20 @@
 #include <legal_move.h>
 
 namespace pdp_chess {
-    Heuristic::Heuristic(){
-        pawns_value = 1;
-        rooks_value = 5;
-        bishops_value = 3;
-        knights_value = 3;
-        queen_value = 9;
-        king_value = 200; 
-        backward_value = 0.5;
-        isolated_value = 0.5;
-        doubled_value = 0.5;
+
+    Heuristic::Heuristic(){ // x20
+        pawns_value = 20;
+        rooks_value = 100;
+        bishops_value = 60;
+        knights_value = 60;
+        queen_value = 180;
+        king_value = 4000;
+        backward_value = 10;
+        isolated_value = 10;
+        doubled_value = 10;
     }
 
-    Heuristic::Heuristic(float p_v, float r_v, float b_v, float kn_v, float q_v, float k_v, float back_v, float i_v, float d_v) {
+    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -31,27 +32,52 @@ namespace pdp_chess {
         doubled_value = d_v;
     }
 
-    float Heuristic::nbBackward(const Bitboard &bitboard){
-        float cmp = 0;
-        for(int i = 0; i < BOARD_SIZE; i++){
+    int Heuristic::whiteNbBackward(const Bitboard& bitboard){
+        int cmp = 0;
+        for(int i = 8; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
-                bool back = true;
+                bool back = false;
                 if(i%8 != 0){
-                    for(int j = (i-1)%8; j <= i-1; j+=8){
-                        if((bitboard.value >> j) & 1){
+                    if((bitboard.value >> i+7) & 1){
+                            back = true;
+                    }
+                    if((bitboard.value >> i-9) & 1){
                             back = false;
-                        }
                     }
                 }
                 if(i%8 != 7){
-                    for(int j = (i+1)%8; j <= i+1; j+=8){
-                        if((bitboard.value >> j) & 1){
-                            back = false;
-                        }
+                    if((bitboard.value >> i+9) & 1){
+                        back = true;
+                    }
+                    if((bitboard.value >> i-7) & 1){
+                        back = false;
                     }
                 }
-                for(int j = i%8; j < i; j+=8){
-                    if((bitboard.value >> j) & 1){
+                if(back){
+                    cmp++;
+                }
+            }
+        }
+        return cmp;
+    }
+    int Heuristic::blackNbBackward(const Bitboard& bitboard){
+        int cmp = 0;
+        for(int i = 0; i < BOARD_SIZE-8; i++){
+            if((bitboard.value >> i) & 1) {
+                bool back = false;
+                if(i%8 != 0){
+                    if((bitboard.value >> i-9) & 1){
+                       back = true;
+                    }
+                    if((bitboard.value >> i+7) & 1){
+                        back = false;
+                    }
+                }
+                if(i%8 != 7){
+                    if((bitboard.value >> i-7) & 1){
+                        back = true;
+                    }
+                    if((bitboard.value >> i+9) & 1){
                         back = false;
                     }
                 }
@@ -63,8 +89,9 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float Heuristic::nbDoubled(const Bitboard &bitboard){
-        float cmp = 0;
+
+    int Heuristic::nbDoubled(const Bitboard& bitboard){
+        int cmp = 0;
         for(int i = 8; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
                 if((bitboard.value >> i - 8) & 1){
@@ -75,13 +102,13 @@ namespace pdp_chess {
         return cmp;
     }
 
-    float Heuristic::nbIsolated(const Bitboard &bitboard){
-        float cmp = 0;
+    int Heuristic::nbIsolated(const Bitboard& bitboard){
+        int cmp = 0;
         for(int i = 0; i < BOARD_SIZE; i++){
             if((bitboard.value >> i) & 1) {
                 bool isolated = true;
                 if(i%8 != 0){
-                    for(int j = i-1; j < BOARD_SIZE; j+=8){
+                    for(int j = (i%8)-1; j < BOARD_SIZE; j+=8){
                         if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
@@ -89,7 +116,7 @@ namespace pdp_chess {
                     }
                 }
                 if(i%8 != 7){
-                    for(int j = i+1; j < BOARD_SIZE; j+=8){
+                    for(int j = (i%8)+1; j < BOARD_SIZE; j+=8){
                         if((bitboard.value >> j) & 1){
                             isolated = false;
                             break;
@@ -104,29 +131,43 @@ namespace pdp_chess {
                 }
                 if(isolated){
                     cmp++;
+                    printf("%d\n", i);
                 }
             }
         }
         return cmp;
     }
 
-    float Heuristic::nbLegalMove(const Board& board, bool white_turn){
-        float legal_move_count = 0;
+    int Heuristic::pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns) {
+        int score = 0;
 
-        std::vector<Move> white_legal_move = legal_move(board, white_turn);
-        legal_move_count += white_legal_move.size();
-        std::vector<Move> black_legal_move = legal_move(board, !white_turn);
-        legal_move_count -= black_legal_move.size();
-        if(white_turn)
-            return legal_move_count;
-        else
-            return -1*legal_move_count;
+        for (auto index : getPositionsV2(current_pawns.value)){
+            uint8_t row = (index / 8);
+            score += row;
+        }
+
+        for (auto index : getPositionsV2(opponent_pawns.value)){
+            uint8_t row = (index / 8);
+            score -= (8 - row);
+        }
+
+        return score;
     }
 
-    float Heuristic::evaluatePieces(const PlayerState &playerState){
-        float value = 0;
+    int Heuristic::nbLegalMove(const Board& board, bool white_turn){
+        int legal_move_count = 0;
+
+        std::vector<Move> white_legal_move = legal_move(board, white_turn);
+        std::vector<Move> black_legal_move = legal_move(board, !white_turn);
+        legal_move_count = white_legal_move.size() - black_legal_move.size();
+
+        return (legal_move_count * 2);
+    }
+
+    int Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
+        int value = 0;
         for (int i = 0; i < 6; i++) {
-            Bitboard* b = playerState.list[i];
+            Bitboard* b = player_state.list[i];
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if ((b->value >> j) & 1) {
                     if (i == 0)
@@ -144,18 +185,25 @@ namespace pdp_chess {
                 }
             }
         }
-        value += doubled_value*nbDoubled(*playerState.list[0]);
-        value += isolated_value*nbIsolated(*playerState.list[0]);
-        value += backward_value*nbBackward(*playerState.list[0]);
+
+        //printf("Initial value = %f, ",value);
+       /* value -= doubled_value * nbDoubled(*player_state.list[0]);
+        //printf("after doubled pieces = %f, ",value);
+        value -= isolated_value * nbIsolated(*player_state.list[0]);
+        //printf("after isolated pieces = %f, ",value);
+        if (is_white) { 
+            value -= backward_value * whiteNbBackward(*player_state.list[0]); 
+        } else {
+            value -= backward_value * blackNbBackward(*player_state.list[0]);
+        }*/
+        //printf("after backward pieces = %f\n",value);
         return value;
     }
 
-    float Heuristic::evaluateBoard(const Board &board, bool white_turn) {
-        float value = evaluatePieces(*board._pieces[white_turn]) - evaluatePieces(*board._pieces[!white_turn]);
-        //value += nbLegalMove(board, white_turn);
-        if (white_turn)
-            return value;
-        else
-            return -1 * value;
+    int Heuristic::evaluateBoard(const Board &board, bool color) {
+        int value = evaluatePieces(*board._pieces[color], color) - evaluatePieces(*board._pieces[!color], !color);
+        value += pawnForward(board._pieces[color]->pawns, board._pieces[!color]->pawns);
+        value += nbLegalMove(board, color);
+        return value;
     }
 }

@@ -12,6 +12,9 @@ using namespace pdp_chess;
 
 int main (int argc, char *argv[]) {
 
+    if (argc > 2) return EXIT_FAILURE;
+    if (argc == 1) return EXIT_FAILURE;
+
     std::string arg = argv[1];
     Game game = Game();
 

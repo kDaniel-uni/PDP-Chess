@@ -135,7 +135,7 @@ namespace pdp_chess {
         /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
             return true; WIP
         }*/
-        if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
+        /*if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
             return true;
         }
         Board historic_board = this->clone();
@@ -144,7 +144,7 @@ namespace pdp_chess {
         }
         if(strcmp(historic_board.toString().c_str(),this->toString().c_str())==0){ // if the board was the same 4 move ago, result is draw
             return true;
-        }
+        }*/
         
         return false;
 
@@ -158,11 +158,11 @@ namespace pdp_chess {
 
     std::string Board::result() {
         if (_pieces[black]->king.value == 0) {
-            return "The winner is player white";
+            return "Game won by white";
         } else if (_pieces[white]->king.value == 0) {
-            return "The winner is player black";
+            return "Game won by black";
         } else {
-            return "there is no winner";
+            return "No winner";
         }
     }
 
@@ -225,7 +225,7 @@ namespace pdp_chess {
         std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
     }
 
-    Board Board::clone(){ //return a copy oh the current board
+    Board Board::clone(){ //return a copy of the current board
         Board clone = Board();
         std::string clonepiece = Board::toString();
         clone.fromString(clonepiece.c_str());

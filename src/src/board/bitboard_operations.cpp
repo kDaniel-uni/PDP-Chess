@@ -23,7 +23,7 @@ namespace pdp_chess {
         uint64_t onebit;
         while (bitboard != 0){
             onebit = bitboard & -bitboard;
-            positions.emplace_back(log2(onebit));
+            positions.emplace_back(log2(onebit)); // log2 is O(1)
             bitboard -= onebit;
         }
         return positions;

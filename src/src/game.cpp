@@ -31,6 +31,8 @@ namespace pdp_chess {
         while (!board.isGameOver()) {
             step();
         }
+
+        std::cout << board.result() << " in " << board._history.size() << " moves" << std::endl;
     }
 
 
@@ -40,6 +42,7 @@ namespace pdp_chess {
     void Game::step() {
         Move player_move = _players[_current_color]->askNextMove(board, _current_color);
         board.doMove(player_move);
+        draw();
         _current_color = (color) !_current_color;
     }
 
@@ -49,5 +52,10 @@ namespace pdp_chess {
     void Game::playMove(Move move) {
         board.doMove(move);
         _current_color = (color) !_current_color;
+    }
+
+    void Game::draw() {
+        std::cout << "Player : " << (_current_color ? "White" : "Black") << std::endl;
+        board.draw();
     }
 }

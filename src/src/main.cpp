@@ -8,6 +8,8 @@
 #include "heuristic.h"
 #include "minmax_ab.h"
 #include "legal_move_v2.h"
+#include "chrono"
+#include <math.h>
 
 using namespace pdp_chess;
 
@@ -17,7 +19,8 @@ int main(int argc, char *argv[])
     Heuristic h = Heuristic();
     LegalMove lm = LegalMove();
     MinMaxAb player = MinMaxAb(h, lm, 3);
-    g->fromString("-------------------------Q-------------------------------------p");
+    //g->fromString("-------------------------Q-------------------------------------p");
+    g->fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
     g->board.draw();
 
     g->board.doMove( player.askNextMove(g->board, white) );

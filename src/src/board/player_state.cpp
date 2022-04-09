@@ -3,7 +3,7 @@
 //
 
 #include "stdint.h"
-#include "bitboards.h"
+#include "player_state.h"
 
 namespace pdp_chess {
 
