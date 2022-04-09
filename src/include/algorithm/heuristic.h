@@ -20,12 +20,13 @@ namespace pdp_chess {
         int backward_value;
         int isolated_value;
         int doubled_value;
+        int legal_move_value;
 
         Heuristic();
-        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v);
-        int whiteNbBackward(const Bitboard& bitboard);
-        int blackNbBackward(const Bitboard& bitboard);
-        int nbDoubled(const Bitboard& bitboard);
+        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v);
+        int nbDoubled(const Bitboard &bitboard);
+        int blackNbBackward(const Bitboard &bitboard);
+        int whiteNbBackward(const Bitboard &bitboard);
         int nbIsolated(const Bitboard &bitboard);
         int pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns);
         int nbLegalMove(const Board& board, bool white_turn);
