@@ -22,7 +22,15 @@ namespace pdp_chess {
         int doubled_value;
 
         Heuristic();
+        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v);
+        int whiteNbBackward(const Bitboard& bitboard);
+        int blackNbBackward(const Bitboard& bitboard);
+        int nbDoubled(const Bitboard& bitboard);
         int nbIsolated(const Bitboard &bitboard);
+        int pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns);
+        int nbLegalMove(const Board& board, bool white_turn);
+        int evaluatePieces(const PlayerState& player_state, bool is_white);
+        int evaluateBoard(const Board &board, bool color);
     };
 
 }
