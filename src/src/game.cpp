@@ -3,6 +3,8 @@
 //
 
 #include "game.h"
+#include <random>
+#include <ctime>
 
 namespace pdp_chess {
 
@@ -26,8 +28,10 @@ namespace pdp_chess {
     }
 
 
-    /* Start the game loop */
+    /* Start the game loop
+     * using srand here to keep the same seed for a game*/
     void Game::start() {
+        std::srand ( unsigned ( std::time(0) ) );
         while (!board.isGameOver()) {
             step();
         }
@@ -54,8 +58,16 @@ namespace pdp_chess {
         _current_color = (color) !_current_color;
     }
 
+    /* Draw the current game state on console
+     * */
     void Game::draw() {
         std::cout << "Player : " << (_current_color ? "White" : "Black") << std::endl;
         board.draw();
+    }
+
+    /* Initialize a basic board state
+     * */
+    void Game::loadBasicBoard() {
+        board.resetToClassic();
     }
 }

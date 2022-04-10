@@ -28,14 +28,6 @@ namespace pdp_chess {
         }
     }
 
-/*    int Board::getBoardValue(bool white_black_turn, Heuristic *h) {
-        int value = _pieces[white]->getBitboardValue(h) - _pieces[black]->getBitboardValue(h);
-        if (white_black_turn)
-            return value;
-        else
-            return -1 * value;
-    }*/
-
     std::string Board::toString() const{
         std::string res;
         res.resize(64);

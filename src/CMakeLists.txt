@@ -6,8 +6,6 @@ enable_testing()
 
 find_package(jsoncpp REQUIRED)
 get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
-#[[include_directories(${jsoncpp_INCLUDE_DIRS})
-link_libraries(${jsoncpp_LIBRARIES})]]
 
 message("FOUND CONFIG: ${jsoncpp_CONFIG}")
 message("INCLUDE DIRS: ${JSON_INC_PATH}")
@@ -21,6 +19,7 @@ include_directories(include/board)
 include_directories(include/move)
 include_directories(src/include/third_party)
 include_directories(include/player)
+include_directories(include/util)
 include_directories(${JSON_INC_PATH})
 
 include_directories(src)
@@ -37,7 +36,8 @@ add_library(lib src/game.cpp
         src/board/player_state.cpp
         src/algorithm/heuristic.cpp
         src/algorithm/minmax_ab.cpp
-        src/algorithm/random_player.cpp)
+        src/algorithm/random_player.cpp
+        src/util/vector_shuffle.cpp)
 
 target_link_libraries(lib jsoncpp_lib)
 

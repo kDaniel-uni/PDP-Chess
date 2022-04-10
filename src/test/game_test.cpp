@@ -2,7 +2,6 @@
 // Pdp_chess university project
 //
 
-#include <ctime>
 #include "game.h"
 #include "minmax_ab.h"
 #include "random_player.h"
@@ -15,7 +14,6 @@ int main (int argc, char *argv[]) {
     if (argc == 1) return EXIT_FAILURE;
 
     std::string arg = argv[1];
-    std::srand ( unsigned ( std::time(0) ) );
 
     if (arg == "1"){
         Heuristic heuristic = Heuristic();

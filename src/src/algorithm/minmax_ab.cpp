@@ -3,15 +3,14 @@
 //
 
 #include "board.h"
-#include "move.h"
 #include "player/ai_player.h"
 #include "legal_move.h"
 #include "heuristic.h"
 #include "minmax_ab.h"
+#include "vector_shuffle.h"
 #include <algorithm>
 #include <limits>
 #include <iostream>
-#include <random>
 
 namespace pdp_chess {
 
@@ -22,15 +21,15 @@ namespace pdp_chess {
     }
 
     Move MinMaxAb::askNextMove(Board &board, color current_color) {
-        std::random_device rd;
-        std::mt19937 g(rd());
+
         Move best_move;
         int value;
         int alpha = std::numeric_limits<int>::min();
         int beta = std::numeric_limits<int>::max();
 
         std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
-        std::shuffle(legal_moves.begin(), legal_moves.end(), g);
+        moveShuffle(legal_moves);
+
         for (Move move : legal_moves) {
             board.doMove(move);
             value = betaAlpha(board, _depth - 1, alpha, beta, !current_color, current_color);
