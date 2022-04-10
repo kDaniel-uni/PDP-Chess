@@ -4,3 +4,7 @@
 cmake-build-debug/
 
 cmake-out/
+
+src/build/
+
+src/cmake-build-debug-visual-studio/

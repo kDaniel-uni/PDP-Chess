@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <limits>
 #include <iostream>
+#include <random>
 
 namespace pdp_chess {
 
@@ -21,28 +22,23 @@ namespace pdp_chess {
     }
 
     Move MinMaxAb::askNextMove(Board &board, color current_color) {
+        std::random_device rd;
+        std::mt19937 g(rd());
         Move best_move;
-        //std::vector<Move> equal_moves;
         int value;
         int alpha = std::numeric_limits<int>::min();
         int beta = std::numeric_limits<int>::max();
 
         std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
-        std::random_shuffle(legal_moves.begin(), legal_moves.end());
+        std::shuffle(legal_moves.begin(), legal_moves.end(), g);
         for (Move move : legal_moves) {
             board.doMove(move);
             value = betaAlpha(board, _depth - 1, alpha, beta, !current_color, current_color);
             board.undoMove();
 
-           /* if (value == alpha){
-                equal_moves.emplace_back(move);
-            }*/
-
             if (value > alpha) {
                 alpha = value;
                 best_move = move;
-                /*equal_moves.clear();
-                equal_moves.emplace_back(move);*/
             }
 
         }
@@ -51,12 +47,6 @@ namespace pdp_chess {
         std::cout << "Meilleur coup : " << _heuristic->evaluateBoard(board, current_color) << std::endl;
         board.undoMove();
 
-        /*if (equal_moves.size() <= 1){
-            return best_move;
-        }
-
-        int random_pos = rand() % equal_moves.size();
-        return equal_moves.at(random_pos);*/
         return best_move;
     }
 

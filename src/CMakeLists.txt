@@ -4,36 +4,49 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 20)
 enable_testing()
 
+find_package(jsoncpp REQUIRED)
+get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
+#[[include_directories(${jsoncpp_INCLUDE_DIRS})
+link_libraries(${jsoncpp_LIBRARIES})]]
+
+message("FOUND CONFIG: ${jsoncpp_CONFIG}")
+message("INCLUDE DIRS: ${JSON_INC_PATH}")
+message("LIBRARIES: ${jsoncpp_lib}")
+
 add_compile_options(-Ofast)
 
-include_directories(src/include)
-include_directories(src/include/algorithm)
-include_directories(src/include/board)
-include_directories(src/include/move)
+include_directories(include)
+include_directories(include/algorithm)
+include_directories(include/board)
+include_directories(include/move)
 include_directories(src/include/third_party)
-include_directories(src/include/player)
+include_directories(include/player)
+include_directories(${JSON_INC_PATH})
 
-include_directories(src/src)
-include_directories(src/src/algorithm)
-include_directories(src/src/move)
-include_directories(src/src/board)
-include_directories(src/src/player)
+include_directories(src)
+include_directories(src/algorithm)
+include_directories(src/move)
+include_directories(src/board)
+include_directories(src/player)
 
-add_library(lib src/src/game.cpp
-        src/src/board/board.cpp
-        src/src/board/bitboard_operations.cpp
-        src/src/move/legal_move.cpp
-        src/src/move/legal_move_v2.cpp
-        src/src/board/player_state.cpp
-        src/src/algorithm/heuristic.cpp 
-        src/src/algorithm/minmax_ab.cpp src/src/algorithm/random_player.cpp)
+add_library(lib src/game.cpp
+        src/board/board.cpp
+        src/board/bitboard_operations.cpp
+        src/move/legal_move.cpp
+        src/move/legal_move_v2.cpp
+        src/board/player_state.cpp
+        src/algorithm/heuristic.cpp
+        src/algorithm/minmax_ab.cpp
+        src/algorithm/random_player.cpp)
+
+target_link_libraries(lib jsoncpp_lib)
 
 target_include_directories(lib
         PRIVATE
-        src/include)
+        include)
 
 
-add_executable(pdp_chess src/src/main.cpp)
+add_executable(pdp_chess src/main.cpp)
 target_link_libraries(pdp_chess PUBLIC lib)
 
 add_executable(board_io_test test/board_io_test.cpp)
