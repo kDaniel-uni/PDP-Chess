@@ -20,6 +20,7 @@ namespace pdp_chess{
             Move askNextMove(Board& board, color current_color) override;
             int algoNega(Board board, int depth, bool current_color, bool base_color);
     };
+            int Negamax(Board board, int depth, bool current_color, bool base_color);
 }
 
 #endif //PDP_CHESS_NEGAMAX_H
