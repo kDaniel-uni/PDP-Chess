@@ -18,9 +18,11 @@ namespace pdp_chess {
         backward_value = 10;
         isolated_value = 10;
         doubled_value = 10;
+        legal_move_value = 2;
+        forward_pawn_value = 1;
     }
 
-    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v) {
+    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -30,6 +32,7 @@ namespace pdp_chess {
         backward_value = back_v;
         isolated_value = i_v;
         doubled_value = d_v;
+        legal_move_value = lm_v;
     }
 
     int Heuristic::whiteNbBackward(const Bitboard& bitboard){
@@ -131,7 +134,6 @@ namespace pdp_chess {
                 }
                 if(isolated){
                     cmp++;
-                    printf("%d\n", i);
                 }
             }
         }
@@ -143,12 +145,12 @@ namespace pdp_chess {
 
         for (auto index : getPositionsV2(current_pawns.value)){
             uint8_t row = (index / 8);
-            score += row;
+            score += row * forward_pawn_value;
         }
 
         for (auto index : getPositionsV2(opponent_pawns.value)){
             uint8_t row = (index / 8);
-            score -= (8 - row);
+            score -= (8 - row) * forward_pawn_value;
         }
 
         return score;
@@ -156,12 +158,11 @@ namespace pdp_chess {
 
     int Heuristic::nbLegalMove(const Board& board, bool white_turn){
         int legal_move_count = 0;
-
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
         std::vector<Move> black_legal_move = legal_move(board, !white_turn);
         legal_move_count = white_legal_move.size() - black_legal_move.size();
 
-        return (legal_move_count * 2);
+        return legal_move_count * legal_move_value;
     }
 
     int Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
