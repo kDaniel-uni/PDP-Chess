@@ -67,6 +67,9 @@ target_link_libraries(game_test PUBLIC lib)
 add_executable(heuristic_test test/heuristic_test.cpp)
 target_link_libraries(heuristic_test PUBLIC lib)
 
+add_executable(condition_isdraw_test test/condition_isdraw_test.cpp)
+target_link_libraries(condition_isdraw_test PUBLIC lib)
+
 
 add_test(board_empty_init_test board_io_test 1)
 add_test(board_classic_init_test board_io_test 2)
@@ -112,3 +115,6 @@ add_test(heuristic_test_1 heuristic_test 1)
 add_test(heuristic_test_2 heuristic_test 1)
 add_test(heuristic_test_3 heuristic_test 1)
 add_test(heuristic_test_4 heuristic_test 1)
+
+add_test(draw_king_vs_king_test condition_isdraw_test 1)
+add_test(repetition_board_test condition_isdraw_test 2)

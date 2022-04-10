@@ -125,24 +125,27 @@ namespace pdp_chess {
 
     bool Board::isDraw(){
         /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
-            return true; WIP
+            return true;  WIP need to have LegalMove in Board to uncomment
         }*/
-        /*if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
+        if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
             return true;
         }
-        Board historic_board = this->clone();
-        for(int i=0; i<4 ; i++){
-            historic_board.undoMove();
+        if(_history.size() >= 4){
+            Board historic_board = this->clone();
+            for(int i=0; i<4 ; i++){
+                historic_board.undoMove();
+            }
+            if(strcmp(historic_board.toString().c_str(),this->toString().c_str())==0){ // if the board was the same 4 move ago, result is draw
+                return true;
+            }
         }
-        if(strcmp(historic_board.toString().c_str(),this->toString().c_str())==0){ // if the board was the same 4 move ago, result is draw
-            return true;
-        }*/
         
         return false;
-
     }
+
+
     bool Board::isGameOver() {
-        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) || isDraw()){
+        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) || Board::isDraw()){
             return true;
         }
         return false;
