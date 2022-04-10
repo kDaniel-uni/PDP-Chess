@@ -21,6 +21,7 @@ namespace pdp_chess {
         void start();
         void playMove(Move move);
         void fromString(const std::string& string);
+        void loadBasicBoard();
         void draw();
 
     private:

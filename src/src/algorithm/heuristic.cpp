@@ -8,6 +8,20 @@
 
 namespace pdp_chess {
 
+    Heuristic::Heuristic(const Json::Value& heuristic_data) {
+        pawns_value = 20;
+        rooks_value = 100;
+        bishops_value = 60;
+        knights_value = 60;
+        queen_value = 180;
+        king_value = 4000;
+        backward_value = 10;
+        isolated_value = 10;
+        doubled_value = 10;
+        legal_move_value = heuristic_data["LegalMove"].asInt();
+        forward_pawn_value = heuristic_data["ForwardPawn"].asInt();
+    }
+
     Heuristic::Heuristic(){ // x20
         pawns_value = 20;
         rooks_value = 100;
@@ -141,6 +155,11 @@ namespace pdp_chess {
     }
 
     int Heuristic::pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns) {
+
+        if (forward_pawn_value == 0){
+            return 0;
+        }
+
         int score = 0;
 
         for (auto index : getPositionsV2(current_pawns.value)){
@@ -157,6 +176,11 @@ namespace pdp_chess {
     }
 
     int Heuristic::nbLegalMove(const Board& board, bool white_turn){
+
+        if (legal_move_value == 0){
+            return 0;
+        }
+
         int legal_move_count = 0;
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
         std::vector<Move> black_legal_move = legal_move(board, !white_turn);
