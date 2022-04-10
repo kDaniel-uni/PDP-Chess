@@ -95,3 +95,7 @@ add_test(legal_move_v2_basic_test legal_move_test 14)
 add_test(speed_test_v1 legal_move_test 15)
 add_test(speed_test_v2 legal_move_test 16)
 
+add_test(heuristic_test_1 heuristic_test 1)
+add_test(heuristic_test_2 heuristic_test 1)
+add_test(heuristic_test_3 heuristic_test 1)
+add_test(heuristic_test_4 heuristic_test 1)

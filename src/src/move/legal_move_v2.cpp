@@ -293,12 +293,8 @@ namespace pdp_chess {
 
         for (auto current_piece_position : pdp_chess::getPositionsV2(bitboard.value)){
             uint64_t target_positions = _kings_moves_table[current_piece_position];
-            //uint64_t targetable_by_opponent = getTargetableFilter(board, !color);
-
             uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
-            //uint64_t blocked_by_check = target_positions & targetable_by_opponent;
-
-            movable = target_positions - blocked_by_ally;// - blocked_by_check;
+            movable = target_positions - blocked_by_ally;
 
             if (movable == 0) {
                 return;
@@ -313,8 +309,9 @@ namespace pdp_chess {
         Bitboard bitboard = board._pieces[color]->knights;
 
         for (auto current_piece_position : pdp_chess::getPositionsV2(bitboard.value)) {
-            movable = _knights_moves_table[current_piece_position]
-                      - (_knights_moves_table[current_piece_position] & board._pieces[color]->all.value);
+            uint64_t target_positions = _knights_moves_table[current_piece_position];
+            uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
+            movable = target_positions - blocked_by_ally;
 
             if (movable == 0) {
                 continue;
@@ -378,56 +375,5 @@ namespace pdp_chess {
             move.target_position = current_target_position;
             moves.emplace_back(move);
         }
-    }
-
-    uint64_t LegalMove::getTargetableFilter(const Board &board, bool color) {
-        uint64_t movable;
-        uint64_t rushable;
-        uint64_t possibly_eat;
-
-        Bitboard bitboard = board._pieces[color]->pawns;
-
-        for (int current_piece_position: getPositionsV2(bitboard.value)) {
-            rushable = _pawns_moves_table[color][current_piece_position] -
-                    (_pawns_moves_table[color][current_piece_position]
-                    & (board._pieces[!color]->all.value | board._pieces[color]->all.value));
-            possibly_eat = _pawns_attacks_table[color][current_piece_position] & board._pieces[!color]->all.value;
-            movable = possibly_eat | rushable;
-        }
-
-        bitboard = board._pieces[color]->king;
-
-        for (auto current_piece_position : pdp_chess::getPositionsV2(bitboard.value)){
-            uint64_t target_positions = _kings_moves_table[current_piece_position];
-            uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
-            movable |= target_positions - blocked_by_ally;
-        }
-
-        bitboard = board._pieces[color]->knights;
-
-        for (auto current_piece_position : pdp_chess::getPositionsV2(bitboard.value)) {
-            movable |= _knights_moves_table[current_piece_position]
-                    - (_knights_moves_table[current_piece_position] & board._pieces[color]->all.value);
-        }
-
-        bitboard = board._pieces[color]->bishops;
-
-        for (auto current_piece_position : getPositionsV2(bitboard.value)) {
-            movable |= bishopsMoves(current_piece_position, board, color);
-        }
-
-        bitboard = board._pieces[color]->queen;
-
-        for (auto current_piece_position : getPositionsV2(bitboard.value)) {
-            movable |= queensMoves(current_piece_position, board, color);
-        }
-
-        bitboard = board._pieces[color]->rooks;
-
-        for (auto current_piece_position : getPositionsV2(bitboard.value)) {
-            movable |= rooksMoves(current_piece_position, board, color);
-        }
-
-        return movable;
     }
 }
