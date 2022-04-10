@@ -1,0 +1,19 @@
+{
+  "AI" : {
+    "Type" : "AlphaBeta",
+    "Depth" : 3,
+    "Heuristic" : {
+      "LegalMove" : 2,
+      "ForwardPawn" : 1
+    }
+  },
+
+  "AI2" : {
+    "Type" : "AlphaBeta",
+    "Depth" : 3,
+    "Heuristic" : {
+      "LegalMove" : 2,
+      "ForwardPawn" : 1
+    }
+  }
+}

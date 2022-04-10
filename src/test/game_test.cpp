@@ -18,8 +18,8 @@ int main (int argc, char *argv[]) {
     if (arg == "1"){
         Heuristic heuristic = Heuristic();
         LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
-        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 3);
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 5);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 4);
         Game g = Game(white_player, black_player);
         g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
         g.start();

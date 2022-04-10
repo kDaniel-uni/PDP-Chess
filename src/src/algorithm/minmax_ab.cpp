@@ -3,8 +3,7 @@
 //
 
 #include "board.h"
-#include "player/ai_player.h"
-#include "legal_move.h"
+#include "ai_player.h"
 #include "heuristic.h"
 #include "minmax_ab.h"
 #include "vector_shuffle.h"
@@ -50,9 +49,10 @@ namespace pdp_chess {
     }
 
     int MinMaxAb::betaAlpha(Board board, int depth, int alpha, int beta, bool current_color, bool base_color) {
+
+
         if (depth == 0 || board.isGameOver()) {
             auto value = _heuristic->evaluateBoard(board, base_color);
-            //std::cout << "Value : " << value << std::endl;
             return value;
         }
 
@@ -72,7 +72,6 @@ namespace pdp_chess {
     int MinMaxAb::alphaBeta(Board board, int depth, int alpha, int beta, bool current_color, bool base_color) {
         if (depth == 0 || board.isGameOver()) {
             auto value = _heuristic->evaluateBoard(board, base_color);
-            //std::cout << "Value : " << value << std::endl;
             return value;
         }
 

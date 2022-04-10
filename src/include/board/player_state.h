@@ -50,6 +50,8 @@ namespace pdp_chess {
         PlayerState(bool is_white, bool is_empty);
 
         void setPlayerState(bool is_white, bool is_empty);
+
+        bool equal(PlayerState& playerState);
     };
 
 }

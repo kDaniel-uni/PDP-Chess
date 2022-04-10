@@ -109,43 +109,87 @@ namespace pdp_chess {
         _history.push_back(move);
     }
 
-    void Board::undoMove() {
+    Move Board::undoMove() {
         Move move = _history.back();
         Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
 
         movePiece(reverse_move, *_pieces[move.start_type < 90]);
         if (reverse_move.target_type == '-'){
+            Move back = _history.back();
             _history.pop_back();
-            return;
+            return back;
         }
         createPiece(move, *_pieces[move.target_type < 90]);
 
+        Move back = _history.back();
         _history.pop_back();
+        return back;
     }
 
     bool Board::isDraw(){
         /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
             return true;  WIP need to have LegalMove in Board to uncomment
         }*/
-        if((_pieces[white]->all.value == _pieces[white]->king.value) && (_pieces[black]->all.value == _pieces[black]->king.value)){ // if king vs king, the result is a draw
+
+        uint64_t all_white = _pieces[white]->all.value;
+        uint64_t all_black = _pieces[black]->all.value;
+        uint64_t king_white = _pieces[white]->king.value;
+        uint64_t king_black = _pieces[black]->king.value;
+        uint64_t bishops_white = _pieces[white]->bishops.value;
+        uint64_t bishops_black = _pieces[black]->bishops.value;
+        uint64_t knights_white = _pieces[white]->knights.value;
+        uint64_t knights_black = _pieces[black]->knights.value;
+
+        if((all_white == king_white) && (all_black == king_black)){ // if king vs king, the result is a draw
             return true;
         }
-        if(_history.size() >= 4){
-            Board historic_board = this->clone();
-            for(int i=0; i<4 ; i++){
-                historic_board.undoMove();
-            }
-            if(strcmp(historic_board.toString().c_str(),this->toString().c_str())==0){ // if the board was the same 4 move ago, result is draw
-                return true;
-            }
+
+        if ((all_white == (king_white | bishops_white)) && (all_black == king_black)){
+            return true;
         }
-        
+
+        if ((all_black == (king_black | bishops_black)) && (all_white == king_white)){
+            return true;
+        }
+
+        if ((all_white == (king_white | knights_white)) && (all_black == king_black)){
+            return true;
+        }
+
+        if ((all_black == (king_black | knights_black)) && (all_white == king_white)){
+            return true;
+        }
+
+        if ((all_white == (king_white | bishops_white)) && (all_black == (king_black | bishops_black))){
+            return true;
+        }
+
+        if(_history.size() >= 8){
+            Board historic_board = this->clone();
+
+            historic_board.undoMove();
+            historic_board.undoMove();
+            historic_board.undoMove();
+            historic_board.undoMove();
+
+            if (!this->equal(historic_board)){
+                return false;
+            }
+
+            historic_board.undoMove();
+            historic_board.undoMove();
+            historic_board.undoMove();
+            historic_board.undoMove();
+
+            return (this->equal(historic_board));
+        }
+
         return false;
     }
 
 
     bool Board::isGameOver() {
-        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0) || Board::isDraw()){
+        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0 || Board::isDraw())){
             return true;
         }
         return false;
@@ -227,5 +271,14 @@ namespace pdp_chess {
         std::vector<Move> clonehistory(_history);
         clone._history = clonehistory;
         return clone;
+    }
+
+    bool Board::equal(Board& board) {
+        if (_pieces[white]->equal(*board._pieces[white])
+        && _pieces[black]->equal(*board._pieces[black])){
+            return true;
+        }
+
+        return false;
     }
 }

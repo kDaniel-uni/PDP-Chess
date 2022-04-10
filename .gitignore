@@ -8,3 +8,7 @@ cmake-out/
 src/build/
 
 src/cmake-build-debug-visual-studio/
+
+.vscode/
+
+build/

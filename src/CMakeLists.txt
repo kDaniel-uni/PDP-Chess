@@ -37,7 +37,8 @@ add_library(lib src/game.cpp
         src/algorithm/heuristic.cpp
         src/algorithm/minmax_ab.cpp
         src/algorithm/random_player.cpp
-        src/util/vector_shuffle.cpp)
+        src/util/vector_shuffle.cpp
+        src/algorithm/ai_factory.cpp)
 
 target_link_libraries(lib jsoncpp_lib)
 
@@ -69,6 +70,8 @@ target_link_libraries(heuristic_test PUBLIC lib)
 
 add_executable(condition_isdraw_test test/condition_isdraw_test.cpp)
 target_link_libraries(condition_isdraw_test PUBLIC lib)
+add_executable(ai_factory_test test/ai_factory_test.cpp)
+target_link_libraries(ai_factory_test PUBLIC lib)
 
 
 add_test(board_empty_init_test board_io_test 1)
@@ -118,3 +121,5 @@ add_test(heuristic_test_4 heuristic_test 1)
 
 add_test(draw_king_vs_king_test condition_isdraw_test 1)
 add_test(repetition_board_test condition_isdraw_test 2)
+
+add_test(factory_test ai_factory_test 1)

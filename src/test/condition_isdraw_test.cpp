@@ -4,7 +4,7 @@
 
 #include "game.h"
 #include "minmax_ab.h"
-
+#include <cstring>
 
 using namespace pdp_chess;
 

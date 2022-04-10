@@ -77,4 +77,16 @@ namespace pdp_chess {
         king.value = (base << 60);
     }
 
+    bool PlayerState::equal(PlayerState &playerState) {
+        if ((pawns.value == playerState.pawns.value)
+        && (rooks.value == playerState.rooks.value)
+        && (knights.value == playerState.knights.value)
+        && (bishops.value == playerState.bishops.value)
+        && (queen.value == playerState.queen.value)
+        && (king.value == playerState.king.value)){
+            return true;
+        }
+
+        return false;
+    }
 }
