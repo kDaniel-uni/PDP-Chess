@@ -120,6 +120,9 @@ add_test(heuristic_test_3 heuristic_test 1)
 add_test(heuristic_test_4 heuristic_test 1)
 
 add_test(draw_king_vs_king_test condition_isdraw_test 1)
+add_test(draw_king_bishop_vs_king_test condition_isdraw_test 3)
+add_test(draw_king_knight_vs_king_test condition_isdraw_test 4)
+add_test(draw_king_bishop_vs_king_bishop_test condition_isdraw_test 5)
 add_test(repetition_board_test condition_isdraw_test 2)
 
 add_test(factory_test ai_factory_test 1)

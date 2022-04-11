@@ -54,9 +54,63 @@ int main (int argc, char *argv[]) {
         g.board.doMove(mv2);
         g.board.doMove(mv3);
         g.board.doMove(mv4);
+        g.board.doMove(mv1);
+        g.board.doMove(mv2);
+        g.board.doMove(mv3);
+        g.board.doMove(mv4);
         if(g.board.isGameOver() && (strcmp(g.board.result().c_str(),"No winner") == 0)){
             return EXIT_SUCCESS;
         }
         return EXIT_FAILURE;
+
+    }else if (arg == "3"){
+        Heuristic heuristic = Heuristic();
+        LegalMove legal_move = LegalMove();
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        Game g = Game(white_player,black_player);
+        g.fromString("----------------KB--------------------------k-------------------");
+        g.start();
+        if (strcmp(g.board.result().c_str(),"No winner") != 0){
+            return EXIT_FAILURE;
+        }
+        g.fromString("----------------K---------------------------kb------------------");
+        g.start();
+        if (strcmp(g.board.result().c_str(),"No winner") != 0){
+            return EXIT_FAILURE;
+        }
+        return EXIT_SUCCESS;
+
+    }else if (arg == "4"){
+        Heuristic heuristic = Heuristic();
+        LegalMove legal_move = LegalMove();
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        Game g = Game(white_player,black_player);
+        g.fromString("----------------KN--------------------------k-------------------");
+        g.start();
+        if (strcmp(g.board.result().c_str(),"No winner") != 0){
+            return EXIT_FAILURE;
+        }
+        g.fromString("----------------K---------------------------kn------------------");
+        g.start();
+        if (strcmp(g.board.result().c_str(),"No winner") != 0){
+            return EXIT_FAILURE;
+        }
+        return EXIT_SUCCESS;
+
+    }else if (arg == "5"){
+        Heuristic heuristic = Heuristic();
+        LegalMove legal_move = LegalMove();
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        Game g = Game(white_player,black_player);
+        g.fromString("----------------KB--------------------------kb------------------");
+        g.start();
+        if (strcmp(g.board.result().c_str(),"No winner") == 0){
+            return EXIT_SUCCESS;
+        }
+        return EXIT_FAILURE;
     }
+
 }
