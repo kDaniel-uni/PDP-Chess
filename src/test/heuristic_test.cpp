@@ -8,6 +8,16 @@
 
 using namespace pdp_chess;
 
+void printEval(Board b, bool color, Heuristic h, Heuristic h_isolated, Heuristic h_doubled, Heuristic h_backward, Heuristic h_legal_move, Heuristic h_piece){
+        int h_eval = h.evaluateBoard(b, color);
+        int h_i = h_isolated.evaluateBoard(b, color);
+        int h_d = h_doubled.evaluateBoard(b, color);
+        int h_b = h_backward.evaluateBoard(b, color);
+        int h_l_m = h_legal_move.evaluateBoard(b, color);
+        int h_p = h_piece.evaluateBoard(b, color);
+        printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h_eval, h_i, h_d, h_b, h_l_m, h_p);
+}
+
 int main (int argc, char *argv[]) {
 
         if (argc > 2) return EXIT_FAILURE;
@@ -16,11 +26,11 @@ int main (int argc, char *argv[]) {
         std::string arg = argv[1];
 
         Heuristic h = Heuristic();
-        Heuristic h_doubled = Heuristic(0,0,0,0,0,0,0,0,1,0);
-        Heuristic h_isolated = Heuristic(0,0,0,0,0,0,0,1,0,0);
-        Heuristic h_backward = Heuristic(0,0,0,0,0,0,1,0,0,0);
-        Heuristic h_legal_move = Heuristic(0,0,0,0,0,0,0,0,0,1);
-        Heuristic h_bis = Heuristic(10, 50, 30, 30, 90, 2000, 0, 0, 0, 0);
+        Heuristic h_doubled = Heuristic(0,0,0,0,0,0,0,0,10,0,0);
+        Heuristic h_isolated = Heuristic(0,0,0,0,0,0,0,10,0,0,0);
+        Heuristic h_backward = Heuristic(0,0,0,0,0,0,10,0,0,0,0);
+        Heuristic h_legal_move = Heuristic(0,0,0,0,0,0,0,0,0,2,0);
+        Heuristic h_piece = Heuristic(20, 100, 60, 60, 180, 4000, 0, 0, 0, 0,0);
         LegalMove legal_move = LegalMove();
         MinMaxAb* white_player = new MinMaxAb(h, legal_move, 6);
         MinMaxAb* black_player = new MinMaxAb(h, legal_move, 4);
@@ -28,23 +38,25 @@ int main (int argc, char *argv[]) {
         if(arg == "1"){
                 g.fromString("------------K----------------------------------------------------");
                 g.board.draw();
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, true), h_isolated.evaluateBoard(g.board, true), h_doubled.evaluateBoard(g.board, true), h_backward.evaluateBoard(g.board, true), h_legal_move.evaluateBoard(g.board, true), h_bis.evaluateBoard(g.board, true));
+                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+                printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
         }
         if(arg == "2"){
                 g.fromString("------------K-------------------------------------------P------P-");
                 g.board.draw();
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, true), h_isolated.evaluateBoard(g.board, true), h_doubled.evaluateBoard(g.board, true), h_backward.evaluateBoard(g.board, true), h_legal_move.evaluateBoard(g.board, true), h_bis.evaluateBoard(g.board, true));
+                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+                printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
         }
         if(arg == "3"){
                 g.fromString("------------K-------------------p----------------------PP------P-");
                 g.board.draw();
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, true), h_isolated.evaluateBoard(g.board, true), h_doubled.evaluateBoard(g.board, true), h_backward.evaluateBoard(g.board, true), h_legal_move.evaluateBoard(g.board, true), h_bis.evaluateBoard(g.board, true));
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, false), h_isolated.evaluateBoard(g.board, false), h_doubled.evaluateBoard(g.board, false), h_backward.evaluateBoard(g.board, false), h_legal_move.evaluateBoard(g.board, false), h_bis.evaluateBoard(g.board, false));
+                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+                printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
         }
         if(arg == "4"){
                 g.fromString("------------K--------------------------p---------P-----PP------P-");
                 g.board.draw();
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, true), h_isolated.evaluateBoard(g.board, true), h_doubled.evaluateBoard(g.board, true), h_backward.evaluateBoard(g.board, true), h_legal_move.evaluateBoard(g.board, true), h_bis.evaluateBoard(g.board, true));
-                printf("%d, isolated %d, doubled %d, backward %d, legal move %d, piece val %d\n", h.evaluateBoard(g.board, false), h_isolated.evaluateBoard(g.board, false), h_doubled.evaluateBoard(g.board, false), h_backward.evaluateBoard(g.board, false), h_legal_move.evaluateBoard(g.board, false), h_bis.evaluateBoard(g.board, false));
+                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+                printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
         }
 }
