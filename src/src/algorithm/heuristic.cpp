@@ -22,7 +22,7 @@ namespace pdp_chess {
         forward_pawn_value = 1;
     }
 
-    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v) {
+    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v, int f_p_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -33,6 +33,7 @@ namespace pdp_chess {
         isolated_value = i_v;
         doubled_value = d_v;
         legal_move_value = lm_v;
+        forward_pawn_value = f_p_v;
     }
 
     int Heuristic::whiteNbBackward(const Bitboard& bitboard){
@@ -160,9 +161,11 @@ namespace pdp_chess {
         int legal_move_count = 0;
         std::vector<Move> white_legal_move = legal_move(board, white_turn);
         std::vector<Move> black_legal_move = legal_move(board, !white_turn);
-        legal_move_count = white_legal_move.size() - black_legal_move.size();
-
-        return legal_move_count * legal_move_value;
+        legal_move_count = legal_move_value*(white_legal_move.size() - black_legal_move.size());
+        if(white_turn)
+            return legal_move_count;
+        else
+            return -1*legal_move_count;
     }
 
     int Heuristic::evaluatePieces(const PlayerState& player_state, bool is_white){
@@ -187,17 +190,13 @@ namespace pdp_chess {
             }
         }
 
-        //printf("Initial value = %f, ",value);
-       /* value -= doubled_value * nbDoubled(*player_state.list[0]);
-        //printf("after doubled pieces = %f, ",value);
+        value -= doubled_value * nbDoubled(*player_state.list[0]);
         value -= isolated_value * nbIsolated(*player_state.list[0]);
-        //printf("after isolated pieces = %f, ",value);
         if (is_white) { 
             value -= backward_value * whiteNbBackward(*player_state.list[0]); 
         } else {
             value -= backward_value * blackNbBackward(*player_state.list[0]);
-        }*/
-        //printf("after backward pieces = %f\n",value);
+        }
         return value;
     }
 
