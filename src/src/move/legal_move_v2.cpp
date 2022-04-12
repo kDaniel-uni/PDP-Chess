@@ -268,22 +268,24 @@ namespace pdp_chess {
 
     void LegalMove::pawnsLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
         uint64_t movable;
-        uint64_t rushable;
-        uint64_t possibly_eat;
+        uint64_t eatable;
+        uint64_t legal_positions;
         Bitboard bitboard = board._pieces[color]->pawns;
 
         for (int current_piece_position: getPositionsV2(bitboard.value)) {
-            rushable = _pawns_moves_table[color][current_piece_position] -
-                       (_pawns_moves_table[color][current_piece_position]
-                        & (board._pieces[!color]->all.value | board._pieces[color]->all.value));
-            possibly_eat = _pawns_attacks_table[color][current_piece_position] & board._pieces[!color]->all.value;
-            movable = possibly_eat | rushable;
+            uint64_t move_target_positions = _pawns_moves_table[color][current_piece_position];
+            uint64_t blocked_positions = move_target_positions & (board._pieces[!color]->all.value | board._pieces[color]->all.value);
 
-            if (movable == 0) {
+            movable = move_target_positions - blocked_positions;
+            eatable = _pawns_attacks_table[color][current_piece_position] & board._pieces[!color]->all.value;
+
+            legal_positions = eatable | movable;
+
+            if (legal_positions == 0) {
                 continue;
             }
 
-            generateMoves(bitboard, current_piece_position, moves, movable);
+            generateMoves(bitboard, current_piece_position, moves, legal_positions);
         }
     }
 
