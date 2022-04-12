@@ -7,6 +7,7 @@
 #include "heuristic.h"
 #include "minmax_ab.h"
 #include "vector_shuffle.h"
+#include "legal_move.h"
 #include <algorithm>
 #include <limits>
 #include <iostream>
@@ -38,7 +39,6 @@ namespace pdp_chess {
                 alpha = value;
                 best_move = move;
             }
-
         }
 
         board.doMove(best_move);
@@ -50,13 +50,13 @@ namespace pdp_chess {
 
     int MinMaxAb::betaAlpha(Board board, int depth, int alpha, int beta, bool current_color, bool base_color) {
 
-
         if (depth == 0 || board.isGameOver()) {
             auto value = _heuristic->evaluateBoard(board, base_color);
             return value;
         }
 
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        //std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = pdp_chess::legal_move(board, current_color);
         for (Move move : legal_moves) {
             board.doMove(move);
             beta = std::min(beta, alphaBeta(board, depth - 1, alpha, beta, !current_color, base_color));
@@ -75,7 +75,8 @@ namespace pdp_chess {
             return value;
         }
 
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        //std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = pdp_chess::legal_move(board, current_color);
         for (Move move : legal_moves) {
             board.doMove(move);
             alpha = std::max(alpha, betaAlpha(board, depth - 1, alpha, beta, !current_color, base_color));

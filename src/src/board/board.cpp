@@ -16,6 +16,7 @@ namespace pdp_chess {
         _pieces[black] = new PlayerState(black, true);
         _pieces[white] = new PlayerState(white, true);
         updateWhiteAndBlackPieces();
+        moves_without_eating_counter = 0;
     }
 
     void Board::updateWhiteAndBlackPieces() {
@@ -38,7 +39,7 @@ namespace pdp_chess {
 
         for (short color = 0; color < 2; color++) {
             for (Bitboard *bitboard : _pieces[color]->list) {
-                for (auto index : getPositions(*bitboard)) {
+                for (auto index : getPositionsV2(bitboard->value)) {
                     res[index] = bitboard->type;
                 }
             }
@@ -96,20 +97,34 @@ namespace pdp_chess {
         updateWhiteAndBlackPieces();
     }
 
-    void Board::doMove(Move move) {
+    void Board::doMove(Move move, bool is_main_loop) {
         if ((_pieces[black]->all.value >> move.target_position) & 1) {
             eatPiece(move, *_pieces[black]);
+
+            if (is_main_loop){
+                moves_without_eating_counter = 0;
+            }
+
         } else if ((_pieces[white]->all.value >> move.target_position) & 1) {
             eatPiece(move, *_pieces[white]);
+
+            if (is_main_loop){
+                moves_without_eating_counter = 0;
+            }
+
         } else {
             move.target_type = '-';
+
+            if (is_main_loop){
+                moves_without_eating_counter ++;
+            }
         }
         movePiece(move, *_pieces[move.start_type < 90]);
 
         _history.push_back(move);
     }
 
-    Move Board::undoMove() {
+    Move Board::undoMove(bool is_main_loop) {
         Move move = _history.back();
         Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
 
@@ -117,6 +132,9 @@ namespace pdp_chess {
         if (reverse_move.target_type == '-'){
             Move back = _history.back();
             _history.pop_back();
+            if (is_main_loop){
+                moves_without_eating_counter --;
+            }
             return back;
         }
         createPiece(move, *_pieces[move.target_type < 90]);
@@ -130,6 +148,10 @@ namespace pdp_chess {
         /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
             return true;  WIP need to have LegalMove in Board to uncomment
         }*/
+
+        if (moves_without_eating_counter > 50) {
+            return true;
+        }
 
         uint64_t all_white = _pieces[white]->all.value;
         uint64_t all_black = _pieces[black]->all.value;
@@ -210,6 +232,7 @@ namespace pdp_chess {
         _pieces[white]->setPlayerState(white, false);
         updateWhiteAndBlackPieces();
         _history.clear();
+        moves_without_eating_counter = 0;
     }
 
     void Board::resetToEmpty() {
@@ -217,6 +240,7 @@ namespace pdp_chess {
         _pieces[white]->setPlayerState(white, true);
         updateWhiteAndBlackPieces();
         _history.clear();
+        moves_without_eating_counter = 0;
     }
 
     int Board::getColor(int index) {

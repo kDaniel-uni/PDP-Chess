@@ -17,6 +17,8 @@ int main (int argc, char *argv[]) {
     std::string arg = argv[1];
 
     if (arg == "1"){
+        int number_of_game = 200;
+
         std::ifstream input_stream("../json_exemple/ai_test.json");
         Json::Reader reader;
         Json::Value json_object;
@@ -25,17 +27,21 @@ int main (int argc, char *argv[]) {
         LegalMove legal_move = LegalMove();
         AiFactory ai_factory = AiFactory(legal_move);
 
-        AiPlayer* white_player = &ai_factory.createAiPlayer(json_object["AI"]);
-        AiPlayer* black_player = &ai_factory.createAiPlayer(json_object["AI2"]);
+        AiPlayer* white_player = &ai_factory.createAiPlayer(json_object["White"]);
+        AiPlayer* black_player = &ai_factory.createAiPlayer(json_object["Black"]);
         Game g = Game(white_player, black_player);
-        g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+
 
         auto t1 = std::chrono::high_resolution_clock::now();
 
-        g.start();
+        for (int i = 0; i < number_of_game; ++i) {
+            g.reset();
+            g.start();
+        }
 
         auto t2 = std::chrono::high_resolution_clock::now();
         auto duration = duration_cast<std::chrono::milliseconds>(t2 - t1);
-        std::cout << duration.count() << " ms" << std::endl;
+        std::cout << number_of_game << " game played" << std::endl;
+        std::cout << "Average game time " << duration.count()/number_of_game << " ms" << std::endl;
     }
 }

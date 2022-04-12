@@ -8,10 +8,10 @@
 
 namespace pdp_chess {
 
-    std::vector<uint8_t> getPositions(const Bitboard& bitboard) {
+    std::vector<uint8_t> getPositions(uint64_t bitboard) {
         std::vector<uint8_t> positions;
         for (int i = 0; i < BOARD_SIZE; i++) {
-            if ((bitboard.value >> i) & 1) {
+            if ((bitboard >> i) & 1) {
                 positions.emplace_back(i);
             }
         }

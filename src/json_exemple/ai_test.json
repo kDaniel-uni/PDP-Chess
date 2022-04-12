@@ -1,5 +1,5 @@
 {
-  "AI" : {
+  "White" : {
     "Type" : "AlphaBeta",
     "Depth" : 3,
     "Heuristic" : {
@@ -8,7 +8,7 @@
     }
   },
 
-  "AI2" : {
+  "Black" : {
     "Type" : "AlphaBeta",
     "Depth" : 3,
     "Heuristic" : {

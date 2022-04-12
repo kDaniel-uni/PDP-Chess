@@ -70,9 +70,12 @@ target_link_libraries(heuristic_test PUBLIC lib)
 
 add_executable(condition_isdraw_test test/condition_isdraw_test.cpp)
 target_link_libraries(condition_isdraw_test PUBLIC lib)
+
 add_executable(ai_factory_test test/ai_factory_test.cpp)
 target_link_libraries(ai_factory_test PUBLIC lib)
 
+add_executable(speed_test test/speed_test.cpp)
+target_link_libraries(speed_test PUBLIC lib)
 
 add_test(board_empty_init_test board_io_test 1)
 add_test(board_classic_init_test board_io_test 2)

@@ -324,13 +324,13 @@ int main(int argc, char *argv[]) {
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int index = 0; index < 10000; index++){
-            //testPawn(g, true, legal_moves);
+            testPawn(g, true, legal_moves);
             testRooks(g, true, legal_moves);
             testBishops(g, true, legal_moves);
             testKnights(g, true, legal_moves);
             testQueen(g, true, legal_moves);
             testKing(g, true, legal_moves);
-            //testBasic(g, true, legal_moves);
+            testBasic(g, true, legal_moves);
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();
@@ -342,13 +342,13 @@ int main(int argc, char *argv[]) {
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int index = 0; index < 10000; index++){
-            //testPawn(g, false, legal_moves);
+            testPawn(g, false, legal_moves);
             testRooks(g, false, legal_moves);
             testBishops(g, false, legal_moves);
             testKnights(g, false, legal_moves);
             testQueen(g, false, legal_moves);
             testKing(g, false, legal_moves);
-            //testBasic(g, false, legal_moves);
+            testBasic(g, false, legal_moves);
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();

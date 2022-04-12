@@ -45,8 +45,8 @@ namespace pdp_chess {
      * Change the color of the current player */
     void Game::step() {
         Move player_move = _players[_current_color]->askNextMove(board, _current_color);
-        board.doMove(player_move);
-        draw();
+        board.doMove(player_move, true);
+        //draw();
         _current_color = (color) !_current_color;
     }
 
@@ -54,7 +54,7 @@ namespace pdp_chess {
     /* For test purpose
      * used to test engine function for which no player action is required */
     void Game::playMove(Move move) {
-        board.doMove(move);
+        board.doMove(move, true);
         _current_color = (color) !_current_color;
     }
 
@@ -68,6 +68,10 @@ namespace pdp_chess {
     /* Initialize a basic board state
      * */
     void Game::loadBasicBoard() {
+        board.resetToClassic();
+    }
+
+    void Game::reset() {
         board.resetToClassic();
     }
 }

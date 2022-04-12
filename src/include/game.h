@@ -23,6 +23,7 @@ namespace pdp_chess {
         void fromString(const std::string& string);
         void loadBasicBoard();
         void draw();
+        void reset();
 
     private:
         Player* _players[2];

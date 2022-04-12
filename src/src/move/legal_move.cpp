@@ -32,7 +32,7 @@ namespace pdp_chess{
         char type = (char) ('p' - (is_white * 32));
         
         if( is_white ){
-            for (uint8_t index : getPositions(board._pieces[white]->pawns)) { //white
+            for (uint8_t index : getPositionsV2(board._pieces[white]->pawns.value)) { //white
                 if( ( index >= 8) & (index <= 15)  ){ //pawn base position
                     if( !( (board._pieces[white]->all.value >> (index+16)) & 1 ) & !((board._pieces[white]->all.value >> (index+8)) & 1) & !((board._pieces[black]->all.value >> (index+16)) & 1) & !((board._pieces[black]->all.value >> (index+8)) & 1) ){
                         Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index+16)};
@@ -63,7 +63,7 @@ namespace pdp_chess{
             return res;
         }
 
-        for (uint8_t index : getPositions(board._pieces[0]->pawns)) {//black
+        for (uint8_t index : getPositionsV2(board._pieces[0]->pawns.value)) {//black
             if( (index >= 48) & (index <= 55) ){                                     //firts move for a pawns
                 if( !((board._pieces[white]->all.value >> (index-16)) & 1) & !((board._pieces[white]->all.value >> (index-8)) & 1) & !((board._pieces[black]->all.value >> (index-16)) & 1) & !((board._pieces[black]->all.value >> (index-8)) & 1) ){
                     Move mv = {.start_position = index, .start_type = type, .target_position = (uint8_t)(index-16)};
@@ -152,16 +152,16 @@ namespace pdp_chess{
 
     std::vector<Move> legal_move_rooks(const Board& board, bool white){
         std::vector<Move> res;
-        for (uint8_t index : getPositions(board._pieces[white]->rooks)){
+        for (uint8_t index : getPositionsV2(board._pieces[white]->rooks.value)){
             moveLineVerticalHorizontal(board, index, white, res);
         }
-        
+
         char type = (char) ('r' - (white * 32));
-        
+
         for (auto& element : res){
             element.start_type = type;
         }
-        
+
         return res;
     }
 
@@ -227,16 +227,16 @@ namespace pdp_chess{
 
     std::vector<Move> legal_move_bishops(const Board& board, bool white){
         std::vector<Move> res;
-        for (uint8_t index : getPositions(board._pieces[white]->bishops)) {
+        for (uint8_t index : getPositionsV2(board._pieces[white]->bishops.value)) {
             moveDiagonal(board, index, white, res);
         }
-        
+
         char type = (char) ('b' - (white * 32));
-        
+
         for (auto& element : res){
             element.start_type = type;
         }
-        
+
         return res;
     }
 
@@ -251,7 +251,7 @@ namespace pdp_chess{
 
     std::vector<Move> legal_move_knights(const Board& board, bool white){
         std::vector<Move> res;
-        for (uint8_t index : getPositions(board._pieces[white]->knights)){
+        for (uint8_t index : getPositionsV2(board._pieces[white]->knights.value)){
             moveThisPosition( board, index, index-17, index%8 - 1, white, res);
             moveThisPosition( board, index, index-15, index%8 + 1, white, res);
             moveThisPosition( board, index, index-10, index%8 - 2, white, res);
@@ -273,7 +273,7 @@ namespace pdp_chess{
 
     std::vector<Move> legal_move_queen(const Board& board, bool white){
         std::vector<Move> res;
-        for (uint8_t index : getPositions(board._pieces[white]->queen)) {
+        for (uint8_t index : getPositionsV2(board._pieces[white]->queen.value)) {
             moveDiagonal(board, index, white, res);
             moveLineVerticalHorizontal(board, index, white, res);
         }
@@ -289,7 +289,7 @@ namespace pdp_chess{
 
     std::vector<Move> legal_move_king(const Board& board, bool white){
         std::vector<Move> res;
-        for (uint8_t index : getPositions(board._pieces[white]->king)){
+        for (uint8_t index : getPositionsV2(board._pieces[white]->king.value)){
             moveThisPosition( board, index, index-9, index%8 - 1, white, res);
             moveThisPosition( board, index, index-8, index%8, white, res);
             moveThisPosition( board, index, index-7, index%8 + 1, white, res);

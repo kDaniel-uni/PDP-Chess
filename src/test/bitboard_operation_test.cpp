@@ -50,7 +50,7 @@ int main (int argc, char *argv[]) {
         for(uint32_t i = 0; i < iterations; ++i)
         {
             //std::vector<uint8_t> result = getPositions(game.board._pieces[white]->pawns);
-            std::vector<uint8_t> result = getPositions(game.board._pieces[white]->king);
+            std::vector<uint8_t> result = getPositions(game.board._pieces[white]->king.value);
 
             //std::vector<uint8_t> expected_result = {8,9,10,11,12,13,14,15};
             std::vector<uint8_t> expected_result = {4};
