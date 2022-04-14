@@ -22,6 +22,8 @@ namespace pdp_chess{
         }
     };
 
+            int mtdf(Board board, int f, int depth, bool current_color, bool base_color);
+            int AlphaBetaWithMemory(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
 }
 
 #endif //PDP_CHESS_MTDF_H

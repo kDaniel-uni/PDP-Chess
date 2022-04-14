@@ -19,6 +19,7 @@ namespace pdp_chess {
 
         }
     };
+            int NegaScout(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
 }
 
 #endif //PDP_CHESS_NEGASCOUT_H
