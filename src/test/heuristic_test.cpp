@@ -24,6 +24,7 @@ void printEvalPawnForward(Board b, bool color, Heuristic h_p_f){
         printf("pawn forward %d\n", h_pawn_forward);
 }
 
+
 int main (int argc, char *argv[]) {
 
         if (argc > 2) return EXIT_FAILURE;
@@ -46,38 +47,27 @@ int main (int argc, char *argv[]) {
         int result = 0;
         if(arg == "1"){
                 g.fromString("------------K----------------------------------------------------");
-                g.board.draw();
-                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
-                printEvalPawnForward(g.board, true, h_pawn_forward);
-                result = h.evaluateBoard(g.board, true);
                 expected_result = 4016;
         }
         if(arg == "2"){
                 g.fromString("------------K-------------------------------------------P------P-");
-                g.board.draw();
-                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
-                printEvalPawnForward(g.board, true, h_pawn_forward);
-                result = h.evaluateBoard(g.board, true);
                 expected_result = 4054;
         }
         if(arg == "3"){
                 g.fromString("------------K-------------------p----------------------PP------P-");
-                g.board.draw();
-                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
-                printEvalPawnForward(g.board, true, h_pawn_forward);
-                result = h.evaluateBoard(g.board, true);
                 expected_result = 4064;
         }
-        if(arg == "4"){
+        else{
                 g.fromString("------------K--------------------------p---------P-----PP------P-");
-                g.board.draw();
-                printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
-                printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
-                printEvalPawnForward(g.board, true, h_pawn_forward);
-                result = h.evaluateBoard(g.board, true);
                 expected_result = 4092;
         }
+        result = h.evaluateBoard(g.board, true);
+        //g.board.draw();
+        //printEval(g.board, true, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+        //printEval(g.board, false, h, h_isolated, h_doubled, h_backward, h_legal_move, h_piece);
+        //printEvalPawnForward(g.board, true, h_pawn_forward);
         if(expected_result == result)
                 return EXIT_SUCCESS;
         return EXIT_FAILURE; 
+
 }
