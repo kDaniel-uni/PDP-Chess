@@ -5,6 +5,17 @@
 #include "mcts.h"
 
 namespace pdp_chess {
+        struct node;
+
+        typedef struct node{
+                Board _board;
+                int _nb_victory;
+                int _nb_exp;
+                Move * _move;
+                struct node * _parent;
+                std::vector<struct node> _childrens;
+        }node_t;
+
         Mcts::Mcts(Heuristic &h, LegalMove &l, int d, int nb_exp){
            _heuristic = &h;
            _legal_move = &l;
@@ -13,100 +24,107 @@ namespace pdp_chess {
         }
     class Mcts : public AiPlayer{/*
 
-        node_t Mcts::makeNode(Board& board, Move move, node_t * parent){
-            value_t val;
-            val._board = board;
-            val._nb_experiment = 0;
-            val._nb_victory = 0;
-
-            tree.value = val;
+        Mcts::node_t Mcts::makeNode(Board& board, Move * move, node_t * parent){
+            node_t tree;
+            tree._board = board;
+            tree._nb_exp = 0;
+            tree._nb_victory = 0;
             tree._move = move;
             tree._parent = parent;
-            tree._childrens = new vector<Move>();
+            return tree;
         }
 
-        node_t Mcts::initialization(Board& board){
-            node_t tree = makeNode(board, NULL);
+        Mcts::node_t Mcts::initialization(Board& board){
+            node_t tree = makeNode(board, NULL, NULL);
+            return tree;
         }
 
-        node_t Mcts::selection(node_t tree, int depth){
-            Board board = tree._value._board;
-            if(depth > 0 || board.isGameOver())
+        Mcts::node_t Mcts::selection(node_t tree, int depth, color current_color){
+            Board board = tree._board;
+            if(depth <= 0 || board.isGameOver()){
                 return tree;          
+            }
             else{
                 std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
-                std::shuffle(legal_moves.begin(), legal_moves.end(), g);
-                board = board.doMove(legal_moves[0]);
-                node_t children = makeNode(board, legal_moves[0], tree);
-                tree._childrens.push_back(&children);
-                selection(children, depth-1);
+                //randomiser le legal move
+                Move move = legal_moves[0];
+                board.doMove(move);
+                node_t children = makeNode(board, &move, &tree);
+                tree._childrens.push_back(children);
+                if(current_color == white)
+                    selection(children, depth-1, black);
+                else
+                    selection(children, depth-1, white);
             }
         }
 
-        node_t Mcts::expansion(node_t tree){
-            Board board = tree._value._board;
+        Mcts::node_t Mcts::expansion(node_t tree, color current_color){
+            printf("0\n");
+            Board board = tree._board;
             if(board.isGameOver())
                 return tree;          
             else{
                 std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
-                std::shuffle(legal_moves.begin(), legal_moves.end(), g);
-                board = board.doMove(legal_moves[0]);
-                node_t children = makeNode(board, legal_moves[0], tree);
-                tree._childrens.push_back(&children);
+                //randomiser le legal move
+                Move move = legal_moves[0];
+                board.doMove(move);
+                node_t children = makeNode(board, &move, &tree);
+                tree._childrens.push_back(children);
                 return children;
             }
         }
 
-        node_t Mcts::simulation(node_t tree){
-            while(!tree._value._board.isGameOver()){
-                Board board = tree._value._board;
+        Mcts::node_t Mcts::simulation(node_t tree, color current_color){
+            while(!tree._board.isGameOver()){
+                Board board = tree._board;
                 std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
-                std::shuffle(legal_moves.begin(), legal_moves.end(), g);
-                board = board.doMove(legal_moves[0]);
-                node_t children = makeNode(board, legal_moves[0], tree);
-                tree._childrens.push_back(&children);
+                //randomiser le legal move
+                Move move = legal_moves[0];
+                board.doMove(move);
+                node_t children = makeNode(board, &move, &tree);
+                tree._childrens.push_back(children);
                 tree = children;
             }
             return tree;
         }
 
-        void Mcts::backPropagation(node_t tree, color my_color){
-            bool victory = tree._value._board._pieces[my_color]->king.value != 0;
-            while(tree != NULL){
+        void Mcts::backPropagation(node_t * tree, color my_color){
+            bool victory = tree->_board._pieces[my_color]->king.value != 0;
+            while(&tree != NULL){
                 if(victory)
-                    tree._value._nb_victory++;
-                tree._value._nb_experiment++;
-                tree = tree._parent;
+                    tree->_nb_victory++;
+                tree->_nb_exp++;
+                tree = tree->_parent;
             }
         }
 
-        node_t Mcts::launch(Board& board, int nb_exp, color my_color){
+        Mcts::node_t Mcts::launch(Board& board, int nb_exp, color my_color){
             node_t tree = initialization(board);
             for(int i=0; i<nb_exp; i++){
-                node_t select_node = selection(tree, _depth);
-                node_t deep_node = expansion(select_node);
-                node_t leaf = simulation(deep_node);
-                backPropagation(leaf, my_color);
+                node_t select_node = selection(tree, _depth, my_color);
+                printf("1\n");
+                node_t deep_node = expansion(select_node, my_color);
+                node_t leaf = simulation(deep_node, my_color);
+                backPropagation(&leaf, my_color);
             }
             return tree;
         }
-*/
-        Move Mcts::findNextMove(Board& board, color current_color){/*
-            node_t tree = launch(board, nb_exp, current_color);
+
+        Move Mcts::askNextMove(Board& board, color current_color){
+            node_t tree = launch(board, _nb_experiment, current_color);
             int nb_vitory = 0;
             node_t best_node;
             for(int i=0; i<tree._childrens.size(); i++){
-                if(tree._childrens[i]._value._nb_victory >= nb_vitory){
+                if(tree._childrens[i]._nb_victory >= nb_vitory){
                     best_node = tree._childrens[i];
-                    nb_vitory = best_node._value._nb_victory;
+                    nb_vitory = best_node._nb_victory;
                 }
             }
-            return best_node._move;*/
+            return *(best_node._move);
         }
 
         std::string getParameters(){
-
+            return "";
         }
-    };
 
 }
