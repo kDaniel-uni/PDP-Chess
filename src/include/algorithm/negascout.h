@@ -11,9 +11,11 @@ namespace pdp_chess {
     class NegaScout : public AIPlayer{
 
 
-        Move findNextMove(Board& board, color current_color){
+        public:
+            Negascout(Heuristic& h, LegalMove& l, int depth);
 
-        }
+            Move askNextMove(Board& board, color current_color) override;
+            int algoNegaScout(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
 
         std::string getParameters(){
 
