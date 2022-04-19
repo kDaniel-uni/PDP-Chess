@@ -4,25 +4,11 @@
 
 
 #include <heuristic.h>
-#include <legal_move.h>
+#include "bitboard_operations.h"
 
 namespace pdp_chess {
 
-    Heuristic::Heuristic(const Json::Value& heuristic_data) {
-        pawns_value = 20;
-        rooks_value = 100;
-        bishops_value = 60;
-        knights_value = 60;
-        queen_value = 180;
-        king_value = 4000;
-        backward_value = 10;
-        isolated_value = 10;
-        doubled_value = 10;
-        legal_move_value = heuristic_data["LegalMove"].asInt();
-        forward_pawn_value = heuristic_data["ForwardPawn"].asInt();
-    }
-
-    Heuristic::Heuristic(){ // x20
+    Heuristic::Heuristic(LegalMove& legalMove) { // x20
         pawns_value = 20;
         rooks_value = 100;
         bishops_value = 60;
@@ -34,9 +20,25 @@ namespace pdp_chess {
         doubled_value = 10;
         legal_move_value = 2;
         forward_pawn_value = 1;
+        this->legalMove = &legalMove;
     }
 
-    Heuristic::Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v) {
+    Heuristic::Heuristic(LegalMove& legalMove, const Json::Value& heuristic_data) {
+        pawns_value = 20;
+        rooks_value = 100;
+        bishops_value = 60;
+        knights_value = 60;
+        queen_value = 180;
+        king_value = 4000;
+        backward_value = 10;
+        isolated_value = 10;
+        doubled_value = 10;
+        legal_move_value = heuristic_data["LegalMove"].asInt();
+        forward_pawn_value = heuristic_data["ForwardPawn"].asInt();
+        this->legalMove = &legalMove;
+    }
+
+    Heuristic::Heuristic(LegalMove& legalMove, int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v) {
         pawns_value = p_v;
         rooks_value = r_v;
         bishops_value = b_v;
@@ -47,6 +49,7 @@ namespace pdp_chess {
         isolated_value = i_v;
         doubled_value = d_v;
         legal_move_value = lm_v;
+        this->legalMove = &legalMove;
     }
 
     int Heuristic::whiteNbBackward(const Bitboard& bitboard){
@@ -181,10 +184,9 @@ namespace pdp_chess {
             return 0;
         }
 
-        int legal_move_count = 0;
-        std::vector<Move> white_legal_move = legal_move(board, white_turn);
-        std::vector<Move> black_legal_move = legal_move(board, !white_turn);
-        legal_move_count = white_legal_move.size() - black_legal_move.size();
+        std::vector<Move> white_legal_move = legalMove->GetLegalMoves(board, white_turn);
+        std::vector<Move> black_legal_move = legalMove->GetLegalMoves(board, !white_turn);
+        int legal_move_count = white_legal_move.size() - black_legal_move.size();
 
         return legal_move_count * legal_move_value;
     }
@@ -211,17 +213,6 @@ namespace pdp_chess {
             }
         }
 
-        //printf("Initial value = %f, ",value);
-       /* value -= doubled_value * nbDoubled(*player_state.list[0]);
-        //printf("after doubled pieces = %f, ",value);
-        value -= isolated_value * nbIsolated(*player_state.list[0]);
-        //printf("after isolated pieces = %f, ",value);
-        if (is_white) { 
-            value -= backward_value * whiteNbBackward(*player_state.list[0]); 
-        } else {
-            value -= backward_value * blackNbBackward(*player_state.list[0]);
-        }*/
-        //printf("after backward pieces = %f\n",value);
         return value;
     }
 

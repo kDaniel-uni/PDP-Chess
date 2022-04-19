@@ -5,7 +5,7 @@
 #include "board.h"
 #include "move.h"
 #include "player/ai_player.h"
-#include "legal_move.h"
+#include "legal_move_v1.h"
 #include "heuristic.h"
 #include "negamax.h"
 #include "vector_shuffle.h"
@@ -30,7 +30,7 @@ namespace pdp_chess {
         int value;
         int value_max = std::numeric_limits<int>::min();
 
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
         moveShuffle(legal_moves);
 
         for(Move move : legal_moves){
@@ -58,7 +58,7 @@ namespace pdp_chess {
             return valueh;
         }
         int value_max = std::numeric_limits<int>::min();
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
         for(Move move : legal_moves){
             board.doMove(move);
             value = -algoNega(board, depth-1, !current_color, base_color);

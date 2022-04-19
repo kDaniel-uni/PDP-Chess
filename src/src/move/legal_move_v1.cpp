@@ -2,14 +2,12 @@
 // Pdp_chess university project
 //
 
-#include <vector>
-#include "legal_move.h"
-#include "game.h"
+#include "legal_move_v1.h"
 #include "bitboard_operations.h"
 
 namespace pdp_chess{
 
-    std::vector<Move> legal_move(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::GetLegalMoves(const Board& board, bool white){
         std::vector<Move> res;
         std::vector<Move> res2 = legal_move_pawns(board, white);
         res.insert(res.end(), res2.begin(), res2.end());
@@ -26,7 +24,7 @@ namespace pdp_chess{
         return res;
     }
 
-    std::vector<Move> legal_move_pawns(const Board& board, bool is_white){
+    std::vector<Move> LegalMoveV1::legal_move_pawns(const Board& board, bool is_white){
         std::vector<Move> res;
         uint8_t index2;
         char type = (char) ('p' - (is_white * 32));
@@ -94,7 +92,7 @@ namespace pdp_chess{
         return res;
     }
 
-    void moveLineVerticalHorizontal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
+    void LegalMoveV1::moveLineVerticalHorizontal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
         uint8_t index2;
         for (int i = position_start+8 ; i < 64 ; i=i+8){ //vertical up
             if( (board._pieces[color_piece]->all.value >> i) & 1 ){
@@ -150,7 +148,7 @@ namespace pdp_chess{
         }
     }
 
-    std::vector<Move> legal_move_rooks(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::legal_move_rooks(const Board& board, bool white){
         std::vector<Move> res;
         for (uint8_t index : getPositionsV2(board._pieces[white]->rooks.value)){
             moveLineVerticalHorizontal(board, index, white, res);
@@ -165,7 +163,7 @@ namespace pdp_chess{
         return res;
     }
 
-    void moveDiagonal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
+    void LegalMoveV1::moveDiagonal(const Board &board, uint8_t position_start, bool color_piece, std::vector<Move>& res){
         uint8_t index2;
         index2 = position_start;
         for ( int  i = position_start%8 +1 ; i<8 ; i++){ //diagonal up right
@@ -225,7 +223,7 @@ namespace pdp_chess{
         }
     }
 
-    std::vector<Move> legal_move_bishops(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::legal_move_bishops(const Board& board, bool white){
         std::vector<Move> res;
         for (uint8_t index : getPositionsV2(board._pieces[white]->bishops.value)) {
             moveDiagonal(board, index, white, res);
@@ -241,7 +239,7 @@ namespace pdp_chess{
     }
 
 
-    void moveThisPosition(const Board &board, uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<Move>& res){
+    void LegalMoveV1::moveThisPosition(const Board &board, uint8_t position_start, uint8_t position_target, uint8_t position_x_target, bool color_piece, std::vector<Move>& res){
         if( (position_target < 0 | position_target > 63) | (position_x_target < 0 | position_x_target > 7) | (board._pieces[color_piece]->all.value >> position_target) & 1 ){
             return;
         }
@@ -249,7 +247,7 @@ namespace pdp_chess{
         res.push_back(mv);
     }
 
-    std::vector<Move> legal_move_knights(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::legal_move_knights(const Board& board, bool white){
         std::vector<Move> res;
         for (uint8_t index : getPositionsV2(board._pieces[white]->knights.value)){
             moveThisPosition( board, index, index-17, index%8 - 1, white, res);
@@ -271,7 +269,7 @@ namespace pdp_chess{
         return res;
     }
 
-    std::vector<Move> legal_move_queen(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::legal_move_queen(const Board& board, bool white){
         std::vector<Move> res;
         for (uint8_t index : getPositionsV2(board._pieces[white]->queen.value)) {
             moveDiagonal(board, index, white, res);
@@ -287,7 +285,7 @@ namespace pdp_chess{
         return res;
     }
 
-    std::vector<Move> legal_move_king(const Board& board, bool white){
+    std::vector<Move> LegalMoveV1::legal_move_king(const Board& board, bool white){
         std::vector<Move> res;
         for (uint8_t index : getPositionsV2(board._pieces[white]->king.value)){
             moveThisPosition( board, index, index-9, index%8 - 1, white, res);

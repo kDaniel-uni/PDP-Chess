@@ -6,7 +6,7 @@
 #include "bitboard_operations.h"
 #include "move.h"
 #include "game.h"
-#include "legal_move.h"
+#include "legal_move_v1.h"
 #include "legal_move_v2.h"
 #include <iostream>
 #include <chrono>
@@ -60,16 +60,12 @@ bool checkMoveInBasicLegalMoves(const Move &move) {
     }
 }
 
-bool testPawn(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testPawn(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("--------P--------p----------------------------------------------");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 3) {
         return false;
@@ -85,11 +81,7 @@ bool testPawn(Game &game, bool is_v1, LegalMove &legalmove) {
         }
     }
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, false);
-    } else {
-        to_test = legalmove.legalMove(game.board, false);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, false);
 
     if (to_test.size() != 2) {
         return false;
@@ -107,17 +99,12 @@ bool testPawn(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testRooks(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testRooks(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("R---------------r-----------------------------------------------");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
-
+    to_test = legalmove.GetLegalMoves(game.board, true);
     if (to_test.size() != 9) {
         return false;
     }
@@ -135,16 +122,12 @@ bool testRooks(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testBishops(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testBishops(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("---------B--------------------------b---------------------------");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 6) {
         return false;
@@ -162,17 +145,13 @@ bool testBishops(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testKnights(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testKnights(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("P----------n-----N----------------------------------------------");
     game.board.draw();
 
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 6) {
         return false;
@@ -190,16 +169,12 @@ bool testKnights(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testQueen(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testQueen(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("-----P-Q--------------------q----------p------------------------");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 9) {
         return false;
@@ -218,16 +193,12 @@ bool testQueen(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testKing(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testKing(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("K-------p------p------------------------------------------------");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 3) {
         return false;
@@ -244,16 +215,12 @@ bool testKing(Game &game, bool is_v1, LegalMove &legalmove) {
     return true;
 }
 
-bool testBasic(Game &game, bool is_v1, LegalMove &legalmove) {
+bool testBasic(Game &game, LegalMove &legalmove) {
     std::vector<Move> to_test;
     game.board.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
     game.board.draw();
 
-    if (is_v1) {
-        to_test = pdp_chess::legal_move(game.board, true);
-    } else {
-        to_test = legalmove.legalMove(game.board, true);
-    }
+    to_test = legalmove.GetLegalMoves(game.board, true);
 
     if (to_test.size() != 20) {
         return false;
@@ -276,61 +243,62 @@ int main(int argc, char *argv[]) {
 
     std::string arg = argv[1];
     Game g = Game();
-    LegalMove legal_moves = LegalMove();
+    LegalMoveV1 legal_moves_v1 = LegalMoveV1();
+    LegalMoveV2 legal_moves_v2 = LegalMoveV2();
 
     if (arg == "1") {
-        return !testPawn(g, true, legal_moves);
+        return !testPawn(g, legal_moves_v1);
 
     } else if (arg == "2") {
-        return !testPawn(g, false, legal_moves);
+        return !testPawn(g, legal_moves_v2);
 
     } else if (arg == "3") {
-        return !testRooks(g, true, legal_moves);
+        return !testRooks(g, legal_moves_v1);
 
     } else if (arg == "4") {
-        return !testRooks(g, false, legal_moves);
+        return !testRooks(g, legal_moves_v2);
 
     } else if (arg == "5") {
-        return !testBishops(g, true, legal_moves);
+        return !testBishops(g, legal_moves_v1);
 
     } else if (arg == "6") {
-        return !testBishops(g, false, legal_moves);
+        return !testBishops(g, legal_moves_v2);
 
     } else if (arg == "7") {
-        return !testKnights(g, true, legal_moves);
+        return !testKnights(g, legal_moves_v1);
 
     } else if (arg == "8") {
-        return !testKnights(g, false, legal_moves);
+        return !testKnights(g, legal_moves_v2);
 
     } else if (arg == "9") {
-        return !testQueen(g, true, legal_moves);
+        return !testQueen(g, legal_moves_v1);
 
     } else if (arg == "10") {
-        return !testQueen(g, false, legal_moves);
+        return !testQueen(g, legal_moves_v2);
 
     } else if (arg == "11") {
-        return !testKing(g, true, legal_moves);
+        return !testKing(g, legal_moves_v1);
 
     } else if (arg == "12") {
-        return !testKing(g, false, legal_moves);
+        return !testKing(g, legal_moves_v2);
 
     } else if (arg == "13") {
-        return !testBasic(g, true, legal_moves);
+        return !testBasic(g, legal_moves_v1);
 
     } else if (arg == "14") {
-        return !testBasic(g, false, legal_moves);
+        return !testBasic(g, legal_moves_v2);
 
     } else if (arg == "15") {
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int index = 0; index < 10000; index++){
-            testPawn(g, true, legal_moves);
-            testRooks(g, true, legal_moves);
-            testBishops(g, true, legal_moves);
-            testKnights(g, true, legal_moves);
-            testQueen(g, true, legal_moves);
-            testKing(g, true, legal_moves);
-            testBasic(g, true, legal_moves);
+            testPawn(g,legal_moves_v1);
+            testRooks(g, legal_moves_v1);
+            testBishops(g, legal_moves_v1);
+            testKnights(g, legal_moves_v1);
+            testQueen(g, legal_moves_v1);
+            testKing(g, legal_moves_v1);
+            testBasic(g, legal_moves_v1);
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();
@@ -342,13 +310,13 @@ int main(int argc, char *argv[]) {
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int index = 0; index < 10000; index++){
-            testPawn(g, false, legal_moves);
-            testRooks(g, false, legal_moves);
-            testBishops(g, false, legal_moves);
-            testKnights(g, false, legal_moves);
-            testQueen(g, false, legal_moves);
-            testKing(g, false, legal_moves);
-            testBasic(g, false, legal_moves);
+            testPawn(g, legal_moves_v2);
+            testRooks(g, legal_moves_v2);
+            testBishops(g, legal_moves_v2);
+            testKnights(g, legal_moves_v2);
+            testQueen(g, legal_moves_v2);
+            testKing(g, legal_moves_v2);
+            testBasic(g, legal_moves_v2);
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();

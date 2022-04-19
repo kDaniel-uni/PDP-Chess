@@ -9,7 +9,7 @@
 #include "player.h"
 #include "move.h"
 #include "heuristic.h"
-#include "legal_move_v2.h"
+#include "legal_move.h"
 
 namespace pdp_chess {
 

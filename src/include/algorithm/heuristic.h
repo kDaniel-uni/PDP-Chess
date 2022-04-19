@@ -6,6 +6,7 @@
 #define PDP_CHESS_HEURISTIC_H
 
 #include "board.h"
+#include "legal_move.h"
 #include <json/json.h>
 
 namespace pdp_chess {
@@ -23,10 +24,11 @@ namespace pdp_chess {
         int doubled_value;
         int legal_move_value;
         int forward_pawn_value;
+        LegalMove* legalMove;
 
-        Heuristic();
-        Heuristic(const Json::Value& heuristic_data);
-        Heuristic(int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v);
+        Heuristic(LegalMove& legalMove);
+        Heuristic(LegalMove& legalMove, const Json::Value& heuristic_data);
+        Heuristic(LegalMove& legalMove, int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v);
         int nbDoubled(const Bitboard &bitboard);
         int blackNbBackward(const Bitboard &bitboard);
         int whiteNbBackward(const Bitboard &bitboard);

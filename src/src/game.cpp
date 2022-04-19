@@ -5,6 +5,7 @@
 #include "game.h"
 #include <random>
 #include <ctime>
+#include <iostream>
 
 namespace pdp_chess {
 

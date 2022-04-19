@@ -6,6 +6,8 @@
 #include "game.h"
 #include <fstream>
 #include <chrono>
+#include "legal_move_v1.h"
+#include "legal_move_v2.h"
 
 using namespace pdp_chess;
 
@@ -24,7 +26,7 @@ int main (int argc, char *argv[]) {
         Json::Value json_object;
         reader.parse(input_stream, json_object);
 
-        LegalMove legal_move = LegalMove();
+        LegalMoveV1 legal_move = LegalMoveV1();
         AiFactory ai_factory = AiFactory(legal_move);
 
         AiPlayer* white_player = &ai_factory.createAiPlayer(json_object["White"]);

@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "minmax_ab.h"
+#include "legal_move_v1.h"
 #include <cstring>
 
 using namespace pdp_chess;
@@ -14,12 +15,13 @@ int main (int argc, char *argv[]) {
     if (argc == 1) return EXIT_FAILURE;
 
     std::string arg = argv[1];
+    LegalMoveV1 legal_move_v1 = LegalMoveV1();
+    Heuristic heuristic = Heuristic(legal_move_v1);
+
 
     if (arg == "1"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
-        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move_v1, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move_v1, 2);
         Game g = Game(white_player,black_player);
         g.fromString("----------------K---------------------------k-------------------");
         g.start();
@@ -30,8 +32,6 @@ int main (int argc, char *argv[]) {
     }
 
     else if (arg == "2"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
         Game g = Game();
         g.board.resetToClassic();
         Move mv1;
@@ -64,10 +64,8 @@ int main (int argc, char *argv[]) {
         return EXIT_FAILURE;
 
     }else if (arg == "3"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
-        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move_v1, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move_v1, 2);
         Game g = Game(white_player,black_player);
         g.fromString("----------------KB--------------------------k-------------------");
         g.start();
@@ -82,10 +80,8 @@ int main (int argc, char *argv[]) {
         return EXIT_SUCCESS;
 
     }else if (arg == "4"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
-        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move_v1, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move_v1, 2);
         Game g = Game(white_player,black_player);
         g.fromString("----------------KN--------------------------k-------------------");
         g.start();
@@ -100,10 +96,8 @@ int main (int argc, char *argv[]) {
         return EXIT_SUCCESS;
 
     }else if (arg == "5"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move, 2);
-        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move, 2);
+        MinMaxAb* white_player = new MinMaxAb(heuristic, legal_move_v1, 2);
+        MinMaxAb* black_player = new MinMaxAb(heuristic, legal_move_v1, 2);
         Game g = Game(white_player,black_player);
         g.fromString("----------------KB--------------------------kb------------------");
         g.start();

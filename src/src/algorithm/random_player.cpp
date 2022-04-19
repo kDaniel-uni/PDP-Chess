@@ -11,7 +11,7 @@ namespace pdp_chess {
     }
 
     Move RandomPlayer::askNextMove(Board &board, color current_color) {
-        auto moves = _legal_move->legalMove(board, current_color);
+        auto moves = _legal_move->GetLegalMoves(board, current_color);
         int random_pos = rand() % moves.size();
         return moves.at(random_pos);
     }

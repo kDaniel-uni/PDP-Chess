@@ -31,7 +31,7 @@ include_directories(src/player)
 add_library(lib src/game.cpp
         src/board/board.cpp
         src/board/bitboard_operations.cpp
-        src/move/legal_move.cpp
+        src/move/legal_move_v1.cpp
         src/move/legal_move_v2.cpp
         src/board/player_state.cpp
         src/algorithm/heuristic.cpp

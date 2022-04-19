@@ -7,7 +7,7 @@
 #include "game.h"
 #include "heuristic.h"
 #include "minmax_ab.h"
-#include "legal_move_v2.h"
+#include "legal_move_v1.h"
 #include "chrono"
 #include <math.h>
 
@@ -16,9 +16,10 @@ using namespace pdp_chess;
 int main(int argc, char *argv[])
 {
     Game* g = new Game();
-    Heuristic h = Heuristic();
-    LegalMove lm = LegalMove();
-    MinMaxAb player = MinMaxAb(h, lm, 3);
+    LegalMoveV1 legal_move_v1 = LegalMoveV1();
+    Heuristic h = Heuristic(legal_move_v1);
+
+    MinMaxAb player = MinMaxAb(h, legal_move_v1, 3);
     //g->fromString("-------------------------Q-------------------------------------p");
     g->fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
     g->board.draw();

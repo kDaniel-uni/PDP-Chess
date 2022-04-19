@@ -5,6 +5,7 @@
 #include "game.h"
 #include "minmax_ab.h"
 #include "heuristic.h"
+#include "legal_move_v1.h"
 #include <json/json.h>
 #include <iostream>
 #include <fstream>
@@ -17,16 +18,16 @@ int main (int argc, char *argv[]) {
         if (argc == 1) return EXIT_FAILURE;
 
         std::string arg = argv[1];
+        LegalMoveV1 legal_move_v1 = LegalMoveV1();
 
-        Heuristic h = Heuristic();
-        Heuristic h_doubled = Heuristic(0,0,0,0,0,0,0,0,1,0);
-        Heuristic h_isolated = Heuristic(0,0,0,0,0,0,0,1,0,0);
-        Heuristic h_backward = Heuristic(0,0,0,0,0,0,1,0,0,0);
-        Heuristic h_legal_move = Heuristic(0,0,0,0,0,0,0,0,0,1);
-        Heuristic h_bis = Heuristic(10, 50, 30, 30, 90, 2000, 0, 0, 0, 0);
-        LegalMove legal_move = LegalMove();
-        MinMaxAb* white_player = new MinMaxAb(h, legal_move, 6);
-        MinMaxAb* black_player = new MinMaxAb(h, legal_move, 4);
+        Heuristic h = Heuristic(legal_move_v1);
+        Heuristic h_doubled = Heuristic(legal_move_v1,0,0,0,0,0,0,0,0,1,0);
+        Heuristic h_isolated = Heuristic(legal_move_v1,0,0,0,0,0,0,0,1,0,0);
+        Heuristic h_backward = Heuristic(legal_move_v1,0,0,0,0,0,0,1,0,0,0);
+        Heuristic h_legal_move = Heuristic(legal_move_v1,0,0,0,0,0,0,0,0,0,1);
+        Heuristic h_bis = Heuristic(legal_move_v1,10, 50, 30, 30, 90, 2000, 0, 0, 0, 0);
+        MinMaxAb* white_player = new MinMaxAb(h, legal_move_v1, 6);
+        MinMaxAb* black_player = new MinMaxAb(h, legal_move_v1, 4);
         Game g = Game(white_player, black_player);
         if(arg == "1"){
                 g.fromString("------------K----------------------------------------------------");
@@ -55,10 +56,9 @@ int main (int argc, char *argv[]) {
             Json::Reader reader;
             Json::Value json_object;
             reader.parse(input_stream, json_object);
-            Heuristic json_heuristic = Heuristic(json_object["Heuristic"]);
-            LegalMove legal_move1 = LegalMove();
-            MinMaxAb* white_player1 = new MinMaxAb(json_heuristic, legal_move, 5);
-            MinMaxAb* black_player1 = new MinMaxAb(json_heuristic, legal_move, 3);
+            Heuristic json_heuristic = Heuristic(legal_move_v1, json_object["Heuristic"]);
+            MinMaxAb* white_player1 = new MinMaxAb(json_heuristic, legal_move_v1, 5);
+            MinMaxAb* black_player1 = new MinMaxAb(json_heuristic, legal_move_v1, 3);
             Game g1 = Game(white_player1, black_player1);
             g1.loadBasicBoard();
             g1.start();

@@ -23,7 +23,7 @@ namespace pdp_chess {
     }
 
     MinMaxAb &AiFactory::createMinMaxAB(Json::Value ai_data) {
-        Heuristic* heuristic = new Heuristic(ai_data["Heuristic"]);
+        Heuristic* heuristic = new Heuristic(*_legal_move, ai_data["Heuristic"]);
         int depth = ai_data["Depth"].asInt();
 
         MinMaxAb* alpha_beta = new MinMaxAb(*heuristic, *_legal_move, depth);

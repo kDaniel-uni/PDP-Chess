@@ -9,7 +9,7 @@
 #include "ai_player.h"
 #include "minmax_ab.h"
 #include "random_player.h"
-#include "legal_move_v2.h"
+#include "legal_move.h"
 
 namespace pdp_chess {
 

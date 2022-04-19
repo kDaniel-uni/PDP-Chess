@@ -1,18 +1,15 @@
 #ifndef PDP_CHESS_LEGAL_MOVE_V2_H
 #define PDP_CHESS_LEGAL_MOVE_V2_H
 
-
-
 #include <cstdint>
-#include "player_state.h"
 #include <iostream>
-#include <vector>
+#include "player_state.h"
 #include "board.h"
-#include "move.h"
+#include "legal_move.h"
 
 namespace pdp_chess {
         
-    class LegalMove{
+    class LegalMoveV2 : public LegalMove{
         private:
             uint64_t _pawns_attacks_table[2][64];
             uint64_t _pawns_moves_table[2][64];
@@ -39,8 +36,6 @@ namespace pdp_chess {
             void queensLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
             void rooksLegalMoves(const Board& board, bool color, std::vector<Move>& moves);
 
-            uint64_t getTargetableFilter(const Board& board, bool color);
-
             void generateMoves(const Bitboard& source_bitboard, uint8_t source_piece_position
                                , std::vector<Move>& moves, uint64_t movable);
 
@@ -50,8 +45,8 @@ namespace pdp_chess {
             void printBitboard(uint64_t mask); // for a debug usage
 
         public:
-            LegalMove();
-            std::vector<Move> legalMove(const Board& board, bool white);
+            LegalMoveV2();
+            std::vector<Move> GetLegalMoves(const Board& board, bool playing_color) override;
     };
 }
 
