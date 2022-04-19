@@ -2,18 +2,19 @@
   "White" : {
     "Type" : "AlphaBeta",
     "Depth" : 3,
-    "Heuristic" : {
-      "LegalMove" : 2,
-      "ForwardPawn" : 1
-    }
+    "Heuristic" : [
+      {"Type" : "Legal", "Value" :  2},
+      {"Type" : "Forward", "Value" :  1}
+    ]
   },
 
   "Black" : {
     "Type" : "AlphaBeta",
     "Depth" : 3,
-    "Heuristic" : {
-      "LegalMove" : 2,
-      "ForwardPawn" : 1
-    }
+    "Heuristic" : [
+      {"Type" : "Legal", "Value" :  2},
+      {"Type" : "Forward", "Value" :  1},
+      {"Type" : "Pawn", "Value" :  20}
+    ]
   }
 }

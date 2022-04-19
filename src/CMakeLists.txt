@@ -40,7 +40,8 @@ add_library(lib src/game.cpp
         src/util/vector_shuffle.cpp
         src/algorithm/ai_factory.cpp
         src/algorithm/negamax.cpp
-        src/player/human_player.cpp)
+        src/player/human_player.cpp
+        src/match_parser.cpp)
 
 target_link_libraries(lib jsoncpp_lib)
 
