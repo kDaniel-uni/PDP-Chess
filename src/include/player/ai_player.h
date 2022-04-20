@@ -20,6 +20,7 @@ namespace pdp_chess {
             _heuristic = &heuristic;
             _depth = depth;
         }
+
         virtual ~AIPlayer() {}
         Move askNextMove(Board& board, color current_color) override = 0;
     };

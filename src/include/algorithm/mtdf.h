@@ -11,16 +11,13 @@ namespace pdp_chess{
 
     class MTDF: public AIPlayer{
 
+        /*MTDF(Heuristic& heuristic, LegalMove& legalMove, int depth);
 
-        Move findNextMove(Board& board, color current_color){
-
-        }
-
-        std::string getParameters(){
-
-        }
+        Move findNextMove(Board& board, color current_color);
+        int algoMTDF(Board board, int f, int depth, bool current_color, bool base_color);
+        int AlphaBetaWithMemory(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
+        std::string getParameters();*/
     };
-
 }
 
 #endif //PDP_CHESS_MTDF_H

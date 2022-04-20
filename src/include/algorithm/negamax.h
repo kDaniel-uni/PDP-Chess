@@ -14,7 +14,7 @@ namespace pdp_chess{
     class Negamax : public AIPlayer{
 
         public:
-            Negamax(Heuristic& h, LegalMove& l, int depth);
+            Negamax(Heuristic& heuristic, LegalMove& legalMove, int depth);
 
             Move askNextMove(Board& board, color current_color) override;
             int algoNega(Board board, int depth, bool current_color, bool base_color);

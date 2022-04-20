@@ -124,9 +124,9 @@ add_test(speed_test_v1 legal_move_test 15)
 add_test(speed_test_v2 legal_move_test 16)
 
 add_test(heuristic_test_1 heuristic_test 1)
-add_test(heuristic_test_2 heuristic_test 1)
-add_test(heuristic_test_3 heuristic_test 1)
-add_test(heuristic_test_4 heuristic_test 1)
+add_test(heuristic_test_2 heuristic_test 2)
+add_test(heuristic_test_3 heuristic_test 3)
+add_test(heuristic_test_4 heuristic_test 4)
 
 add_test(draw_king_vs_king_test condition_isdraw_test 1)
 add_test(draw_king_bishop_vs_king_test condition_isdraw_test 3)

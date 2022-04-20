@@ -8,6 +8,7 @@
 #include "negamax.h"
 #include "human_player.h"
 #include "legal_move_v1.h"
+#include "mcts.h"
 
 using namespace pdp_chess;
 
@@ -50,5 +51,20 @@ int main (int argc, char *argv[]) {
         Game g = Game(white_player, black_player);
         g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
         g.start();
+    }
+    else if(arg=="3"){
+        Heuristic heuristic = Heuristic(legal_move_v1);
+        MCTS* white_player = new MCTS(heuristic, legal_move_v1, 2, 10);
+        MCTS* black_player = new MCTS(heuristic, legal_move_v1, 3, 10);
+        Game g = Game(white_player, black_player);
+        g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
+        g.start();
+
+
+
+
+
+
+
     }
 }
