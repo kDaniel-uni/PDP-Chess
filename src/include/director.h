@@ -9,7 +9,7 @@
 #include "game.h"
 #include "legal_move_v1.h"
 #include "legal_move_v2.h"
-#include "ai_factory.h"
+#include "player_factory.h"
 #include "parameters.h"
 
 namespace pdp_chess {
@@ -25,8 +25,10 @@ namespace pdp_chess {
         Director();
         void LoadMatchFromJson(std::string filePath);
         void LoadMatchFromMatchParameters(MatchParameters matchParameters);
-        void PlayMatch();
-        void GetMatchRecap();
+        void LoadBoard();
+        void PlayMatch(bool is_timed);
+        MatchParameters GetMatchParameters();
+        void GetMatchRecap
     };
 
 }

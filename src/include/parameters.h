@@ -67,7 +67,7 @@ namespace pdp_chess {
                 case Doubled: doubled_value = value;
                 case Isolated: isolated_value = value;
                 case Legal: legal_move_value = value;
-                case HeuristicNone: return;
+                default : return;
             }
         }
     };

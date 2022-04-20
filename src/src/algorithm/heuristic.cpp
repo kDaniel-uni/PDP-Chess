@@ -8,47 +8,35 @@
 
 namespace pdp_chess {
 
-    Heuristic::Heuristic(LegalMove& legalMove) { // x20
-        pawns_value = 20;
-        rooks_value = 100;
-        bishops_value = 60;
-        knights_value = 60;
-        queen_value = 180;
-        king_value = 4000;
-        backward_value = 10;
-        isolated_value = 10;
-        doubled_value = 10;
-        legal_move_value = 2;
-        forward_pawn_value = 1;
+    Heuristic::Heuristic(LegalMove& legalMove) { // Base values
+        HeuristicParameters heuristicParameters = HeuristicParameters();
+
+        pawns_value = heuristicParameters.pawns_value;
+        rooks_value = heuristicParameters.rooks_value;
+        bishops_value = heuristicParameters.bishops_value;
+        knights_value = heuristicParameters.knights_value;
+        queen_value = heuristicParameters.queen_value;
+        king_value = heuristicParameters.king_value;
+        backward_value = heuristicParameters.backward_value;
+        isolated_value = heuristicParameters.isolated_value;
+        doubled_value = heuristicParameters.doubled_value;
+        legal_move_value = heuristicParameters.legal_move_value;
+        forward_pawn_value = heuristicParameters.forward_pawn_value;
         this->legalMove = &legalMove;
     }
 
-    Heuristic::Heuristic(LegalMove& legalMove, const Json::Value& heuristic_data) {
-        pawns_value = 20;
-        rooks_value = 100;
-        bishops_value = 60;
-        knights_value = 60;
-        queen_value = 180;
-        king_value = 4000;
-        backward_value = 10;
-        isolated_value = 10;
-        doubled_value = 10;
-        legal_move_value = heuristic_data["LegalMove"].asInt();
-        forward_pawn_value = heuristic_data["ForwardPawn"].asInt();
-        this->legalMove = &legalMove;
-    }
-
-    Heuristic::Heuristic(LegalMove& legalMove, int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v) {
-        pawns_value = p_v;
-        rooks_value = r_v;
-        bishops_value = b_v;
-        knights_value = kn_v;
-        queen_value = q_v;
-        king_value = k_v;
-        backward_value = back_v;
-        isolated_value = i_v;
-        doubled_value = d_v;
-        legal_move_value = lm_v;
+    Heuristic::Heuristic(LegalMove& legalMove, const HeuristicParameters &heuristicParameters) {
+        pawns_value = heuristicParameters.pawns_value;
+        rooks_value = heuristicParameters.rooks_value;
+        bishops_value = heuristicParameters.bishops_value;
+        knights_value = heuristicParameters.knights_value;
+        queen_value = heuristicParameters.queen_value;
+        king_value = heuristicParameters.king_value;
+        backward_value = heuristicParameters.backward_value;
+        isolated_value = heuristicParameters.isolated_value;
+        doubled_value = heuristicParameters.doubled_value;
+        legal_move_value = heuristicParameters.legal_move_value;
+        forward_pawn_value = heuristicParameters.forward_pawn_value;
         this->legalMove = &legalMove;
     }
 

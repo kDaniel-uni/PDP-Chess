@@ -38,7 +38,7 @@ add_library(lib src/game.cpp
         src/algorithm/minmax_ab.cpp
         src/algorithm/random_player.cpp
         src/util/vector_shuffle.cpp
-        src/algorithm/ai_factory.cpp
+        src/player/player_factory.cpp
         src/algorithm/negamax.cpp
         src/player/human_player.cpp
         src/match_parser.cpp)

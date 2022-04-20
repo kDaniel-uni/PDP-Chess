@@ -7,7 +7,7 @@
 
 #include "board.h"
 #include "legal_move.h"
-#include <json/json.h>
+#include "parameters.h"
 
 namespace pdp_chess {
 
@@ -27,8 +27,7 @@ namespace pdp_chess {
         LegalMove* legalMove;
 
         Heuristic(LegalMove& legalMove);
-        Heuristic(LegalMove& legalMove, const Json::Value& heuristic_data);
-        Heuristic(LegalMove& legalMove, int p_v, int r_v, int b_v, int kn_v, int q_v, int k_v, int back_v, int i_v, int d_v, int lm_v);
+        Heuristic(LegalMove& legalMove, const HeuristicParameters &heuristicParameters);
         int nbDoubled(const Bitboard &bitboard);
         int blackNbBackward(const Bitboard &bitboard);
         int whiteNbBackward(const Bitboard &bitboard);

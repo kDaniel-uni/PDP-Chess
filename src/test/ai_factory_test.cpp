@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "ai_factory.h"
+#include "player_factory.h"
 #include "game.h"
 #include <fstream>
 #include <chrono>
