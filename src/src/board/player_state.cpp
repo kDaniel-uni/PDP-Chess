@@ -2,7 +2,6 @@
 // Pdp_chess university project
 //
 
-#include "stdint.h"
 #include "player_state.h"
 
 namespace pdp_chess {
@@ -10,30 +9,6 @@ namespace pdp_chess {
     PlayerState::PlayerState(bool is_white, bool is_empty){
         setPlayerState(is_white, is_empty);
     }
-
-    /*int Bitboards::getBitboardValue(Heuristic *h) {
-        int value = 0;
-        for (int i = 0; i < 6; i++) {
-            Bitboard* b = list[i];
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if ((b->value >> j) & 1) {
-                    if (i == 0)
-                        value += h->pawns_value;
-                    if (i == 1)
-                        value += h->rooks_value;
-                    if (i == 2)
-                        value += h->bishops_value;
-                    if (i == 3)
-                        value += h->knights_value;
-                    if (i == 4)
-                        value += h->queen_value;
-                    if (i == 5)
-                        value += h->king_value;
-                }
-            }
-        }
-        return value;
-    }*/
 
     void PlayerState::setPlayerState(bool is_white, bool is_empty) {
         pawns.type = (char) ('p' - (is_white * 32));

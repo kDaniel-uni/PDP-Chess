@@ -3,9 +3,9 @@
 
 #include <cstdint>
 #include <iostream>
-#include "player_state.h"
 #include "board.h"
 #include "legal_move.h"
+#include "bitboard_operations.h"
 
 namespace pdp_chess {
         

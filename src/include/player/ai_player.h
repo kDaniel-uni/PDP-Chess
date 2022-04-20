@@ -7,21 +7,20 @@
 
 #include <string>
 #include "player.h"
-#include "move.h"
 #include "heuristic.h"
-#include "legal_move.h"
 
 namespace pdp_chess {
 
-    class AiPlayer : public Player{
-        
-
+    class AIPlayer : public Player{
     public :
         Heuristic* _heuristic;
-        LegalMove* _legal_move;
         int _depth;
-        
-        virtual ~AiPlayer() {}
+
+        AIPlayer(LegalMove &legalMove, Heuristic &heuristic, int depth) : Player(legalMove) {
+            _heuristic = &heuristic;
+            _depth = depth;
+        }
+        virtual ~AIPlayer() {}
         Move askNextMove(Board& board, color current_color) override = 0;
     };
 

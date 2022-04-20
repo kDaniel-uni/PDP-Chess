@@ -5,8 +5,10 @@
 #ifndef PDP_CHESS_GAME_H
 #define PDP_CHESS_GAME_H
 
-
-#include "player/ai_player.h"
+#include <random>
+#include <ctime>
+#include <iostream>
+#include "player.h"
 #include "board.h"
 #include "bitboard_operations.h"
 
@@ -24,6 +26,7 @@ namespace pdp_chess {
         void loadBasicBoard();
         void draw();
         void reset();
+        void setPlayer(color color, Player* player);
 
     private:
         Player* _players[2];

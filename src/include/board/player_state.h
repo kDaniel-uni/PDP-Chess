@@ -5,6 +5,8 @@
 #ifndef PDP_CHESS_PLAYER_STATE_H
 #define PDP_CHESS_PLAYER_STATE_H
 
+#include <cstdint>
+
 namespace pdp_chess {
 
     const int BOARD_SIZE = 64;

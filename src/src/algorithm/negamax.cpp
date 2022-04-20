@@ -2,30 +2,18 @@
 // Pdp_chess university project
 //
 
-#include "board.h"
-#include "move.h"
-#include "player/ai_player.h"
-#include "legal_move_v1.h"
-#include "heuristic.h"
-#include "negamax.h"
-#include "vector_shuffle.h"
 #include <algorithm>
 #include <limits>
 #include <iostream>
-#include <random>
 
+#include "negamax.h"
 
 namespace pdp_chess {
 
-    Negamax::Negamax(Heuristic &heuristic, LegalMove &legal_move, int depth){
-        _heuristic = &heuristic;
-        _legal_move = &legal_move;
-        _depth = depth;
+    Negamax::Negamax(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
     }
 
     Move Negamax::askNextMove(Board &board, color current_color){
-        std::random_device rd;
-        std::mt19937 g(rd());
         Move best_move;
         int value;
         int value_max = std::numeric_limits<int>::min();

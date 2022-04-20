@@ -3,7 +3,6 @@
 //
 
 #include "legal_move_v1.h"
-#include "bitboard_operations.h"
 
 namespace pdp_chess{
 

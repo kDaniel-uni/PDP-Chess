@@ -6,29 +6,36 @@
 #define PDP_CHESS_DIRECTOR_H
 
 #include <string>
+#include <chrono>
+#include <fstream>
 #include "game.h"
 #include "legal_move_v1.h"
 #include "legal_move_v2.h"
 #include "player_factory.h"
-#include "parameters.h"
+#include "match_parser.h"
 
 namespace pdp_chess {
 
     class Director{
     private:
-        Game game;
-        LegalMoveV1 legalMoveV1;
-        LegalMoveV2 legalMoveV2;
-        AiFactory aiFactory;
+        Game* _game;
+        LegalMoveV1* _legalMoveV1;
+        LegalMoveV2* _legalMoveV2;
+        PlayerFactory* _playerFactoryV1;
+        PlayerFactory* _playerFactoryV2;
+        MatchParameters _matchParameters;
+        std::chrono::milliseconds _gameTime;
+
 
     public:
         Director();
-        void LoadMatchFromJson(std::string filePath);
-        void LoadMatchFromMatchParameters(MatchParameters matchParameters);
-        void LoadBoard();
+        bool LoadMatchFromJson(std::string file_path, bool load_v1);
+        void LoadMatchFromMatchParameters(MatchParameters matchParameters, bool load_v1);
+        void LoadBoard(const std::string &board);
         void PlayMatch(bool is_timed);
-        MatchParameters GetMatchParameters();
-        void GetMatchRecap
+        void ResetGame();
+        MatchParameters GetRecapMatchParameters();
+        void GetMatchRecap();
     };
 
 }

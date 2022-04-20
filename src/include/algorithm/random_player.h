@@ -9,7 +9,7 @@
 
 namespace pdp_chess {
 
-    class RandomPlayer : public AiPlayer {
+    class RandomPlayer : public Player {
 
     public:
         RandomPlayer(LegalMove& legal_move);

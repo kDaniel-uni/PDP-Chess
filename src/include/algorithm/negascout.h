@@ -8,7 +8,7 @@
 #include "ai_player.h"
 
 namespace pdp_chess {
-    class NegaScout : public AiPlayer{
+    class NegaScout : public AIPlayer{
 
 
         Move findNextMove(Board& board, color current_color){

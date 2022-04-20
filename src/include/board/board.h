@@ -10,6 +10,7 @@
 #include <vector>
 #include "player_state.h"
 #include "move.h"
+#include "bitboard_operations.h"
 
 namespace pdp_chess {
 

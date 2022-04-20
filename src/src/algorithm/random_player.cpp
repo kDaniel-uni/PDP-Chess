@@ -6,8 +6,7 @@
 
 namespace pdp_chess {
 
-    RandomPlayer::RandomPlayer(LegalMove& legal_move) {
-        _legal_move = &legal_move;
+    RandomPlayer::RandomPlayer(LegalMove& legal_move) : Player(legal_move) {
     }
 
     Move RandomPlayer::askNextMove(Board &board, color current_color) {

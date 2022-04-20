@@ -4,7 +4,8 @@
     "Depth" : 3,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
-      {"Type" : "Forward", "Value" :  1}
+      {"Type" : "Forward", "Value" :  1},
+      {"Type" : "Pawns", "Value" :  60}
     ]
   },
 
@@ -13,8 +14,7 @@
     "Depth" : 3,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
-      {"Type" : "Forward", "Value" :  1},
-      {"Type" : "Pawn", "Value" :  20}
+      {"Type" : "Forward", "Value" :  1}
     ]
   }
 }

@@ -6,11 +6,17 @@
 #define PDP_CHESS_PLAYER_H
 
 #include "board.h"
+#include "legal_move.h"
 
 namespace pdp_chess {
 
     class Player {
     public:
+        LegalMove* _legal_move;
+
+        Player(LegalMove &legalMove) {
+            _legal_move = &legalMove;
+        }
         virtual ~Player() {}
         virtual Move askNextMove(Board& board, color current_color) = 0;
     };

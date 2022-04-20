@@ -2,44 +2,45 @@
 // Pdp_chess university project
 //
 
-#include <iostream>
 #include <cstdlib>
-#include "game.h"
-#include "heuristic.h"
-#include "minmax_ab.h"
-#include "legal_move_v1.h"
-#include "chrono"
-#include <math.h>
+#include <iostream>
+#include <cstring>
+#include "director.h"
 
 using namespace pdp_chess;
 
+bool PrintUsage(){
+    std::cout << "Usage : ./pdp_chess <path_to_json> <1|2>" << std::endl;
+    std::cin;
+    return EXIT_FAILURE;
+}
+
 int main(int argc, char *argv[])
 {
-    Game* g = new Game();
-    LegalMoveV1 legal_move_v1 = LegalMoveV1();
-    Heuristic h = Heuristic(legal_move_v1);
+    if (argc != 3) {
+        return PrintUsage();
+    }
 
-    MinMaxAb player = MinMaxAb(h, legal_move_v1, 3);
-    //g->fromString("-------------------------Q-------------------------------------p");
-    g->fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
-    g->board.draw();
+    std::string arg = std::string(argv[1]);
 
-    g->board.doMove( player.askNextMove(g->board, white) );
-    g->board.draw();
-    g->board.doMove( player.askNextMove(g->board, black) );
-    g->board.draw();
+    if (strlen(argv[2]) != 1){
+        return PrintUsage();
+    }
 
-    g->board.doMove( player.askNextMove(g->board, white) );
-    g->board.draw();
-    g->board.doMove( player.askNextMove(g->board, black) );
-    g->board.draw();
+    int x = (int)argv[2][0] - 48;
 
-    /*printf("%f\n", h->evaluateBoard(g->board, true));
-    g->fromString("------------KQ-B----------------------------ppp---------P------P-");
-    g->board.draw();
-    printf("%f\n", h->evaluateBoard(g->board, true));
-    g->fromString("------------KQ-B----------------------------ppp--------PP------P-");
-    g->board.draw();
-    printf("%f\n", h->evaluateBoard(g->board, true));*/
-    return argc == 3 ? EXIT_SUCCESS : EXIT_FAILURE; // optional return value
+    if (!(x == 1 || x == 2)){
+        return PrintUsage();
+    }
+
+    Director director = Director();
+
+    if (!director.LoadMatchFromJson(arg, x)){
+        return PrintUsage();
+    }
+
+    director.PlayMatch(true);
+
+    std::cin;
+    return EXIT_SUCCESS;
 }

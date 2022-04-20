@@ -2,8 +2,8 @@
 // Pdp_chess university project
 //
 
-#ifndef PDP_CHESS_JSON_PARSER_H
-#define PDP_CHESS_JSON_PARSER_H
+#ifndef PDP_CHESS_MATCH_PARSER_H
+#define PDP_CHESS_MATCH_PARSER_H
 
 #include "parameters.h"
 #include "json/json.h"
@@ -20,4 +20,4 @@ namespace pdp_chess{
 
 }
 
-#endif //PDP_CHESS_JSON_PARSER_H
+#endif //PDP_CHESS_MATCH_PARSER_H

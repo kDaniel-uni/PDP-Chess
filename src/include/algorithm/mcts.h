@@ -9,7 +9,7 @@
 
 namespace pdp_chess{
 
-    class MCTS : public AiPlayer{
+    class MCTS : public AIPlayer{
 
 
         Move findNextMove(Board& board, color current_color){

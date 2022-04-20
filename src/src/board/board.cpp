@@ -8,7 +8,6 @@
 #include <cstring>
 #include <math.h>
 #include "board.h"
-#include "bitboard_operations.h"
 
 namespace pdp_chess {
 

@@ -4,7 +4,7 @@
 
 #include "bitboard_operations.h"
 #include <algorithm>
-#include "math.h"
+#include <math.h>
 
 namespace pdp_chess {
 

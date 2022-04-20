@@ -33,7 +33,7 @@ namespace pdp_chess {
         for (int typeIndex = Human; typeIndex != PlayerNone; typeIndex++){
             std::string existingType = GetStringFromPlayerType((PlayerType) typeIndex);
 
-            if (playerTypeString.compare(existingType)){
+            if (playerTypeString.compare(existingType) == 0){
                 playerType = (PlayerType) typeIndex;
                 break;
             }
@@ -90,7 +90,7 @@ namespace pdp_chess {
         for (int typeIndex = Pawns; typeIndex != HeuristicNone; typeIndex++){
             std::string existingParameter = GetStringFromHeuristicParameterType((HeuristicParameterType) typeIndex);
 
-            if (parameterType.compare(existingParameter)){
+            if (parameterType.compare(existingParameter) == 0){
                 return (HeuristicParameterType) typeIndex;
             }
         }

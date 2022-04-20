@@ -3,9 +3,6 @@
 //
 
 #include "game.h"
-#include <random>
-#include <ctime>
-#include <iostream>
 
 namespace pdp_chess {
 
@@ -32,6 +29,9 @@ namespace pdp_chess {
     /* Start the game loop
      * using srand here to keep the same seed for a game*/
     void Game::start() {
+        if (_players[white] == nullptr) return;
+        if (_players[black] == nullptr) return;
+
         std::srand ( unsigned ( std::time(0) ) );
         while (!board.isGameOver()) {
             step();
@@ -74,5 +74,9 @@ namespace pdp_chess {
 
     void Game::reset() {
         board.resetToClassic();
+    }
+
+    void Game::setPlayer(color color, Player *player) {
+        _players[color] = player;
     }
 }

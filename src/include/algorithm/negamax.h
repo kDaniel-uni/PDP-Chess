@@ -6,11 +6,12 @@
 #define PDP_CHESS_NEGAMAX_H
 
 #include <string>
-#include "move.h"
-#include "heuristic.h"
+#include "ai_player.h"
+#include "vector_shuffle.h"
+
 namespace pdp_chess{
 
-    class Negamax : public AiPlayer{
+    class Negamax : public AIPlayer{
 
         public:
             Negamax(Heuristic& h, LegalMove& l, int depth);

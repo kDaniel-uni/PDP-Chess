@@ -6,13 +6,11 @@
 #define PDP_CHESS_HUMAN_PLAYER_H
 
 #include "player.h"
-#include "legal_move_v2.h"
 
 namespace pdp_chess {
 
     class HumanPlayer : public Player{
     public:
-        LegalMove* _legal_move;
         std::string _move_map[64];
 
         HumanPlayer(LegalMove &legal_move);

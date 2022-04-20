@@ -3,8 +3,6 @@
 //
 
 #include "player_factory.h"
-#include <string>
-#include <iostream>
 
 namespace pdp_chess {
 
@@ -12,57 +10,64 @@ namespace pdp_chess {
         _legal_move = &legal_move;
     }
 
-    Player &pdp_chess::PlayerFactory::CreatePlayer(const PlayerParameters &playerParameters) {
+    Player* pdp_chess::PlayerFactory::createPlayer(const PlayerParameters &playerParameters) {
         PlayerType playerType = playerParameters.playerType;
 
         switch (playerType) {
-            case Human: return CreateHumanPlayer();
-            case Random: return CreateRandom();
-            case AlphaBeta: return CreateMinMaxAB(playerParameters.aiParameters);
-            case NegaMax: return CreateNegaMax(playerParameters.aiParameters);
-            case Negascout: return CreateNegaScout(playerParameters.aiParameters);
-            case Mtdf: return CreateMTDF(playerParameters.aiParameters);
-            case Mcts: return CreateMCTS(playerParameters.aiParameters);
-            default: return CreateRandom();
+            case Human: return createHumanPlayer();
+            case Random: return createRandom();
+            case AlphaBeta: return createMinMaxAB(playerParameters.aiParameters);
+            case NegaMax: return createNegaMax(playerParameters.aiParameters);
+            case Negascout: return createNegaScout(playerParameters.aiParameters);
+            case Mtdf: return createMTDF(playerParameters.aiParameters);
+            case Mcts: return createMCTS(playerParameters.aiParameters);
+            default: return createRandom();
         }
     }
 
-    HumanPlayer &PlayerFactory::CreateHumanPlayer() {
+    Player* PlayerFactory::createHumanPlayer() {
         HumanPlayer* humanPlayer = new HumanPlayer(*_legal_move);
-        return *humanPlayer;
+        return humanPlayer;
     }
 
-    RandomPlayer &PlayerFactory::CreateRandom() {
+    Player* PlayerFactory::createRandom() {
         RandomPlayer* random_player = new RandomPlayer(*_legal_move);
-        return *random_player;
+        return random_player;
     }
 
-    MinMaxAb &PlayerFactory::CreateMinMaxAB(const AIParameters &aiParameters) {
+    Player* PlayerFactory::createMinMaxAB(const AIParameters &aiParameters) {
         Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
         int depth = aiParameters.depth;
 
         MinMaxAb* alpha_beta = new MinMaxAb(*heuristic, *_legal_move, depth);
-        return *alpha_beta;
+        return alpha_beta;
     }
 
-    Negamax &PlayerFactory::CreateNegaMax(const AIParameters &aiParameters) {
+    Player* PlayerFactory::createNegaMax(const AIParameters &aiParameters) {
         Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
         int depth = aiParameters.depth;
 
         Negamax* negamax = new Negamax(*heuristic, *_legal_move, depth);
-        return *negamax;
+        return negamax;
     }
 
-    NegaScout &PlayerFactory::CreateNegaScout(const AIParameters &aiParameters) {
-        return ;
+    Player* PlayerFactory::createNegaScout(const AIParameters &aiParameters) {
+
+        /*NegaScout* nega_scout = new NegaScout();
+        return nega_scout;*/
+        return nullptr;
     }
 
-    MTDF &PlayerFactory::CreateMTDF(const AIParameters &aiParameters) {
-        return <#initializer#>;
+    Player* PlayerFactory::createMTDF(const AIParameters &aiParameters) {
+        /*NegaScout* nega_scout = new NegaScout();
+        return nega_scout;*/
+        return nullptr;
     }
 
-    MCTS &PlayerFactory::CreateMCTS(const AIParameters &aiParameters) {
-        return <#initializer#>;
+    Player* PlayerFactory::createMCTS(const AIParameters &aiParameters) {
+        /*NegaScout* nega_scout = new NegaScout();
+        return nega_scout;*/
+        return nullptr;
     }
 }
 

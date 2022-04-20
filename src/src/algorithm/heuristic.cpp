@@ -2,9 +2,7 @@
 // Pdp_chess university project
 //
 
-
 #include <heuristic.h>
-#include "bitboard_operations.h"
 
 namespace pdp_chess {
 

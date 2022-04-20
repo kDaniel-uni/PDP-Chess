@@ -5,8 +5,8 @@
 #ifndef PDP_CHESS_BITBOARD_OPERATIONS_H
 #define PDP_CHESS_BITBOARD_OPERATIONS_H
 
-#include "string"
-#include "vector"
+#include <string>
+#include <vector>
 #include "player_state.h"
 #include "move.h"
 

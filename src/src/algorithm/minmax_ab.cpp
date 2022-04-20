@@ -2,22 +2,16 @@
 // Pdp_chess university project
 //
 
-#include "board.h"
-#include "ai_player.h"
-#include "heuristic.h"
-#include "minmax_ab.h"
-#include "vector_shuffle.h"
-#include "legal_move.h"
+
 #include <algorithm>
 #include <limits>
 #include <iostream>
 
+#include "minmax_ab.h"
+
 namespace pdp_chess {
 
-    MinMaxAb::MinMaxAb(Heuristic &heuristic, LegalMove &legal_move, int depth) {
-        _heuristic = &heuristic;
-        _legal_move = &legal_move;
-        _depth = depth;
+    MinMaxAb::MinMaxAb(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
     }
 
     Move MinMaxAb::askNextMove(Board &board, color current_color) {

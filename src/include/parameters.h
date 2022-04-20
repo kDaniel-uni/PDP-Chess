@@ -2,8 +2,8 @@
 // Pdp_chess university project
 //
 
-#ifndef PDP_CHESS_GAME_PARAMETERS_H
-#define PDP_CHESS_GAME_PARAMETERS_H
+#ifndef PDP_CHESS_PARAMETERS_H
+#define PDP_CHESS_PARAMETERS_H
 
 #include <string>
 
@@ -24,22 +24,7 @@ namespace pdp_chess {
         HeuristicNone
     };
 
-    std::string GetStringFromHeuristicParameterType(HeuristicParameterType type){
-        switch (type) {
-            case Pawns: return "Pawns";
-            case Rooks: return "Rooks";
-            case Bishops: return "Bishops";
-            case Knights: return "Knights";
-            case Queen: return "Queen";
-            case King: return "King";
-            case Backward: return "Backward";
-            case Forward: return "Forward";
-            case Doubled: return "Doubled";
-            case Isolated: return "Isolated";
-            case Legal: return "Legal";
-            case HeuristicNone: return "";
-        }
-    }
+    std::string GetStringFromHeuristicParameterType(HeuristicParameterType type);
 
     struct HeuristicParameters{
         int pawns_value = 20;
@@ -54,22 +39,9 @@ namespace pdp_chess {
         int legal_move_value = 2;
         int forward_pawn_value = 1;
 
-        void ChangeValue(HeuristicParameterType type, int value){
-            switch (type) {
-                case Pawns: pawns_value = value;
-                case Rooks: rooks_value = value;
-                case Bishops: bishops_value = value;
-                case Knights: knights_value = value;
-                case Queen: queen_value = value;
-                case King: king_value = value;
-                case Backward: backward_value = value;
-                case Forward: forward_pawn_value = value;
-                case Doubled: doubled_value = value;
-                case Isolated: isolated_value = value;
-                case Legal: legal_move_value = value;
-                default : return;
-            }
-        }
+        void SetAllToZero();
+
+        void ChangeValue(HeuristicParameterType type, int value);
     };
 
     struct AIParameters{
@@ -88,18 +60,7 @@ namespace pdp_chess {
         PlayerNone
     };
 
-    std::string GetStringFromPlayerType(PlayerType type){
-        switch (type) {
-            case Human: return "Human";
-            case Random: return "Random";
-            case AlphaBeta: return "AlphaBeta";
-            case NegaMax: return "NegaMax";
-            case Negascout: return "Negascout";
-            case Mtdf: return "Mtdf";
-            case Mcts: return "Mcts";
-            case PlayerNone: return "";
-        }
-    }
+    std::string GetStringFromPlayerType(PlayerType type);
 
     struct PlayerParameters{
         PlayerType playerType;
@@ -112,4 +73,4 @@ namespace pdp_chess {
     };
 }
 
-#endif //PDP_CHESS_GAME_PARAMETERS_H
+#endif //PDP_CHESS_PARAMETERS_H

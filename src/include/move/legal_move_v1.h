@@ -6,9 +6,9 @@
 #define PDP_CHESS_LEGAL_MOVE_V1_H
 
 #include <string>
-#include "player_state.h"
 #include "board.h"
 #include "legal_move.h"
+#include "bitboard_operations.h"
 
 namespace pdp_chess {
 
