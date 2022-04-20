@@ -2,7 +2,6 @@
 // Pdp_chess university project
 //
 
-    int minmax_alphabeta(Board board, int depth, int alpha, int beta, bool ai_player_turn)
 #ifndef PDP_CHESS_MINMAX_AB_H
 #define PDP_CHESS_MINMAX_AB_H
 

@@ -53,10 +53,9 @@ int main (int argc, char *argv[]) {
         g.start();
     }
     else if(arg=="3"){
-        Heuristic heuristic = Heuristic();
-        LegalMove legal_move = LegalMove();
-        Mcts* white_player = new Mcts(heuristic, legal_move, 2, 10);
-        Mcts* black_player = new Mcts(heuristic, legal_move, 3, 10);
+        Heuristic heuristic = Heuristic(legal_move_v1);
+        MCTS* white_player = new MCTS(heuristic, legal_move_v1, 2, 10);
+        MCTS* black_player = new MCTS(heuristic, legal_move_v1, 3, 10);
         Game g = Game(white_player, black_player);
         g.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
         g.start();

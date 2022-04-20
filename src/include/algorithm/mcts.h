@@ -14,13 +14,6 @@ namespace pdp_chess{
         public:
             struct node;
 
-        Move findNextMove(Board& board, color current_color){
-
-        }
-        std::string getParameters(){
-
-
-        }
             typedef struct node{
                 Board _board;
                 int _nb_victory;
@@ -30,10 +23,12 @@ namespace pdp_chess{
                 std::vector<struct node> _childrens;
             }node_t;
 
+            MCTS(Heuristic& heuristic, LegalMove& legalMove, int depth, int nb_epx);
+            Move askNextMove(Board& board, color current_color) override;
+            std::string getParameters();
+
             node_t _tree;
             int _nb_experiment;
-
-            Mcts(Heuristic& h, LegalMove& l, int depth, int nb_epx);
 
             node_t makeNode(Board& board, Move * move, node_t * parent);
             node_t initialization(Board& board);
@@ -44,8 +39,6 @@ namespace pdp_chess{
             void backPropagation(node_t * tree, color my_color);
 
             node_t launch(Board& board, int nb_exp, color my_color);
-            Move askNextMove(Board& board, color current_color);
-            std::string getParameters();
 
     };
 
