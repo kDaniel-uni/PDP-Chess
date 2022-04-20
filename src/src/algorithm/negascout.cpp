@@ -3,15 +3,16 @@
 //
 
 #include "negascout.h"
+#include <limits>
 
 namespace pdp_chess {
 
     NegaScout::NegaScout(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
     }
 
-    Move NegaScout::askNextMove(Board& board, color current_color){
-
-    }
+    /*Move NegaScout::askNextMove(Board& board, color current_color){
+        return
+    }*/
 
     int NegaScout::algoNegaScout(Board board, int depth, int alpha, int beta, bool current_color, bool base_color){
         int value_current = 0;

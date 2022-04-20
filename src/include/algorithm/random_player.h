@@ -13,11 +13,7 @@ namespace pdp_chess {
 
     public:
         RandomPlayer(LegalMove& legal_move);
-
         Move askNextMove(Board& board, color current_color) override;
-
-    private:
-        LegalMove* _legal_move;
     };
 
 }

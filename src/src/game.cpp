@@ -47,7 +47,7 @@ namespace pdp_chess {
     void Game::step() {
         Move player_move = _players[_current_color]->askNextMove(board, _current_color);
         board.doMove(player_move, true);
-        //draw();
+        draw();
         _current_color = (color) !_current_color;
     }
 

@@ -36,7 +36,9 @@ int main(int argc, char *argv[])
     Director director = Director();
 
     if (!director.LoadMatchFromJson(arg, x)){
-        return PrintUsage();
+        std::cout << "Unable to parse data" << std::endl;
+        std::cin;
+        return EXIT_FAILURE;
     }
 
     director.PlayMatch(true);
