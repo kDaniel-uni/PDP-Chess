@@ -7,7 +7,7 @@
 
 #include "board.h"
 #include "legal_move.h"
-#include "parameters.h"
+#include "orchestration/parameters.h"
 #include "bitboard_operations.h"
 
 namespace pdp_chess {

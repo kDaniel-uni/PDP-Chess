@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "game.h"
+#include "engine/game.h"
 #include "iostream"
 
 using namespace pdp_chess;

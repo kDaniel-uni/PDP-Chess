@@ -8,7 +8,7 @@
 #include <string>
 #include <chrono>
 #include <fstream>
-#include "game.h"
+#include "engine/game.h"
 #include "legal_move_v1.h"
 #include "legal_move_v2.h"
 #include "player_factory.h"

@@ -4,7 +4,7 @@
 
 #include <string>
 #include "board/bitboard_operations.h"
-#include "game.h"
+#include "engine/game.h"
 #include <chrono>
 #include <iostream>
 

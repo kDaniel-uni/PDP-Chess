@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "director.h"
+#include "orchestration/director.h"
 
 namespace pdp_chess {
 

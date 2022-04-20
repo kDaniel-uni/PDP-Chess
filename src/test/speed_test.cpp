@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "game.h"
+#include "engine/game.h"
 #include "legal_move_v2.h"
 #include "legal_move_v1.h"
 #include <chrono>

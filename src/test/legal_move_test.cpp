@@ -5,7 +5,7 @@
 #include <string.h>
 #include "bitboard_operations.h"
 #include "move.h"
-#include "game.h"
+#include "engine/game.h"
 #include "legal_move_v1.h"
 #include "legal_move_v2.h"
 #include <iostream>

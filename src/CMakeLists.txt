@@ -15,26 +15,27 @@ add_compile_options(-Ofast)
 
 include_directories(include)
 include_directories(include/algorithm)
-include_directories(include/board)
-include_directories(include/move)
+include_directories(include/engine/board)
+include_directories(include/engine/move)
 include_directories(include/player)
 include_directories(include/util)
+include_directories(include/orchestration)
 include_directories(${JSON_INC_PATH})
 
 include_directories(src)
 include_directories(src/algorithm)
-include_directories(src/move)
-include_directories(src/board)
+include_directories(src/engine/move)
+include_directories(src/engine/board)
 include_directories(src/player)
 
-add_library(lib src/game.cpp
-        src/match_parser.cpp
-        src/board/board.cpp
-        src/board/bitboard_operations.cpp
-        src/board/player_state.cpp
-        src/move/legal_move_v1.cpp
-        src/move/legal_move_v2.cpp
+add_library(lib src/engine/game.cpp
+        src/engine/board/board.cpp
+        src/engine/board/bitboard_operations.cpp
+        src/engine/board/player_state.cpp
+        src/engine/move/legal_move_v1.cpp
+        src/engine/move/legal_move_v2.cpp
         src/util/vector_shuffle.cpp
+        src/util/match_parser.cpp
         src/algorithm/heuristic.cpp
         src/algorithm/minmax_ab.cpp
         src/algorithm/random_player.cpp
@@ -44,7 +45,8 @@ add_library(lib src/game.cpp
         src/algorithm/mcts.cpp
         src/player/player_factory.cpp
         src/player/human_player.cpp
-        src/director.cpp src/parameters.cpp)
+        src/orchestration/director.cpp
+        src/orchestration/parameters.cpp)
 
 target_link_libraries(lib jsoncpp_lib)
 

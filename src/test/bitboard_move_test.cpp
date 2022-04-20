@@ -5,7 +5,7 @@
 #include <string.h>
 #include "bitboard_operations.h"
 #include "move.h"
-#include "game.h"
+#include "engine/game.h"
 
 using namespace pdp_chess;
 

@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "parameters.h"
+#include "orchestration/parameters.h"
 
 namespace pdp_chess {
 

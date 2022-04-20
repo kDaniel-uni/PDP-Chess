@@ -3,7 +3,7 @@
 //
 
 #include <chrono>
-#include "director.h"
+#include "orchestration/director.h"
 
 using namespace pdp_chess;
 

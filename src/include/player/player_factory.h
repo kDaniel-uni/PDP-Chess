@@ -7,7 +7,7 @@
 
 #include <string>
 #include <iostream>
-#include "parameters.h"
+#include "orchestration/parameters.h"
 #include "player.h"
 #include "human_player.h"
 #include "minmax_ab.h"

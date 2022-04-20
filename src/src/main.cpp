@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
-#include "director.h"
+#include "orchestration/director.h"
 
 using namespace pdp_chess;
 

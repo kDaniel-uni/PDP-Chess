@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "game.h"
+#include "engine/game.h"
 #include "minmax_ab.h"
 #include "random_player.h"
 #include "negamax.h"

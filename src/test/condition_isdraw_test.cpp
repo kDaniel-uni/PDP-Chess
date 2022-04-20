@@ -2,7 +2,7 @@
 // Pdp_chess university project
 //
 
-#include "game.h"
+#include "engine/game.h"
 #include "minmax_ab.h"
 #include "legal_move_v1.h"
 #include <cstring>

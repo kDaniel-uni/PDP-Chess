@@ -5,7 +5,7 @@
 #ifndef PDP_CHESS_MATCH_PARSER_H
 #define PDP_CHESS_MATCH_PARSER_H
 
-#include "parameters.h"
+#include "orchestration/parameters.h"
 #include "json/json.h"
 
 namespace pdp_chess{
