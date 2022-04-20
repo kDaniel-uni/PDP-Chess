@@ -1,7 +1,7 @@
 {
   "White" : {
-    "Type" : "Random",
-    "Depth" : 4,
+    "Type" : "NegaMax",
+    "Depth" : 4 ,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
       {"Type" : "Forward", "Value" :  1}
@@ -10,7 +10,7 @@
 
   "Black" : {
     "Type" : "AlphaBeta",
-    "Depth" : 1,
+    "Depth" : 3,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
       {"Type" : "Forward", "Value" :  1}

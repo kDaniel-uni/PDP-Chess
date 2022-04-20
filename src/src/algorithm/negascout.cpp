@@ -3,14 +3,12 @@
 #include "player/ai_player.h"
 #include "negascout.h"
 #include <algorithm>
-#include <limits> 
+#include <limits>
+#include <iostream>
 
 namespace pdp_chess {
 
-    Negascout::Negascout(Heuristic &heuristic, LegalMove &legal_move, int depth){
-        _heuristic = &heuristic;
-        _legal_move = &legal_move;
-        _depth = depth;
+    Negascout::Negascout(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
     }
 
 
@@ -20,7 +18,7 @@ namespace pdp_chess {
         int alpha = std::numeric_limits<int>::min();
         int beta = std::numeric_limits<int>::max();
         Move best_move;
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
         for(Move move : legal_moves){
             board.doMove(move);
             score = -algoNegaScout(board, _depth - 1, -alpha - 1, -alpha, !current_color);
@@ -52,7 +50,7 @@ namespace pdp_chess {
         }
         int i, score;
         i = 0;
-        std::vector<Move> legal_moves = _legal_move->legalMove(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
         for(Move move : legal_moves){
             board.doMove(move);
             score = -algoNegaScout(board, depth - 1, -alpha - 1, -alpha, !current_color);

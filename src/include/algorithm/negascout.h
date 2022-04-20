@@ -10,7 +10,7 @@
 #include "heuristic.h"
 namespace pdp_chess {
 
-    class Negascout : public AiPlayer{
+    class Negascout : public AIPlayer{
 
         public:
             Negascout(Heuristic& h, LegalMove& l, int depth);
