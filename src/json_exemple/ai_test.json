@@ -1,16 +1,17 @@
 {
   "White" : {
-    "Type" : "NegaMax",
-    "Depth" : 4 ,
+    "Type" : "NegaScout",
+    "Depth" : 3 ,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
-      {"Type" : "Forward", "Value" :  1}
+      {"Type" : "Forward", "Value" :  1},
+      {"Type" : "Pawns", "Value" :  20}
     ]
   },
 
   "Black" : {
     "Type" : "AlphaBeta",
-    "Depth" : 3,
+    "Depth" : 2,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
       {"Type" : "Forward", "Value" :  1}

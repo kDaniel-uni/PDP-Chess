@@ -18,7 +18,7 @@ namespace pdp_chess {
             case Random: return createRandom();
             case AlphaBeta: return createMinMaxAB(playerParameters.aiParameters);
             case NegaMax: return createNegaMax(playerParameters.aiParameters);
-            case Negascout: return createNegaScout(playerParameters.aiParameters);
+            case NegaScout: return createNegaScout(playerParameters.aiParameters);
             case Mtdf: return createMTDF(playerParameters.aiParameters);
             case Mcts: return createMCTS(playerParameters.aiParameters);
             default: return createRandom();
@@ -52,10 +52,11 @@ namespace pdp_chess {
     }
 
     Player* PlayerFactory::createNegaScout(const AIParameters &aiParameters) {
+        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
+        int depth = aiParameters.depth;
 
-        /*NegaScout* nega_scout = new NegaScout();
-        return nega_scout;*/
-        return nullptr;
+        class NegaScout* nega_scout = new class NegaScout(*heuristic, *_legal_move, depth);
+        return nega_scout;
     }
 
     Player* PlayerFactory::createMTDF(const AIParameters &aiParameters) {

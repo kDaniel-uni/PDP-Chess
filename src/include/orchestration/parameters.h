@@ -54,7 +54,7 @@ namespace pdp_chess {
         Random,
         AlphaBeta,
         NegaMax,
-        Negascout,
+        NegaScout,
         Mtdf,
         Mcts,
         PlayerNone

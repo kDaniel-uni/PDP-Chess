@@ -29,7 +29,7 @@ namespace pdp_chess {
             case Random: return "Random";
             case AlphaBeta: return "AlphaBeta";
             case NegaMax: return "NegaMax";
-            case Negascout: return "Negascout";
+            case NegaScout: return "NegaScout";
             case Mtdf: return "Mtdf";
             case Mcts: return "Mcts";
             default : return "";
