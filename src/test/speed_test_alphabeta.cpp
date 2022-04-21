@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
     std::string arg = argv[1];
 
-    int number_of_game = 100;
+    int number_of_game;
 
     Director director = Director();
 
@@ -28,14 +28,19 @@ int main(int argc, char *argv[]) {
 
     if (arg == "1"){
         whiteAIParameters.depth = 1;
+        number_of_game = 10000;
     } else if (arg == "2") {
         whiteAIParameters.depth = 2;
+        number_of_game = 10000;
     } else if (arg == "3") {
         whiteAIParameters.depth = 3;
+        number_of_game = 10000;
     } else if (arg == "4") {
         whiteAIParameters.depth = 4;
+        number_of_game = 1000;
     } else if (arg == "5") {
         whiteAIParameters.depth = 5;
+        number_of_game = 100;
     } else {
         return EXIT_FAILURE;
     }
