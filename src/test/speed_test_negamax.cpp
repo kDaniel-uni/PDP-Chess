@@ -20,7 +20,11 @@ int main(int argc, char *argv[]) {
 
     MatchParameters matchParameters = MatchParameters();
     PlayerParameters blackPlayerParameters = PlayerParameters();
-    blackPlayerParameters.playerType = pdp_chess::Random;
+    blackPlayerParameters.playerType = pdp_chess::AlphaBeta;
+    AIParameters blackAIParameters = AIParameters();
+    blackAIParameters.heuristicParameters = HeuristicParameters();
+    blackAIParameters.depth = 1;
+    blackPlayerParameters.aiParameters = blackAIParameters;
 
     PlayerParameters whitePlayerParameters = PlayerParameters();
     whitePlayerParameters.playerType = pdp_chess::NegaMax;
@@ -62,7 +66,7 @@ int main(int argc, char *argv[]) {
     }
 
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = duration_cast<std::chrono::milliseconds>(t2 - t1);
+    auto duration = duration_cast<std::chrono::microseconds>(t2 - t1);
     std::cout << number_of_game << " game played" << std::endl;
     std::cout << "Average game time " << duration.count() / number_of_game << " ms" << std::endl;
 }
