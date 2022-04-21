@@ -19,19 +19,21 @@ namespace pdp_chess {
             case AlphaBeta: return createMinMaxAB(playerParameters.aiParameters);
             case NegaMax: return createNegaMax(playerParameters.aiParameters);
             case NegaScout: return createNegaScout(playerParameters.aiParameters);
-            case Mtdf: return createMTDF(playerParameters.aiParameters);
-            case Mcts: return createMCTS(playerParameters.aiParameters);
+            //case Mtdf: return createMTDF(playerParameters.aiParameters);
+            //case Mcts: return createMCTS(playerParameters.aiParameters);
             default: return createRandom();
         }
     }
 
     Player* PlayerFactory::createHumanPlayer() {
         HumanPlayer* humanPlayer = new HumanPlayer(*_legal_move);
+        std::cout << "Human player created" << std::endl;
         return humanPlayer;
     }
 
     Player* PlayerFactory::createRandom() {
         RandomPlayer* random_player = new RandomPlayer(*_legal_move);
+        std::cout << "Random player created" << std::endl;
         return random_player;
     }
 
@@ -40,6 +42,7 @@ namespace pdp_chess {
         int depth = aiParameters.depth;
 
         MinMaxAb* alpha_beta = new MinMaxAb(*heuristic, *_legal_move, depth);
+        std::cout << "MinMax player created" << std::endl;
         return alpha_beta;
     }
 
@@ -48,6 +51,7 @@ namespace pdp_chess {
         int depth = aiParameters.depth;
 
         Negamax* negamax = new Negamax(*heuristic, *_legal_move, depth);
+        std::cout << "NegaMax player created" << std::endl;
         return negamax;
     }
 
@@ -56,6 +60,7 @@ namespace pdp_chess {
         int depth = aiParameters.depth;
 
         class NegaScout* nega_scout = new class NegaScout(*heuristic, *_legal_move, depth);
+        std::cout << "NegaScout player created" << std::endl;
         return nega_scout;
     }
 

@@ -7,7 +7,7 @@
 
 #include <string>
 #include "player.h"
-#include "heuristic.h"
+#include "valuation/heuristic.h"
 
 namespace pdp_chess {
 

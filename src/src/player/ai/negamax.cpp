@@ -6,7 +6,7 @@
 #include "move.h"
 #include "player/ai_player.h"
 #include "legal_move.h"
-#include "heuristic.h"
+#include "valuation/heuristic.h"
 #include "negamax.h"
 #include "vector_shuffle.h"
 #include <algorithm>

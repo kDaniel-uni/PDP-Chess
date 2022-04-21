@@ -7,7 +7,7 @@
 
 #include <string>
 #include "move.h"
-#include "heuristic.h"
+#include "valuation/heuristic.h"
 namespace pdp_chess {
 
     class NegaScout : public AIPlayer{

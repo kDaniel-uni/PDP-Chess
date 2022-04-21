@@ -14,7 +14,7 @@ message("LIBRARIES: ${jsoncpp_lib}")
 add_compile_options(-Ofast)
 
 include_directories(include)
-include_directories(include/algorithm)
+include_directories(include/player/ai)
 include_directories(include/engine/board)
 include_directories(include/engine/move)
 include_directories(include/player)
@@ -23,7 +23,7 @@ include_directories(include/orchestration)
 include_directories(${JSON_INC_PATH})
 
 include_directories(src)
-include_directories(src/algorithm)
+include_directories(src/player/ai)
 include_directories(src/engine/move)
 include_directories(src/engine/board)
 include_directories(src/player)
@@ -36,13 +36,13 @@ add_library(lib src/engine/game.cpp
         src/engine/move/legal_move_v2.cpp
         src/util/vector_shuffle.cpp
         src/util/match_parser.cpp
-        src/algorithm/heuristic.cpp
-        src/algorithm/minmax_ab.cpp
-        src/algorithm/random_player.cpp
-        src/algorithm/negamax.cpp
-        src/algorithm/negascout.cpp
-        src/algorithm/mtdf.cpp
-        src/algorithm/mcts.cpp
+        src/valuation/heuristic.cpp
+        src/player/ai/minmax_ab.cpp
+        src/player/ai/random_player.cpp
+        src/player/ai/negamax.cpp
+        src/player/ai/negascout.cpp
+        src/player/ai/mtdf.cpp
+        src/player/ai/mcts.cpp
         src/player/player_factory.cpp
         src/player/human_player.cpp
         src/orchestration/director.cpp

@@ -4,7 +4,7 @@
 
 #include "engine/game.h"
 #include "minmax_ab.h"
-#include "heuristic.h"
+#include "valuation/heuristic.h"
 #include "legal_move_v1.h"
 #include <json/json.h>
 #include <iostream>
