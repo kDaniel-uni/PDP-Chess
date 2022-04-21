@@ -10,13 +10,13 @@
 #include "heuristic.h"
 namespace pdp_chess {
 
-    class Negascout : public AIPlayer{
+    class NegaScout : public AIPlayer{
 
         public:
-            Negascout(Heuristic& h, LegalMove& l, int depth);
+            NegaScout(Heuristic& h, LegalMove& l, int depth);
 
-            Move askNextMove(Board& board, color current_color);
-            int algoNegaScout(Board board, int depth, int alpha, int beta, bool current_color);
+            Move askNextMove(Board& board, color current_color) override;
+            int algoNegaScout(Board& board, int depth, int alpha, int beta, bool current_color);
     };
 
 }

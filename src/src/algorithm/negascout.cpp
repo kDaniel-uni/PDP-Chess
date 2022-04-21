@@ -1,3 +1,7 @@
+//
+// Pdp_chess university project
+//
+
 #include "board.h"
 #include "move.h"
 #include "player/ai_player.h"
@@ -8,14 +12,14 @@
 
 namespace pdp_chess {
 
-    Negascout::Negascout(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
+    NegaScout::NegaScout(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
     }
 
 
-    Move Negascout::askNextMove(Board& board, color current_color){
+    Move NegaScout::askNextMove(Board& board, color current_color){
         int i, score;
         i = 0;
-        int alpha = std::numeric_limits<int>::min();
+        int alpha = -std::numeric_limits<int>::max();
         int beta = std::numeric_limits<int>::max();
         Move best_move;
         std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
@@ -43,9 +47,9 @@ namespace pdp_chess {
         return best_move;
     }
     
-    int Negascout::algoNegaScout(Board board, int depth, int alpha, int beta, bool current_color){
+    int NegaScout::algoNegaScout(Board& board, int depth, int alpha, int beta, bool current_color){
         if(depth==0 || board.isGameOver()){
-            auto valueh = _heuristic->evaluateBoard(board, current_color);
+            int valueh = _heuristic->evaluateBoard(board, current_color);
             return valueh;
         }
         int i, score;
