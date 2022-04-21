@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
         whiteAIParameters.depth = 3;
     } else if (arg == "4") {
         whiteAIParameters.depth = 4;
+    } else if (arg == "5") {
+        whiteAIParameters.depth = 5;
     } else {
         return EXIT_FAILURE;
     }
