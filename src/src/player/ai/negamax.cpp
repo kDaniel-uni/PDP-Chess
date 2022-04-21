@@ -29,7 +29,7 @@ namespace pdp_chess {
 
 
         std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
-        //moveShuffle(legal_moves);
+        moveShuffle(legal_moves);
 
         for(Move move : legal_moves){
             board.doMove(move);

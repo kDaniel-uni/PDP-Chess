@@ -24,7 +24,7 @@ namespace pdp_chess {
         int beta = std::numeric_limits<int>::max();
         Move best_move;
         std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
-        //moveShuffle(legal_moves);
+        moveShuffle(legal_moves);
 
         for(Move move : legal_moves){
             board.doMove(move);
