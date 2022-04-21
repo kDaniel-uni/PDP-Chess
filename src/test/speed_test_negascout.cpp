@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         number_of_game = 1000;
     } else if (arg == "4") {
         whiteAIParameters.depth = 4;
-        number_of_game = 1000;
+        number_of_game = 100;
     } else if (arg == "5") {
         whiteAIParameters.depth = 5;
         number_of_game = 100;
@@ -67,5 +67,5 @@ int main(int argc, char *argv[]) {
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = duration_cast<std::chrono::microseconds>(t2 - t1);
     std::cout << number_of_game << " game played" << std::endl;
-    std::cout << "Average game time " << duration.count() / number_of_game << " ms" << std::endl;
+    std::cout << "Average game time " << duration.count() / number_of_game << " ns" << std::endl;
 }
