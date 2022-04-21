@@ -19,7 +19,7 @@ git clone git@gitlab.emi.u-bordeaux.fr:username/pdp-echec.git
 cd pdp-echec
 ```
 
-In order to lauch this project, you need to be placed inside the "pdp-echec" folder then use the following commands :
+In order to launch this project, you need to be placed inside the "pdp-echec" folder then use the following commands :
 
   ```bash
   cmake .
