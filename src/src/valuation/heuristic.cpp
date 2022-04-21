@@ -198,6 +198,13 @@ namespace pdp_chess {
                 }
             }
         }
+        value -= doubled_value * nbDoubled(*player_state.list[0]);
+        value -= isolated_value * nbIsolated(*player_state.list[0]);
+        if (is_white) { 
+            value -= backward_value * whiteNbBackward(*player_state.list[0]); 
+        } else {
+            value -= backward_value * blackNbBackward(*player_state.list[0]);
+        }
 
         return value;
     }
