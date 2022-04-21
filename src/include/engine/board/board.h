@@ -16,7 +16,6 @@ namespace pdp_chess {
 
     class Board {
     public :
-        int heuristic_board_value; //what is this ??????
         int moves_without_eating_counter;
         PlayerState* _pieces[2];
         std::vector<Move> _history;
