@@ -26,8 +26,7 @@ namespace pdp_chess {
         int value_max = std::numeric_limits<int>::min();
         int alpha = -std::numeric_limits<int>::max();
         int beta = std::numeric_limits<int>::max();
-        std::cout << "min" << value_max << "-max" << alpha << std::endl; 
-        std::cout << "-min" << -value_max << "--max" << -alpha << std::endl;
+
 
         std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
         moveShuffle(legal_moves);

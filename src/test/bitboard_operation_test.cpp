@@ -3,7 +3,7 @@
 //
 
 #include <string>
-#include "board/bitboard_operations.h"
+#include "bitboard_operations.h"
 #include "engine/game.h"
 #include <chrono>
 #include <iostream>
