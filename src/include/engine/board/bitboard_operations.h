@@ -12,7 +12,7 @@
 
 namespace pdp_chess{
 
-    std::vector<uint8_t> getPositions(uint64_t bitboard);
+    std::vector<uint8_t> getPositionsV1(uint64_t bitboard);
 
     std::vector<uint8_t> getPositionsV2(uint64_t bitboard);
 

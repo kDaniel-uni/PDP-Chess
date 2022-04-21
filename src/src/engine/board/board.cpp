@@ -38,7 +38,7 @@ namespace pdp_chess {
 
         for (short color = 0; color < 2; color++) {
             for (Bitboard *bitboard : _pieces[color]->list) {
-                for (auto index : getPositionsV2(bitboard->value)) {
+                for (auto index : getPositionsV1(bitboard->value)) {
                     res[index] = bitboard->type;
                 }
             }
