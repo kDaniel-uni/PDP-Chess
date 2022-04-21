@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         number_of_game = 10000;
     } else if (arg == "3") {
         whiteAIParameters.depth = 3;
-        number_of_game = 10000;
+        number_of_game = 1000;
     } else if (arg == "4") {
         whiteAIParameters.depth = 4;
         number_of_game = 1000;
