@@ -24,7 +24,14 @@ namespace pdp_chess {
             return false;
         }
 
-        _matchParameters = GetMatchParameters(json_object);
+        LoadMatchFromMatchParameters(GetMatchParameters(json_object), load_v1);
+
+        return true;
+    }
+
+    void Director::LoadMatchFromMatchParameters(MatchParameters matchParameters, bool load_v1) {
+
+        _matchParameters = matchParameters;
 
         Player* white_player;
         Player* black_player;
@@ -40,8 +47,6 @@ namespace pdp_chess {
         _game->setPlayer(white, white_player);
         _game->setPlayer(black, black_player);
         _game->loadBasicBoard();
-
-        return true;
     }
 
     void Director::LoadBoard(const std::string &board) {

@@ -44,15 +44,15 @@ int main (int argc, char *argv[]) {
         }
         if(arg == "2"){
                 g.fromString("------------K-------------------------------------------P------P-");
-                expected_result = 4056;
+                expected_result = 4076;
         }
         if(arg == "3"){
                 g.fromString("------------K-------------------p----------------------PP------P-");
-                expected_result = 4067;
+                expected_result = 4077;
         }
         if(arg == "4"){
                 g.fromString("------------K--------------------------p---------P-----PP------P-");
-                expected_result = 4096;
+                expected_result = 4106;
         }
 
         result = h.evaluateBoard(g.board, true);

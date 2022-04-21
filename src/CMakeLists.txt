@@ -85,6 +85,15 @@ target_link_libraries(versions_test PUBLIC lib)
 add_executable(speed_test test/speed_test.cpp)
 target_link_libraries(speed_test PUBLIC lib)
 
+add_executable(speed_test_alphabeta test/speed_test_alphabeta.cpp)
+target_link_libraries(speed_test_alphabeta PUBLIC lib)
+
+add_executable(speed_test_negamax test/speed_test_negamax.cpp)
+target_link_libraries(speed_test_negamax PUBLIC lib)
+
+add_executable(speed_test_negascout test/speed_test_negascout.cpp)
+target_link_libraries(speed_test_negascout PUBLIC lib)
+
 add_test(board_empty_init_test board_io_test 1)
 add_test(board_classic_init_test board_io_test 2)
 add_test(board_basic_load_test board_io_test 3)
