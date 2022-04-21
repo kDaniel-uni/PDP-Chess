@@ -153,7 +153,7 @@ namespace pdp_chess {
 
         for (auto index : getPositionsV2(current_pawns.value)){
             uint8_t row = (index / 8);
-            score += row * forward_pawn_value;
+            score += (1+row) * forward_pawn_value;
         }
 
         for (auto index : getPositionsV2(opponent_pawns.value)){
