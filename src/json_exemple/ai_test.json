@@ -4,10 +4,7 @@
     "Depth" : 3,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
-      {"Type" : "Forward", "Value" :  1},
-      {"Type" : "Backward", "Value" :  0},
-      {"Type" : "Isolated", "Value" :  0},
-      {"Type" : "Doubled", "Value" :  0}
+      {"Type" : "Forward", "Value" :  1}
     ]
   },
 
@@ -16,10 +13,7 @@
     "Depth" : 3,
     "Heuristic" : [
       {"Type" : "Legal", "Value" :  2},
-      {"Type" : "Forward", "Value" :  1},
-      {"Type" : "Backward", "Value" :  0},
-      {"Type" : "Isolated", "Value" :  0},
-      {"Type" : "Doubled", "Value" :  0}
+      {"Type" : "Forward", "Value" :  1}
     ]
   }
 }

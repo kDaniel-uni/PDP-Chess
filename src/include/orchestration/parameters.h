@@ -33,9 +33,9 @@ namespace pdp_chess {
         int knights_value = 60;
         int queen_value = 180;
         int king_value = 4000;
-        int backward_value = 10;
-        int isolated_value = 10;
-        int doubled_value = 10;
+        int backward_value = 0;
+        int isolated_value = 0;
+        int doubled_value = 0;
         int legal_move_value = 2;
         int forward_pawn_value = 1;
 
