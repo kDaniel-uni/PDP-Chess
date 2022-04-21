@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
         number_of_game = 100;
     } else if (arg == "5") {
         whiteAIParameters.depth = 5;
-        number_of_game = 100;
+        number_of_game = 10;
     } else {
         return EXIT_FAILURE;
     }
