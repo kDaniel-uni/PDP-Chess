@@ -1,41 +1,55 @@
-# Projet de PDP : échecs
+# PDP project : chess
 
-Projet de programmation d'un jeu d'échecs dans le cadre de l'UE PDP de Master 1 Informatique.
+Programmation project of a chess game.
 
-## Objectif
+## Goal
 
-L'objectif de ce projet est de tester différents algorithmes de recherche tels que minmax ou negascout sur un jeu d'échecs. L'intégralité du projet est codé en langage C++.
+With this project, we aim for testing multiple algorithms of tree search like minmax or negascout on a chess game. Everything is coded with the c++ language.
 
-## Prérequis
+## Prerequisite
 
-Ce projet peut se lancer sur Ubuntu 20.04, Ubuntu 21.10 ainsi que sur Mac OS Catalina.
+This project can be launched with any Ubuntu version over 18.04.
 
 ## Installation
 
-Pour installer le projet, se placer dans le dossier "pdp-echec" puis utiliser les commandes suivantes :
-- "cmake ." afin de générer le makefile.
-- make afin de construire le projet.
+You first need to clone the project.
 
-## Utilisation
-Pour lancer la batterie de tests unitaire utiliser la commande "ctest".
-Pour lancer l'application, utiliser la commande "./pdp_chess"     
+```bash
+git clone git@gitlab.emi.u-bordeaux.fr:username/pdp-echec.git
+cd pdp-echec
+```
+
+In order to lauch this project, you need to be placed inside the "pdp-echec" folder then use the following commands :
+
+  ```bash
+  cmake .
+  make
+ ```
+
+## How to use
+
+To launch the tests, use :
+
+```bash
+ctest
+```
+
+To launch the app, use :
+
+```bash
+./pdp_chess
+```
+
 // A etoffer une fois qu'on auras la listes d'arguments (json)
 
-
-## Auteurs
+## Authors
 
 Rossignon Morgan
+
 Daniel Karl
+
 Salomode Florian
+
 Beites Marvin
+
 Zucchelli Thomas
-
-## TODO
-
-- Compléter le cahier des besoins.
-- Préparer le diaporama en vu de l'audit prévu le mercredi 13 avril
-
-## REPARTITION DES TACHES
-
-Voir Trello.
-
