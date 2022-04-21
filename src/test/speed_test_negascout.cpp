@@ -15,6 +15,7 @@ int main(int argc, char *argv[]) {
     int number_of_game = 100;
 
     Director director = Director();
+    director.setDraw(false);
 
     MatchParameters matchParameters = MatchParameters();
     PlayerParameters blackPlayerParameters = PlayerParameters();

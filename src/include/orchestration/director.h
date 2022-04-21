@@ -36,6 +36,7 @@ namespace pdp_chess {
         void ResetGame();
         MatchParameters GetRecapMatchParameters();
         void GetMatchRecap();
+        void setDraw(bool draw);
     };
 
 }

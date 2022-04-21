@@ -27,10 +27,12 @@ namespace pdp_chess {
         void draw();
         void reset();
         void setPlayer(color color, Player* player);
+        void setDraw(bool draw);
 
     private:
         Player* _players[2];
         color _current_color;
+        bool _draw = true;
 
         void step();
     };

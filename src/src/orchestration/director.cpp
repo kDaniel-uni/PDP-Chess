@@ -73,5 +73,9 @@ namespace pdp_chess {
     void Director::ResetGame(){
         _game->reset();
     }
+
+    void Director::setDraw(bool draw) {
+        _game->setDraw(draw);
+    }
 }
 

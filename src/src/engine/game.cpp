@@ -6,7 +6,7 @@
 
 namespace pdp_chess {
 
-    /* Special constructor, used to test engine function for which no player action is required */
+    /* Partial construction, needs the player to be set before starting */
     Game::Game() : _players{nullptr, nullptr} {
         board = Board();
         _current_color = white;
@@ -47,7 +47,9 @@ namespace pdp_chess {
     void Game::step() {
         Move player_move = _players[_current_color]->askNextMove(board, _current_color);
         board.doMove(player_move, true);
-        draw();
+        if (_draw){
+            draw();
+        }
         _current_color = (color) !_current_color;
     }
 
@@ -78,5 +80,9 @@ namespace pdp_chess {
 
     void Game::setPlayer(color color, Player *player) {
         _players[color] = player;
+    }
+
+    void Game::setDraw(bool draw) {
+        _draw = draw;
     }
 }
