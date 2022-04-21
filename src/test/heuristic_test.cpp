@@ -48,11 +48,11 @@ int main (int argc, char *argv[]) {
         }
         if(arg == "3"){
                 g.fromString("------------K-------------------p----------------------PP------P-");
-                expected_result = 4077;
+                expected_result = 4085;
         }
         if(arg == "4"){
                 g.fromString("------------K--------------------------p---------P-----PP------P-");
-                expected_result = 4106;
+                expected_result = 4114;
         }
 
         result = h.evaluateBoard(g.board, true);

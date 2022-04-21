@@ -33,7 +33,8 @@ namespace pdp_chess {
         int blackNbBackward(const Bitboard &bitboard);
         int whiteNbBackward(const Bitboard &bitboard);
         int nbIsolated(const Bitboard &bitboard);
-        int pawnForward(const Bitboard &current_pawns, const Bitboard &opponent_pawns);
+        int whitePawnForward(const Bitboard &current_pawns);
+        int blackPawnForward(const Bitboard &current_pawns);
         int nbLegalMove(const Board& board, bool white_turn);
         int evaluatePieces(const PlayerState& player_state, bool is_white);
         int evaluateBoard(const Board &board, bool color);
