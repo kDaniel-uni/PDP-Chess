@@ -6,6 +6,7 @@
 #include "move.h"
 #include "player/ai_player.h"
 #include "negascout.h"
+#include "vector_shuffle.h"
 #include <algorithm>
 #include <limits>
 #include <iostream>
@@ -23,6 +24,8 @@ namespace pdp_chess {
         int beta = std::numeric_limits<int>::max();
         Move best_move;
         std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+        //moveShuffle(legal_moves);
+
         for(Move move : legal_moves){
             board.doMove(move);
             score = -algoNegaScout(board, _depth - 1, -alpha - 1, -alpha, !current_color);

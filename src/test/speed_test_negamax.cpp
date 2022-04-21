@@ -51,6 +51,8 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
+    number_of_game = 1;
+
     whitePlayerParameters.aiParameters = whiteAIParameters;
 
     matchParameters.blackPlayerParameters = blackPlayerParameters;
