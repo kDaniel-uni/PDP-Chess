@@ -42,7 +42,7 @@ namespace pdp_chess {
         int depth = aiParameters.depth;
 
         MinMaxAb* alpha_beta = new MinMaxAb(*heuristic, *_legal_move, depth);
-        std::cout << "MinMax player created" << std::endl;
+        std::cout << "AlphaBeta player created" << std::endl;
         return alpha_beta;
     }
 
