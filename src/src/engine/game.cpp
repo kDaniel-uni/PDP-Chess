@@ -37,7 +37,9 @@ namespace pdp_chess {
             step();
         }
 
-        std::cout << board.result() << " in " << board._history.size() << " moves" << std::endl;
+        if (_draw){
+            std::cout << board.result() << " in " << board._history.size() << " moves" << std::endl;
+        }
     }
 
 

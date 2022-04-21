@@ -144,9 +144,6 @@ namespace pdp_chess {
     }
 
     bool Board::isDraw(){
-        /*if(_legal_move.legalMove(*this,white).size() == 0 || _legal_move.legalMove(*this,black).size() == 0){ //verify blocked board
-            return true;  WIP need to have LegalMove in Board to uncomment
-        }*/
 
         if (moves_without_eating_counter > 50) {
             return true;
