@@ -5,11 +5,15 @@
 #ifndef PDP_CHESS_MCTS_H
 #define PDP_CHESS_MCTS_H
 
-#include "ai_player.h"
+#include "board.h"
+#include "move.h"
+#include "player/ai_player.h"
+#include "legal_move.h"
+#include "heuristic.h"
 
 namespace pdp_chess{
 
-    class MCTS : public AIPlayer{
+    class Mcts : public AiPlayer{
 
         public:
             struct node;
@@ -18,30 +22,30 @@ namespace pdp_chess{
                 Board _board;
                 int _nb_victory;
                 int _nb_exp;
+                color _color;
                 Move * _move;
                 struct node * _parent;
                 std::vector<struct node> _childrens;
             }node_t;
 
-            MCTS(Heuristic& heuristic, LegalMove& legalMove, int depth, int nb_epx);
-            Move askNextMove(Board& board, color current_color) override;
-            std::string getParameters();
-
             node_t _tree;
             int _nb_experiment;
 
-            node_t makeNode(Board& board, Move * move, node_t * parent);
-            node_t initialization(Board& board);
+            Mcts(Heuristic& h, LegalMove& l, int depth, int nb_epx);
 
-            node_t selection(node_t tree, int depth, color current_color);
-            node_t expansion(node_t tree, color current_color);
-            node_t simulation(node_t tree, color current_color);
-            void backPropagation(node_t * tree, color my_color);
+            node_t makeNode(Board& board, Move * move, node_t * parent, color c);
+            node_t initialization(Board& board, color current_color);
+
+            node_t selection(node_t tree, int depth);
+            node_t expansion(node_t tree);
+            node_t simulation(node_t tree);
+            void backPropagation(node_t * tree);
 
             node_t launch(Board& board, int nb_exp, color my_color);
+            Move askNextMove(Board& board, color current_color);
+            std::string getParameters();
 
     };
-
 }
 
 #endif //PDP_CHESS_MCTS_H
