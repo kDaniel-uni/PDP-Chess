@@ -15,7 +15,7 @@ namespace pdp_chess{
 
         Move findNextMove(Board& board, color current_color);
         int algoMTDF(Board board, int f, int depth, bool current_color, bool base_color);
-        int AlphaBetaWithMemory(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
+        int alphaBetaWithMemory(Board board, int depth, int alpha, int beta, bool current_color, bool base_color);
         std::string getParameters();*/
     };
 }

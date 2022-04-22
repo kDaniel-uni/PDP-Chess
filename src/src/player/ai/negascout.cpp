@@ -44,9 +44,9 @@ namespace pdp_chess {
             board.undoMove();
         }
 
-        /*board.doMove(best_move);
+        board.doMove(best_move);
         std::cout << "Meilleur coup :" << _heuristic->evaluateBoard(board, current_color) << std::endl;
-        board.undoMove();*/
+        board.undoMove();
 
         return best_move;
     }

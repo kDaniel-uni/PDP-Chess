@@ -8,74 +8,74 @@ namespace pdp_chess {
 
     /* Returns a MatchParameters populated with PlayerParameters for each player color
      * */
-    MatchParameters GetMatchParameters(Json::Value& matchData){
-        MatchParameters matchParameters = MatchParameters();
+    MatchParameters getMatchParameters(Json::Value& match_data){
+        MatchParameters match_parameters = MatchParameters();
 
-        Json::Value& whiteData = matchData["White"];
-        Json::Value& blackData = matchData["Black"];
+        Json::Value& white_data = match_data["White"];
+        Json::Value& black_data = match_data["Black"];
 
-        matchParameters.white_player_parameters = GetPlayerParameters(whiteData);
-        matchParameters.black_player_parameters = GetPlayerParameters(blackData);
+        match_parameters.white_player_parameters = getPlayerParameters(white_data);
+        match_parameters.black_player_parameters = getPlayerParameters(black_data);
 
-        return matchParameters;
+        return match_parameters;
     }
 
 
     /* Returns a PlayerParameters which contains only its type if human
      * It also contains its depth and AIParameters if it's not human
     * */
-    PlayerParameters GetPlayerParameters(Json::Value& playerData){
-        PlayerParameters playerParameters = PlayerParameters();
+    PlayerParameters getPlayerParameters(Json::Value& player_data){
+        PlayerParameters player_parameters = PlayerParameters();
 
-        std::string playerTypeString = playerData["Type"].asString();
-        PlayerType playerType = PlayerNone;
+        std::string player_type_string = player_data["Type"].asString();
+        PlayerType player_type = PlayerNone;
 
-        for (int typeIndex = Human; typeIndex != PlayerNone; typeIndex++){
-            std::string existingType = getStringFromPlayerType((PlayerType) typeIndex);
+        for (int type_index = Human; type_index != PlayerNone; type_index++){
+            std::string existing_type = getStringFromPlayerType((PlayerType) type_index);
 
-            if (playerTypeString.compare(existingType) == 0){
-                playerType = (PlayerType) typeIndex;
+            if (player_type_string.compare(existing_type) == 0){
+                player_type = (PlayerType) type_index;
                 break;
             }
         }
 
-        if (playerType == PlayerNone){
-            playerType = Random;
+        if (player_type == PlayerNone){
+            player_type = Random;
         }
 
-        playerParameters.player_type = playerType;
+        player_parameters.player_type = player_type;
 
-        if (playerType == Human){
-            return playerParameters;
+        if (player_type == Human){
+            return player_parameters;
         }
 
-        AIParameters aiParameters = AIParameters();
-        aiParameters.depth = playerData["Depth"].asInt();
-        aiParameters.heuristic_parameters = GetHeuristicParameters(playerData["Heuristic"]);
+        AIParameters ai_parameters = AIParameters();
+        ai_parameters.depth = player_data["Depth"].asInt();
+        ai_parameters.heuristic_parameters = getHeuristicParameters(player_data["Heuristic"]);
 
-        playerParameters.ai_parameters = aiParameters;
-        return playerParameters;
+        player_parameters.ai_parameters = ai_parameters;
+        return player_parameters;
     }
 
 
     /* Returns an HeuristicParameters from a list of Json node
      * if there are no element in the list the HeuristicParameters struct keeps its default values
      * */
-    HeuristicParameters GetHeuristicParameters(Json::Value& heuristicParametersList){
-        HeuristicParameters heuristicParameters = HeuristicParameters();
+    HeuristicParameters getHeuristicParameters(Json::Value& heuristic_parameters_list){
+        HeuristicParameters heuristic_parameters = HeuristicParameters();
 
-        for (int i = 0; i < heuristicParametersList.size(); ++i) {
-            Json::Value& currentParameters = heuristicParametersList[i];
+        for (int i = 0; i < heuristic_parameters_list.size(); ++i) {
+            Json::Value& current_parameters = heuristic_parameters_list[i];
 
-            HeuristicParameterType parameterType = GetHeuristicParameterType(currentParameters["Type"]);
-            if (parameterType == HeuristicNone){
+            HeuristicParameterType parameter_type = getHeuristicParameterType(current_parameters["Type"]);
+            if (parameter_type == HeuristicNone){
                 continue;
             }
 
-            heuristicParameters.changeValue(parameterType, currentParameters["Value"].asInt());
+            heuristic_parameters.changeValue(parameter_type, current_parameters["Value"].asInt());
         }
 
-        return heuristicParameters;
+        return heuristic_parameters;
     }
 
 
@@ -83,15 +83,15 @@ namespace pdp_chess {
      * Returns a HeuristicParameterType if the string equals an existing parameter
      * Returns None if it doesn't find a match
      * */
-    HeuristicParameterType GetHeuristicParameterType(Json::Value& heuristicParametersElement){
+    HeuristicParameterType getHeuristicParameterType(Json::Value& heuristic_parameters_element){
 
-        std::string parameterType = heuristicParametersElement.asString();
+        std::string parameter_type = heuristic_parameters_element.asString();
 
-        for (int typeIndex = Pawns; typeIndex != HeuristicNone; typeIndex++){
-            std::string existingParameter = getStringFromHeuristicParameterType((HeuristicParameterType) typeIndex);
+        for (int type_index = Pawns; type_index != HeuristicNone; type_index++){
+            std::string existing_parameter = getStringFromHeuristicParameterType((HeuristicParameterType) type_index);
 
-            if (parameterType.compare(existingParameter) == 0){
-                return (HeuristicParameterType) typeIndex;
+            if (parameter_type.compare(existing_parameter) == 0){
+                return (HeuristicParameterType) type_index;
             }
         }
 

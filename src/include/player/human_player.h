@@ -16,7 +16,7 @@ namespace pdp_chess {
         HumanPlayer(LegalMove &legal_move);
         Move askNextMove(Board& board, color current_color) override;
         void initMoveMap();
-        Move moveFromString(std::string mv);
+        Move moveFromString(std::string string_move);
     };
 
 

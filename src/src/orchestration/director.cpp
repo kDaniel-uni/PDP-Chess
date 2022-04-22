@@ -11,7 +11,7 @@ namespace pdp_chess {
         _legal_move_v1 = new LegalMoveV1();
         _legal_move_v2 = new LegalMoveV2();
         _player_factory_v1 = new PlayerFactory(*_legal_move_v1);
-        _player_factory_v2 = new PlayerFactory(*_legal_move_v1);
+        _player_factory_v2 = new PlayerFactory(*_legal_move_v2);
     }
 
     bool Director::loadMatchFromJson(std::string file_path, bool load_v1) {
@@ -24,7 +24,7 @@ namespace pdp_chess {
             return false;
         }
 
-        loadMatchFromMatchParameters(GetMatchParameters(json_object), load_v1);
+        loadMatchFromMatchParameters(getMatchParameters(json_object), load_v1);
 
         return true;
     }

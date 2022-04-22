@@ -20,22 +20,22 @@ namespace pdp_chess {
         doubled_value = heuristic_parameters.doubled_value;
         legal_move_value = heuristic_parameters.legal_move_value;
         forward_pawn_value = heuristic_parameters.forward_pawn_value;
-        this->legalMove = &legal_move;
+        this->legal_move = &legal_move;
     }
 
-    Heuristic::Heuristic(LegalMove& legalMove, const HeuristicParameters &heuristicParameters) {
-        pawns_value = heuristicParameters.pawns_value;
-        rooks_value = heuristicParameters.rooks_value;
-        bishops_value = heuristicParameters.bishops_value;
-        knights_value = heuristicParameters.knights_value;
-        queen_value = heuristicParameters.queen_value;
-        king_value = heuristicParameters.king_value;
-        backward_value = heuristicParameters.backward_value;
-        isolated_value = heuristicParameters.isolated_value;
-        doubled_value = heuristicParameters.doubled_value;
-        legal_move_value = heuristicParameters.legal_move_value;
-        forward_pawn_value = heuristicParameters.forward_pawn_value;
-        this->legalMove = &legalMove;
+    Heuristic::Heuristic(LegalMove& legal_move, const HeuristicParameters &heuristic_parameters) {
+        pawns_value = heuristic_parameters.pawns_value;
+        rooks_value = heuristic_parameters.rooks_value;
+        bishops_value = heuristic_parameters.bishops_value;
+        knights_value = heuristic_parameters.knights_value;
+        queen_value = heuristic_parameters.queen_value;
+        king_value = heuristic_parameters.king_value;
+        backward_value = heuristic_parameters.backward_value;
+        isolated_value = heuristic_parameters.isolated_value;
+        doubled_value = heuristic_parameters.doubled_value;
+        legal_move_value = heuristic_parameters.legal_move_value;
+        forward_pawn_value = heuristic_parameters.forward_pawn_value;
+        this->legal_move = &legal_move;
     }
 
     int Heuristic::whiteNbBackward(const Bitboard& bitboard){
@@ -201,8 +201,8 @@ namespace pdp_chess {
             return 0;
         }
 
-        std::vector<Move> legal_move = legalMove->getLegalMoves(board, color);
-        int legal_move_count = legal_move.size();
+        std::vector<Move> legal_moves = legal_move->getLegalMoves(board, color);
+        int legal_move_count = legal_moves.size();
 
         return legal_move_count * legal_move_value;
     }

@@ -25,10 +25,10 @@ namespace pdp_chess {
         int doubled_value;
         int legal_move_value;
         int forward_pawn_value;
-        LegalMove* legalMove;
+        LegalMove* legal_move;
 
-        Heuristic(LegalMove& legalMove);
-        Heuristic(LegalMove& legalMove, const HeuristicParameters &heuristicParameters);
+        Heuristic(LegalMove& legal_move);
+        Heuristic(LegalMove& legal_move, const HeuristicParameters &heuristic_parameters);
         int nbDoubled(const Bitboard &bitboard);
         int blackNbBackward(const Bitboard &bitboard);
         int whiteNbBackward(const Bitboard &bitboard);

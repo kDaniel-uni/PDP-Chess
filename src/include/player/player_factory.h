@@ -21,19 +21,19 @@ namespace pdp_chess {
 
     class PlayerFactory {
     public:
-        PlayerFactory(LegalMove &legalMove);
-        Player* createPlayer(const PlayerParameters &playerParameters);
+        PlayerFactory(LegalMove &legal_move);
+        Player* createPlayer(const PlayerParameters &player_parameters);
 
     private:
         LegalMove* _legal_move;
 
         Player* createHumanPlayer();
         Player* createRandom();
-        Player* createMinMaxAB(const AIParameters &aiParameters);
-        Player* createNegaMax(const AIParameters &aiParameters);
-        Player* createNegaScout(const AIParameters &aiParameters);
-        Player* createMTDF(const AIParameters &aiParameters);
-        Player* createMCTS(const AIParameters &aiParameters);
+        Player* createMinMaxAB(const AIParameters &ai_parameters);
+        Player* createNegaMax(const AIParameters &ai_parameters);
+        Player* createNegaScout(const AIParameters &ai_parameters);
+        Player* createMTDF(const AIParameters &ai_parameters);
+        Player* createMCTS(const AIParameters &ai_parameters);
     };
 
 }

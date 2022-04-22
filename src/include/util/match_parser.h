@@ -10,13 +10,13 @@
 
 namespace pdp_chess{
 
-    MatchParameters GetMatchParameters(Json::Value& matchData);
+    MatchParameters getMatchParameters(Json::Value& match_data);
 
-    PlayerParameters GetPlayerParameters(Json::Value& playerData);
+    PlayerParameters getPlayerParameters(Json::Value& player_data);
 
-    HeuristicParameters GetHeuristicParameters(Json::Value& heuristicParametersList);
+    HeuristicParameters getHeuristicParameters(Json::Value& heuristic_parameters_list);
 
-    HeuristicParameterType GetHeuristicParameterType(Json::Value& heuristicParametersElement);
+    HeuristicParameterType getHeuristicParameterType(Json::Value& heuristic_parameters_element);
 
 }
 

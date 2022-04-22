@@ -14,8 +14,8 @@ namespace pdp_chess {
     public:
         LegalMove* _legal_move;
 
-        Player(LegalMove &legalMove) {
-            _legal_move = &legalMove;
+        Player(LegalMove &legal_move) {
+            _legal_move = &legal_move;
         }
         virtual ~Player() {}
         virtual Move askNextMove(Board& board, color current_color) = 0;

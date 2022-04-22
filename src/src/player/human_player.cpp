@@ -53,10 +53,10 @@ namespace pdp_chess {
             
         }
     }
-    Move HumanPlayer::moveFromString(std::string mv){
+    Move HumanPlayer::moveFromString(std::string string_move){
 
-        std::string start = mv.substr(0,2);
-        std::string target = mv.substr(2);
+        std::string start = string_move.substr(0,2);
+        std::string target = string_move.substr(2);
         
         Move move;
         for(int i = 0; i<64; i++){

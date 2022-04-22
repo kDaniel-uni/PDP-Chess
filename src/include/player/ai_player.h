@@ -16,7 +16,7 @@ namespace pdp_chess {
         Heuristic* _heuristic;
         int _depth;
 
-        AIPlayer(LegalMove &legalMove, Heuristic &heuristic, int depth) : Player(legalMove) {
+        AIPlayer(LegalMove &legal_move, Heuristic &heuristic, int depth) : Player(legal_move) {
             _heuristic = &heuristic;
             _depth = depth;
         }
