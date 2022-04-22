@@ -9,7 +9,7 @@
 
 namespace pdp_chess {
 
-    enum HeuristicParameterType{
+    enum HeuristicParameterType {
         Pawns,
         Rooks,
         Bishops,
@@ -26,7 +26,7 @@ namespace pdp_chess {
 
     std::string getStringFromHeuristicParameterType(HeuristicParameterType type);
 
-    struct HeuristicParameters{
+    struct HeuristicParameters {
         int pawns_value = 20;
         int rooks_value = 100;
         int bishops_value = 60;
@@ -44,12 +44,12 @@ namespace pdp_chess {
         void changeValue(HeuristicParameterType type, int value);
     };
 
-    struct AIParameters{
+    struct AIParameters {
         int depth = 1;
         HeuristicParameters heuristic_parameters;
     };
 
-    enum PlayerType{
+    enum PlayerType {
         Human,
         Random,
         AlphaBeta,
@@ -62,12 +62,12 @@ namespace pdp_chess {
 
     std::string getStringFromPlayerType(PlayerType type);
 
-    struct PlayerParameters{
+    struct PlayerParameters {
         PlayerType player_type;
         AIParameters ai_parameters;
     };
 
-    struct MatchParameters{
+    struct MatchParameters {
         PlayerParameters white_player_parameters;
         PlayerParameters black_player_parameters;
     };

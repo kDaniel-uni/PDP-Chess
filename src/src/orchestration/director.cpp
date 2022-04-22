@@ -20,7 +20,7 @@ namespace pdp_chess {
         Json::Value json_object;
         bool read_success = reader.parse(input_stream, json_object);
 
-        if (!read_success){
+        if (!read_success) {
             return false;
         }
 
@@ -33,10 +33,10 @@ namespace pdp_chess {
 
         _match_parameters = match_parameters;
 
-        Player* white_player;
-        Player* black_player;
+        Player *white_player;
+        Player *black_player;
 
-        if (load_v1){
+        if (load_v1) {
             white_player = _player_factory_v1->createPlayer(_match_parameters.white_player_parameters);
             black_player = _player_factory_v1->createPlayer(_match_parameters.black_player_parameters);
         } else {
@@ -57,20 +57,20 @@ namespace pdp_chess {
         std::chrono::time_point<std::chrono::system_clock> game_start_time;
         std::chrono::time_point<std::chrono::system_clock> game_end_time;
 
-        if (is_timed){
+        if (is_timed) {
             game_start_time = std::chrono::high_resolution_clock::now();
         }
 
         _game->start();
 
-        if (is_timed){
+        if (is_timed) {
             game_end_time = std::chrono::high_resolution_clock::now();
             _game_time = duration_cast<std::chrono::milliseconds>(game_end_time - game_start_time);
             std::cout << "Game time " << _game_time.count() << " ms" << std::endl;
         }
     }
 
-    void Director::resetGame(){
+    void Director::resetGame() {
         _game->reset();
     }
 

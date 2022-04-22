@@ -12,8 +12,9 @@ namespace pdp_chess {
     class RandomPlayer : public Player {
 
     public:
-        RandomPlayer(LegalMove& legal_move);
-        Move askNextMove(Board& board, color current_color) override;
+        RandomPlayer(LegalMove &legal_move);
+
+        Move askNextMove(Board &board, color current_color) override;
     };
 
 }

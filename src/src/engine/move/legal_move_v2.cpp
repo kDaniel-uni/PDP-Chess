@@ -275,7 +275,8 @@ namespace pdp_chess {
 
         for (int current_piece_position: getPositionsV1(bitboard.value)) {
             uint64_t move_target_positions = _pawns_moves_table[color][current_piece_position];
-            uint64_t blocked_positions = move_target_positions & (board.pieces[!color]->all.value | board.pieces[color]->all.value);
+            uint64_t blocked_positions =
+                    move_target_positions & (board.pieces[!color]->all.value | board.pieces[color]->all.value);
 
             movable = move_target_positions - blocked_positions;
             eatable = _pawns_attacks_table[color][current_piece_position] & board.pieces[!color]->all.value;
@@ -294,7 +295,7 @@ namespace pdp_chess {
         uint64_t movable;
         Bitboard bitboard = board.pieces[color]->king;
 
-        for (auto current_piece_position : pdp_chess::getPositionsV1(bitboard.value)){
+        for (auto current_piece_position : pdp_chess::getPositionsV1(bitboard.value)) {
             uint64_t target_positions = _kings_moves_table[current_piece_position];
             uint64_t blocked_by_ally = target_positions & board.pieces[color]->all.value;
             movable = target_positions - blocked_by_ally;
@@ -369,8 +370,9 @@ namespace pdp_chess {
         }
     }
 
-    void LegalMoveV2::generateMoves(const Bitboard &source_bitboard, uint8_t source_piece_position
-                                  , std::vector<Move> &moves, uint64_t movable) {
+    void
+    LegalMoveV2::generateMoves(const Bitboard &source_bitboard, uint8_t source_piece_position, std::vector<Move> &moves,
+                               uint64_t movable) {
         for (auto current_target_position : getPositionsV1(movable)) {
             Move move;
             move.start_position = source_piece_position;

@@ -22,18 +22,25 @@ namespace pdp_chess {
     class PlayerFactory {
     public:
         PlayerFactory(LegalMove &legal_move);
-        Player* createPlayer(const PlayerParameters &player_parameters);
+
+        Player *createPlayer(const PlayerParameters &player_parameters);
 
     private:
-        LegalMove* _legal_move;
+        LegalMove *_legal_move;
 
-        Player* createHumanPlayer();
-        Player* createRandom();
-        Player* createMinMaxAB(const AIParameters &ai_parameters);
-        Player* createNegaMax(const AIParameters &ai_parameters);
-        Player* createNegaScout(const AIParameters &ai_parameters);
-        Player* createMTDF(const AIParameters &ai_parameters);
-        Player* createMCTS(const AIParameters &ai_parameters);
+        Player *createHumanPlayer();
+
+        Player *createRandom();
+
+        Player *createMinMaxAB(const AIParameters &ai_parameters);
+
+        Player *createNegaMax(const AIParameters &ai_parameters);
+
+        Player *createNegaScout(const AIParameters &ai_parameters);
+
+        Player *createMTDF(const AIParameters &ai_parameters);
+
+        Player *createMCTS(const AIParameters &ai_parameters);
     };
 
 }

@@ -28,7 +28,7 @@ namespace pdp_chess {
         }
     }
 
-    std::string Board::toString() const{
+    std::string Board::toString() const {
         std::string res;
         res.resize(64);
 
@@ -100,22 +100,22 @@ namespace pdp_chess {
         if ((pieces[black]->all.value >> move.target_position) & 1) {
             eatPiece(move, *pieces[black]);
 
-            if (is_main_loop){
+            if (is_main_loop) {
                 _moves_without_eating_counter = 0;
             }
 
         } else if ((pieces[white]->all.value >> move.target_position) & 1) {
             eatPiece(move, *pieces[white]);
 
-            if (is_main_loop){
+            if (is_main_loop) {
                 _moves_without_eating_counter = 0;
             }
 
         } else {
             move.target_type = '-';
 
-            if (is_main_loop){
-                _moves_without_eating_counter ++;
+            if (is_main_loop) {
+                _moves_without_eating_counter++;
             }
         }
         movePiece(move, *pieces[move.start_type < 90]);
@@ -128,11 +128,11 @@ namespace pdp_chess {
         Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
 
         movePiece(reverse_move, *pieces[move.start_type < 90]);
-        if (reverse_move.target_type == '-'){
+        if (reverse_move.target_type == '-') {
             Move back = history.back();
             history.pop_back();
-            if (is_main_loop){
-                _moves_without_eating_counter --;
+            if (is_main_loop) {
+                _moves_without_eating_counter--;
             }
             return back;
         }
@@ -143,7 +143,7 @@ namespace pdp_chess {
         return back;
     }
 
-    bool Board::isDraw(){
+    bool Board::isDraw() {
 
         if (_moves_without_eating_counter > 50) {
             return true;
@@ -158,31 +158,31 @@ namespace pdp_chess {
         uint64_t knights_white = pieces[white]->knights.value;
         uint64_t knights_black = pieces[black]->knights.value;
 
-        if((all_white == king_white) && (all_black == king_black)){ // if king vs king, the result is a draw
+        if ((all_white == king_white) && (all_black == king_black)) { // if king vs king, the result is a draw
             return true;
         }
 
-        if ((all_white == (king_white | bishops_white)) && (all_black == king_black)){
+        if ((all_white == (king_white | bishops_white)) && (all_black == king_black)) {
             return true;
         }
 
-        if ((all_black == (king_black | bishops_black)) && (all_white == king_white)){
+        if ((all_black == (king_black | bishops_black)) && (all_white == king_white)) {
             return true;
         }
 
-        if ((all_white == (king_white | knights_white)) && (all_black == king_black)){
+        if ((all_white == (king_white | knights_white)) && (all_black == king_black)) {
             return true;
         }
 
-        if ((all_black == (king_black | knights_black)) && (all_white == king_white)){
+        if ((all_black == (king_black | knights_black)) && (all_white == king_white)) {
             return true;
         }
 
-        if ((all_white == (king_white | bishops_white)) && (all_black == (king_black | bishops_black))){
+        if ((all_white == (king_white | bishops_white)) && (all_black == (king_black | bishops_black))) {
             return true;
         }
 
-        if(history.size() >= 8){
+        if (history.size() >= 8) {
             Board historic_board = this->clone();
 
             historic_board.undoMove();
@@ -190,7 +190,7 @@ namespace pdp_chess {
             historic_board.undoMove();
             historic_board.undoMove();
 
-            if (!this->equal(historic_board)){
+            if (!this->equal(historic_board)) {
                 return false;
             }
 
@@ -207,7 +207,7 @@ namespace pdp_chess {
 
 
     bool Board::isGameOver() {
-        if ((pieces[black]->king.value == 0 || pieces[white]->king.value == 0 || Board::isDraw())){
+        if ((pieces[black]->king.value == 0 || pieces[white]->king.value == 0 || Board::isDraw())) {
             return true;
         }
         return false;
@@ -243,18 +243,18 @@ namespace pdp_chess {
         std::string chars = this->toString();
 
         std::cout << std::endl << "    a b c d e f g h" << std::endl << "   -----------------" << std::endl;
-        for (int current_y = 7; current_y >= 0; current_y--){
+        for (int current_y = 7; current_y >= 0; current_y--) {
             std::cout << current_y + 1 << " | ";
-            for (int current_x = 0; current_x < 8; current_x++){
+            for (int current_x = 0; current_x < 8; current_x++) {
                 std::cout << chars[current_y * 8 + current_x] << ' ';
             }
-            std::cout << "| " << current_y + 1<< std::endl;
+            std::cout << "| " << current_y + 1 << std::endl;
         }
 
-        std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl  << std::endl;
+        std::cout << "   -----------------" << std::endl << "    a b c d e f g h" << std::endl << std::endl;
     }
 
-    Board Board::clone(){ //return a copy of the current board
+    Board Board::clone() { //return a copy of the current board
         Board clone = Board();
         std::string clonepiece = Board::toString();
         clone.fromString(clonepiece.c_str());
@@ -263,9 +263,9 @@ namespace pdp_chess {
         return clone;
     }
 
-    bool Board::equal(const Board& board) {
+    bool Board::equal(const Board &board) {
         if (pieces[white]->equal(*board.pieces[white])
-        && pieces[black]->equal(*board.pieces[black])){
+            && pieces[black]->equal(*board.pieces[black])) {
             return true;
         }
 

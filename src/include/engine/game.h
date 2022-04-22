@@ -19,18 +19,27 @@ namespace pdp_chess {
         Board board;
 
         Game();
-        Game(Player* white_player, Player* black_player);
+
+        Game(Player *white_player, Player *black_player);
+
         void start();
+
         void playMove(Move move);
-        void fromString(const std::string& string);
+
+        void fromString(const std::string &string);
+
         void loadBasicBoard();
+
         void draw();
+
         void reset();
-        void setPlayer(color color, Player* player);
+
+        void setPlayer(color color, Player *player);
+
         void setDraw(bool draw);
 
     private:
-        Player* _players[2];
+        Player *_players[2];
         color _current_color;
         bool _draw = true;
 

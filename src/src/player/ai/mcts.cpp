@@ -7,7 +7,8 @@
 namespace pdp_chess {
 
 
-    MCTS::MCTS(Heuristic &heuristic, LegalMove &legalMove, int depth, int nb_exp) : AIPlayer(legalMove, heuristic, depth) {
+    MCTS::MCTS(Heuristic &heuristic, LegalMove &legalMove, int depth, int nb_exp) : AIPlayer(legalMove, heuristic,
+                                                                                             depth) {
         _nb_experiment = nb_exp;
     }
 

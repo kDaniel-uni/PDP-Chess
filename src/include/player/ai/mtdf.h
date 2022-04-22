@@ -7,9 +7,9 @@
 
 #include "ai_player.h"
 
-namespace pdp_chess{
+namespace pdp_chess {
 
-    class MTDF: public AIPlayer{
+    class MTDF : public AIPlayer {
 
         /*MTDF(Heuristic& heuristic, LegalMove& legalMove, int depth);
 

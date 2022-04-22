@@ -11,7 +11,8 @@
 
 namespace pdp_chess {
 
-    MinMaxAb::MinMaxAb(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic, depth){
+    MinMaxAb::MinMaxAb(Heuristic &heuristic, LegalMove &legal_move, int depth) : AIPlayer(legal_move, heuristic,
+                                                                                          depth) {
     }
 
     Move MinMaxAb::askNextMove(Board &board, color current_color) {

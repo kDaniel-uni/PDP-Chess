@@ -291,8 +291,8 @@ int main(int argc, char *argv[]) {
     } else if (arg == "15") {
         auto t1 = std::chrono::high_resolution_clock::now();
 
-        for (int index = 0; index < 10000; index++){
-            testPawn(g,legal_moves_v1);
+        for (int index = 0; index < 10000; index++) {
+            testPawn(g, legal_moves_v1);
             testRooks(g, legal_moves_v1);
             testBishops(g, legal_moves_v1);
             testKnights(g, legal_moves_v1);
@@ -306,10 +306,10 @@ int main(int argc, char *argv[]) {
         std::cout << duration.count() << " ms" << std::endl;
         return EXIT_SUCCESS;
 
-    }else if (arg == "16") {
+    } else if (arg == "16") {
         auto t1 = std::chrono::high_resolution_clock::now();
 
-        for (int index = 0; index < 10000; index++){
+        for (int index = 0; index < 10000; index++) {
             testPawn(g, legal_moves_v2);
             testRooks(g, legal_moves_v2);
             testBishops(g, legal_moves_v2);

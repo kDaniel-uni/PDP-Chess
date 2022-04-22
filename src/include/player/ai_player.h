@@ -11,9 +11,9 @@
 
 namespace pdp_chess {
 
-    class AIPlayer : public Player{
+    class AIPlayer : public Player {
     public :
-        Heuristic* _heuristic;
+        Heuristic *_heuristic;
         int _depth;
 
         AIPlayer(LegalMove &legal_move, Heuristic &heuristic, int depth) : Player(legal_move) {
@@ -22,7 +22,8 @@ namespace pdp_chess {
         }
 
         virtual ~AIPlayer() {}
-        Move askNextMove(Board& board, color current_color) override = 0;
+
+        Move askNextMove(Board &board, color current_color) override = 0;
     };
 
 }

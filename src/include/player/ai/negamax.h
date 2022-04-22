@@ -8,15 +8,17 @@
 #include <string>
 #include "move.h"
 #include "valuation/heuristic.h"
-namespace pdp_chess{
 
-    class Negamax : public AIPlayer{
+namespace pdp_chess {
 
-        public:
-            Negamax(Heuristic& heuristic, LegalMove& legal_move, int depth);
+    class Negamax : public AIPlayer {
 
-            Move askNextMove(Board& board, color current_color) override;
-            int algoNegaMax(Board& board, int depth, int alpha, int beta, bool current_color);
+    public:
+        Negamax(Heuristic &heuristic, LegalMove &legal_move, int depth);
+
+        Move askNextMove(Board &board, color current_color) override;
+
+        int algoNegaMax(Board &board, int depth, int alpha, int beta, bool current_color);
     };
 }
 

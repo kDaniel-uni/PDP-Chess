@@ -12,13 +12,15 @@ namespace pdp_chess {
 
     class Player {
     public:
-        LegalMove* _legal_move;
+        LegalMove *_legal_move;
 
         Player(LegalMove &legal_move) {
             _legal_move = &legal_move;
         }
+
         virtual ~Player() {}
-        virtual Move askNextMove(Board& board, color current_color) = 0;
+
+        virtual Move askNextMove(Board &board, color current_color) = 0;
     };
 
 }

@@ -17,18 +17,28 @@ namespace pdp_chess {
     class Board {
     public :
         std::vector<Move> history;
-        PlayerState* pieces[2];
+        PlayerState *pieces[2];
 
         Board();
+
         bool isDraw();
+
         std::string result();
+
         bool isGameOver();
+
         std::string toString() const;
-        void fromString(const char *filename); //load a game wrote in the filename, if no filename, load the default game.
+
+        void
+        fromString(const char *filename); //load a game wrote in the filename, if no filename, load the default game.
         void doMove(Move mv, bool is_main_loop = false);
+
         Move undoMove(bool is_main_loop = false);
+
         void resetToClassic();
+
         void resetToEmpty();
+
         void draw() const;
 
 
@@ -36,7 +46,9 @@ namespace pdp_chess {
         int _moves_without_eating_counter;
 
         void updateWhiteAndBlackPieces();
-        bool equal(const Board& board);
+
+        bool equal(const Board &board);
+
         Board clone();
     };
 

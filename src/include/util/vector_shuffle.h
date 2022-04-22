@@ -9,7 +9,7 @@
 #include "move.h"
 
 namespace pdp_chess {
-    void moveShuffle(std::vector<Move>& moves);
+    void moveShuffle(std::vector<Move> &moves);
 }
 
 #endif //PDP_CHESS_VECTOR_SHUFFLE_H

@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
     whiteAIParameters.heuristic_parameters = HeuristicParameters();
 
-    if (arg == "1"){
+    if (arg == "1") {
         whiteAIParameters.depth = 1;
         number_of_game = 10000;
     } else if (arg == "2") {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     } else if (arg == "6") {
         whiteAIParameters.depth = 6;
         number_of_game = 10;
-    }else {
+    } else {
         return EXIT_FAILURE;
     }
 

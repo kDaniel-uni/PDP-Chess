@@ -8,12 +8,13 @@
 #include <vector>
 #include "move.h"
 
-namespace pdp_chess{
+namespace pdp_chess {
 
-    class LegalMove{
+    class LegalMove {
     public:
         virtual ~LegalMove() {}
-        virtual std::vector<Move> getLegalMoves(const Board& board, bool playing_color) = 0;
+
+        virtual std::vector<Move> getLegalMoves(const Board &board, bool playing_color) = 0;
     };
 
 }

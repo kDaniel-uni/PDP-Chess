@@ -6,7 +6,7 @@
 
 namespace pdp_chess {
 
-    PlayerState::PlayerState(bool is_white, bool is_empty){
+    PlayerState::PlayerState(bool is_white, bool is_empty) {
         setPlayerState(is_white, is_empty);
     }
 
@@ -44,7 +44,7 @@ namespace pdp_chess {
         uint64_t base = 1; // prevent shift max size warning
 
         pawns.value = (base << 55) + (base << 54) + (base << 53) + (base << 52) + (base << 51) + (base << 50) +
-                (base << 49) + (base << 48);
+                      (base << 49) + (base << 48);
         rooks.value = (base << 63) + (base << 56);
         knights.value = (base << 62) + (base << 57);
         bishops.value = (base << 61) + (base << 58);
@@ -54,11 +54,11 @@ namespace pdp_chess {
 
     bool PlayerState::equal(const PlayerState &player_state) {
         if ((pawns.value == player_state.pawns.value)
-        && (rooks.value == player_state.rooks.value)
-        && (knights.value == player_state.knights.value)
-        && (bishops.value == player_state.bishops.value)
-        && (queen.value == player_state.queen.value)
-        && (king.value == player_state.king.value)){
+            && (rooks.value == player_state.rooks.value)
+            && (knights.value == player_state.knights.value)
+            && (bishops.value == player_state.bishops.value)
+            && (queen.value == player_state.queen.value)
+            && (king.value == player_state.king.value)) {
             return true;
         }
 

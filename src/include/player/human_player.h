@@ -9,13 +9,16 @@
 
 namespace pdp_chess {
 
-    class HumanPlayer : public Player{
+    class HumanPlayer : public Player {
     public:
         std::string _move_map[64];
 
         HumanPlayer(LegalMove &legal_move);
-        Move askNextMove(Board& board, color current_color) override;
+
+        Move askNextMove(Board &board, color current_color) override;
+
         void initMoveMap();
+
         Move moveFromString(std::string string_move);
     };
 

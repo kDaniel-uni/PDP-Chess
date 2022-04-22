@@ -6,33 +6,53 @@
 
 namespace pdp_chess {
 
-    std::string getStringFromHeuristicParameterType(HeuristicParameterType type){
+    std::string getStringFromHeuristicParameterType(HeuristicParameterType type) {
         switch (type) {
-            case Pawns: return "Pawns";
-            case Rooks: return "Rooks";
-            case Bishops: return "Bishops";
-            case Knights: return "Knights";
-            case Queen: return "Queen";
-            case King: return "King";
-            case Backward: return "Backward";
-            case Forward: return "Forward";
-            case Doubled: return "Doubled";
-            case Isolated: return "Isolated";
-            case Legal: return "Legal";
-            default : return "";
+            case Pawns:
+                return "Pawns";
+            case Rooks:
+                return "Rooks";
+            case Bishops:
+                return "Bishops";
+            case Knights:
+                return "Knights";
+            case Queen:
+                return "Queen";
+            case King:
+                return "King";
+            case Backward:
+                return "Backward";
+            case Forward:
+                return "Forward";
+            case Doubled:
+                return "Doubled";
+            case Isolated:
+                return "Isolated";
+            case Legal:
+                return "Legal";
+            default :
+                return "";
         }
     }
 
-    std::string getStringFromPlayerType(PlayerType type){
+    std::string getStringFromPlayerType(PlayerType type) {
         switch (type) {
-            case Human: return "Human";
-            case Random: return "Random";
-            case AlphaBeta: return "AlphaBeta";
-            case NegaMax: return "NegaMax";
-            case NegaScout: return "NegaScout";
-            case Mtdf: return "Mtdf";
-            case Mcts: return "Mcts";
-            default : return "";
+            case Human:
+                return "Human";
+            case Random:
+                return "Random";
+            case AlphaBeta:
+                return "AlphaBeta";
+            case NegaMax:
+                return "NegaMax";
+            case NegaScout:
+                return "NegaScout";
+            case Mtdf:
+                return "Mtdf";
+            case Mcts:
+                return "Mcts";
+            default :
+                return "";
         }
     }
 
@@ -71,7 +91,8 @@ namespace pdp_chess {
             case Legal:
                 legal_move_value = value;
                 break;
-            default : return;
+            default :
+                return;
         }
     }
 

@@ -8,15 +8,15 @@
 #include "orchestration/parameters.h"
 #include "json/json.h"
 
-namespace pdp_chess{
+namespace pdp_chess {
 
-    MatchParameters getMatchParameters(Json::Value& match_data);
+    MatchParameters getMatchParameters(Json::Value &match_data);
 
-    PlayerParameters getPlayerParameters(Json::Value& player_data);
+    PlayerParameters getPlayerParameters(Json::Value &player_data);
 
-    HeuristicParameters getHeuristicParameters(Json::Value& heuristic_parameters_list);
+    HeuristicParameters getHeuristicParameters(Json::Value &heuristic_parameters_list);
 
-    HeuristicParameterType getHeuristicParameterType(Json::Value& heuristic_parameters_element);
+    HeuristicParameterType getHeuristicParameterType(Json::Value &heuristic_parameters_element);
 
 }
 

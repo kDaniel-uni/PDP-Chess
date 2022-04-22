@@ -32,12 +32,12 @@ namespace pdp_chess {
         if (_players[white] == nullptr) return;
         if (_players[black] == nullptr) return;
 
-        std::srand ( unsigned ( std::time(0) ) );
+        std::srand(unsigned(std::time(0)));
         while (!board.isGameOver()) {
             step();
         }
 
-        if (_draw){
+        if (_draw) {
             std::cout << board.result() << " in " << board.history.size() << " moves" << std::endl;
         }
     }
@@ -49,7 +49,7 @@ namespace pdp_chess {
     void Game::step() {
         Move player_move = _players[_current_color]->askNextMove(board, _current_color);
         board.doMove(player_move, true);
-        if (_draw){
+        if (_draw) {
             draw();
         }
         _current_color = (color) !_current_color;
