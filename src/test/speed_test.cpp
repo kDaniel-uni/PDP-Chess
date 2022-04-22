@@ -24,8 +24,8 @@ int main (int argc, char *argv[]) {
 
     game.board.fromString("RNBQKBNR-------P---------------------------------------prnbqkbnr");
     for (int i = 0; i < 1000000; i++) {
-        legal_moves_v1.GetLegalMoves(game.board, true);
-        legal_moves_v1.GetLegalMoves(game.board, false);
+        legal_moves_v1.getLegalMoves(game.board, true);
+        legal_moves_v1.getLegalMoves(game.board, false);
     }
 
     /*game.board.fromString("-----P-Q--------------------q----------p------------------------");
@@ -49,8 +49,8 @@ int main (int argc, char *argv[]) {
 
     game.board.fromString("RNBQKBNR-------P---------------------------------------prnbqkbnr");
     for (int i = 0; i < 1000000; i++) {
-        legal_moves_v2.GetLegalMoves(game.board, true);
-        legal_moves_v2.GetLegalMoves(game.board, false);
+        legal_moves_v2.getLegalMoves(game.board, true);
+        legal_moves_v2.getLegalMoves(game.board, false);
     }
 
     /*game.board.fromString("-----P-Q--------------------q----------p------------------------");

@@ -24,7 +24,7 @@ namespace pdp_chess {
         HeuristicNone
     };
 
-    std::string GetStringFromHeuristicParameterType(HeuristicParameterType type);
+    std::string getStringFromHeuristicParameterType(HeuristicParameterType type);
 
     struct HeuristicParameters{
         int pawns_value = 20;
@@ -39,14 +39,14 @@ namespace pdp_chess {
         int legal_move_value = 2;
         int forward_pawn_value = 1;
 
-        void SetAllToZero();
+        void setAllToZero();
 
-        void ChangeValue(HeuristicParameterType type, int value);
+        void changeValue(HeuristicParameterType type, int value);
     };
 
     struct AIParameters{
         int depth = 1;
-        HeuristicParameters heuristicParameters;
+        HeuristicParameters heuristic_parameters;
     };
 
     enum PlayerType{
@@ -60,16 +60,16 @@ namespace pdp_chess {
         PlayerNone
     };
 
-    std::string GetStringFromPlayerType(PlayerType type);
+    std::string getStringFromPlayerType(PlayerType type);
 
     struct PlayerParameters{
-        PlayerType playerType;
-        AIParameters aiParameters;
+        PlayerType player_type;
+        AIParameters ai_parameters;
     };
 
     struct MatchParameters{
-        PlayerParameters whitePlayerParameters;
-        PlayerParameters blackPlayerParameters;
+        PlayerParameters white_player_parameters;
+        PlayerParameters black_player_parameters;
     };
 }
 

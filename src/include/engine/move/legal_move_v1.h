@@ -25,7 +25,7 @@ namespace pdp_chess {
             std::vector<Move> legal_move_king(const Board& board, bool white);
 
         public:
-            std::vector<Move> GetLegalMoves(const Board& board, bool playing_color) override;
+            std::vector<Move> getLegalMoves(const Board& board, bool playing_color) override;
     };
 }
 

@@ -6,21 +6,21 @@
 
 namespace pdp_chess {
 
-    Heuristic::Heuristic(LegalMove& legalMove) { // Base values
-        HeuristicParameters heuristicParameters = HeuristicParameters();
+    Heuristic::Heuristic(LegalMove& legal_move) { // Base values
+        HeuristicParameters heuristic_parameters = HeuristicParameters();
 
-        pawns_value = heuristicParameters.pawns_value;
-        rooks_value = heuristicParameters.rooks_value;
-        bishops_value = heuristicParameters.bishops_value;
-        knights_value = heuristicParameters.knights_value;
-        queen_value = heuristicParameters.queen_value;
-        king_value = heuristicParameters.king_value;
-        backward_value = heuristicParameters.backward_value;
-        isolated_value = heuristicParameters.isolated_value;
-        doubled_value = heuristicParameters.doubled_value;
-        legal_move_value = heuristicParameters.legal_move_value;
-        forward_pawn_value = heuristicParameters.forward_pawn_value;
-        this->legalMove = &legalMove;
+        pawns_value = heuristic_parameters.pawns_value;
+        rooks_value = heuristic_parameters.rooks_value;
+        bishops_value = heuristic_parameters.bishops_value;
+        knights_value = heuristic_parameters.knights_value;
+        queen_value = heuristic_parameters.queen_value;
+        king_value = heuristic_parameters.king_value;
+        backward_value = heuristic_parameters.backward_value;
+        isolated_value = heuristic_parameters.isolated_value;
+        doubled_value = heuristic_parameters.doubled_value;
+        legal_move_value = heuristic_parameters.legal_move_value;
+        forward_pawn_value = heuristic_parameters.forward_pawn_value;
+        this->legalMove = &legal_move;
     }
 
     Heuristic::Heuristic(LegalMove& legalMove, const HeuristicParameters &heuristicParameters) {
@@ -201,7 +201,7 @@ namespace pdp_chess {
             return 0;
         }
 
-        std::vector<Move> legal_move = legalMove->GetLegalMoves(board, color);
+        std::vector<Move> legal_move = legalMove->getLegalMoves(board, color);
         int legal_move_count = legal_move.size();
 
         return legal_move_count * legal_move_value;
@@ -244,7 +244,7 @@ namespace pdp_chess {
     }
 
     int Heuristic::evaluateBoard(const Board &board, bool color) {
-        int value = evaluatePieces(*board._pieces[white], white) - evaluatePieces(*board._pieces[black], black);
+        int value = evaluatePieces(*board.pieces[white], white) - evaluatePieces(*board.pieces[black], black);
 
         value += nbLegalMove(board, white) - nbLegalMove(board, black);
 

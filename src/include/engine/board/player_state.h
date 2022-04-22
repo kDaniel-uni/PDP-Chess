@@ -53,7 +53,7 @@ namespace pdp_chess {
 
         void setPlayerState(bool is_white, bool is_empty);
 
-        bool equal(PlayerState& playerState);
+        bool equal(const PlayerState& player_state);
     };
 
 }

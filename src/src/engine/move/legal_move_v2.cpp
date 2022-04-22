@@ -6,7 +6,7 @@
 
 namespace pdp_chess {
 
-    std::vector<Move> LegalMoveV2::GetLegalMoves(const Board &board, bool color) {
+    std::vector<Move> LegalMoveV2::getLegalMoves(const Board &board, bool color) {
 
         std::vector<Move> moves;
 
@@ -138,38 +138,38 @@ namespace pdp_chess {
         int column = position % 8;
 
         for (int i = line + 1; i < 8; i++) {//up
-            if ((1ULL << (i * 8 + column)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + column)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + column));
-            if ((1ULL << (i * 8 + column)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + column)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (int i = line - 1; i > -1; i--) {//down
-            if ((1ULL << (i * 8 + column)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + column)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + column));
-            if ((1ULL << (i * 8 + column)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + column)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (int j = column + 1; j < 8; j++) {//right
-            if ((1ULL << (line * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (line * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (line * 8 + j));
-            if ((1ULL << (line * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (line * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (int j = column - 1; j > -1; j--) {//left
-            if ((1ULL << (line * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (line * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (line * 8 + j));
-            if ((1ULL << (line * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (line * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
@@ -183,38 +183,38 @@ namespace pdp_chess {
         int i, j;
 
         for (i = line + 1, j = column + 1; i < 8 && j < 8; i++, j++) {//up right
-            if ((1ULL << (i * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + j));
-            if ((1ULL << (i * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (i = line - 1, j = column + 1; i > -1 && j < 8; i--, j++) {//down right
-            if ((1ULL << (i * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + j));
-            if ((1ULL << (i * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (i = line + 1, j = column - 1; i < 8 && j > -1; i++, j--) {//up left
-            if ((1ULL << (i * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + j));
-            if ((1ULL << (i * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
         for (i = line - 1, j = column - 1; i > -1 && j > -1; i--, j--) {//down left
-            if ((1ULL << (i * 8 + j)) & (board._pieces[color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[color]->all.value)) {
                 break;
             }
             mask |= (1ULL << (i * 8 + j));
-            if ((1ULL << (i * 8 + j)) & (board._pieces[!color]->all.value)) {
+            if ((1ULL << (i * 8 + j)) & (board.pieces[!color]->all.value)) {
                 break;
             }
         }
@@ -271,14 +271,14 @@ namespace pdp_chess {
         uint64_t movable;
         uint64_t eatable;
         uint64_t legal_positions;
-        Bitboard bitboard = board._pieces[color]->pawns;
+        Bitboard bitboard = board.pieces[color]->pawns;
 
         for (int current_piece_position: getPositionsV1(bitboard.value)) {
             uint64_t move_target_positions = _pawns_moves_table[color][current_piece_position];
-            uint64_t blocked_positions = move_target_positions & (board._pieces[!color]->all.value | board._pieces[color]->all.value);
+            uint64_t blocked_positions = move_target_positions & (board.pieces[!color]->all.value | board.pieces[color]->all.value);
 
             movable = move_target_positions - blocked_positions;
-            eatable = _pawns_attacks_table[color][current_piece_position] & board._pieces[!color]->all.value;
+            eatable = _pawns_attacks_table[color][current_piece_position] & board.pieces[!color]->all.value;
 
             legal_positions = eatable | movable;
 
@@ -292,11 +292,11 @@ namespace pdp_chess {
 
     void LegalMoveV2::kingLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
         uint64_t movable;
-        Bitboard bitboard = board._pieces[color]->king;
+        Bitboard bitboard = board.pieces[color]->king;
 
         for (auto current_piece_position : pdp_chess::getPositionsV1(bitboard.value)){
             uint64_t target_positions = _kings_moves_table[current_piece_position];
-            uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
+            uint64_t blocked_by_ally = target_positions & board.pieces[color]->all.value;
             movable = target_positions - blocked_by_ally;
 
             if (movable == 0) {
@@ -309,11 +309,11 @@ namespace pdp_chess {
 
     void LegalMoveV2::knightsLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
         uint64_t movable;
-        Bitboard bitboard = board._pieces[color]->knights;
+        Bitboard bitboard = board.pieces[color]->knights;
 
         for (auto current_piece_position : pdp_chess::getPositionsV1(bitboard.value)) {
             uint64_t target_positions = _knights_moves_table[current_piece_position];
-            uint64_t blocked_by_ally = target_positions & board._pieces[color]->all.value;
+            uint64_t blocked_by_ally = target_positions & board.pieces[color]->all.value;
             movable = target_positions - blocked_by_ally;
 
             if (movable == 0) {
@@ -325,7 +325,7 @@ namespace pdp_chess {
     }
 
     void LegalMoveV2::rooksLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
-        Bitboard bitboard = board._pieces[color]->rooks;
+        Bitboard bitboard = board.pieces[color]->rooks;
 
         for (auto current_piece_position : getPositionsV1(bitboard.value)) {
             uint64_t movable;
@@ -340,7 +340,7 @@ namespace pdp_chess {
     }
 
     void LegalMoveV2::bishopsLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
-        Bitboard bitboard = board._pieces[color]->bishops;
+        Bitboard bitboard = board.pieces[color]->bishops;
 
         for (auto current_piece_position : getPositionsV1(bitboard.value)) {
             uint64_t movable;
@@ -355,7 +355,7 @@ namespace pdp_chess {
     }
 
     void LegalMoveV2::queensLegalMoves(const Board &board, bool color, std::vector<Move> &moves) {
-        Bitboard bitboard = board._pieces[color]->queen;
+        Bitboard bitboard = board.pieces[color]->queen;
 
         for (auto current_piece_position : getPositionsV1(bitboard.value)) {
             uint64_t movable;

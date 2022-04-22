@@ -14,8 +14,8 @@ namespace pdp_chess {
         Json::Value& whiteData = matchData["White"];
         Json::Value& blackData = matchData["Black"];
 
-        matchParameters.whitePlayerParameters = GetPlayerParameters(whiteData);
-        matchParameters.blackPlayerParameters = GetPlayerParameters(blackData);
+        matchParameters.white_player_parameters = GetPlayerParameters(whiteData);
+        matchParameters.black_player_parameters = GetPlayerParameters(blackData);
 
         return matchParameters;
     }
@@ -31,7 +31,7 @@ namespace pdp_chess {
         PlayerType playerType = PlayerNone;
 
         for (int typeIndex = Human; typeIndex != PlayerNone; typeIndex++){
-            std::string existingType = GetStringFromPlayerType((PlayerType) typeIndex);
+            std::string existingType = getStringFromPlayerType((PlayerType) typeIndex);
 
             if (playerTypeString.compare(existingType) == 0){
                 playerType = (PlayerType) typeIndex;
@@ -43,7 +43,7 @@ namespace pdp_chess {
             playerType = Random;
         }
 
-        playerParameters.playerType = playerType;
+        playerParameters.player_type = playerType;
 
         if (playerType == Human){
             return playerParameters;
@@ -51,9 +51,9 @@ namespace pdp_chess {
 
         AIParameters aiParameters = AIParameters();
         aiParameters.depth = playerData["Depth"].asInt();
-        aiParameters.heuristicParameters = GetHeuristicParameters(playerData["Heuristic"]);
+        aiParameters.heuristic_parameters = GetHeuristicParameters(playerData["Heuristic"]);
 
-        playerParameters.aiParameters = aiParameters;
+        playerParameters.ai_parameters = aiParameters;
         return playerParameters;
     }
 
@@ -72,7 +72,7 @@ namespace pdp_chess {
                 continue;
             }
 
-            heuristicParameters.ChangeValue(parameterType, currentParameters["Value"].asInt());
+            heuristicParameters.changeValue(parameterType, currentParameters["Value"].asInt());
         }
 
         return heuristicParameters;
@@ -88,7 +88,7 @@ namespace pdp_chess {
         std::string parameterType = heuristicParametersElement.asString();
 
         for (int typeIndex = Pawns; typeIndex != HeuristicNone; typeIndex++){
-            std::string existingParameter = GetStringFromHeuristicParameterType((HeuristicParameterType) typeIndex);
+            std::string existingParameter = getStringFromHeuristicParameterType((HeuristicParameterType) typeIndex);
 
             if (parameterType.compare(existingParameter) == 0){
                 return (HeuristicParameterType) typeIndex;

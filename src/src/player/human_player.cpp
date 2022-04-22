@@ -17,7 +17,7 @@ namespace pdp_chess {
         char input[5];
         Move m;
         bool valid_move = false;
-        auto moves = _legal_move->GetLegalMoves(board, current_color);
+        auto moves = _legal_move->getLegalMoves(board, current_color);
         // print of possible moves
         for (Move movement : moves){
             std::cout <<  _move_map[movement.start_position] <<  _move_map[movement.target_position] << std::endl;

@@ -16,9 +16,8 @@ namespace pdp_chess {
 
     class Board {
     public :
-        int moves_without_eating_counter;
-        PlayerState* _pieces[2];
-        std::vector<Move> _history;
+        std::vector<Move> history;
+        PlayerState* pieces[2];
 
         Board();
         bool isDraw();
@@ -26,16 +25,19 @@ namespace pdp_chess {
         bool isGameOver();
         std::string toString() const;
         void fromString(const char *filename); //load a game wrote in the filename, if no filename, load the default game.
-        void updateWhiteAndBlackPieces();
         void doMove(Move mv, bool is_main_loop = false);
         Move undoMove(bool is_main_loop = false);
         void resetToClassic();
         void resetToEmpty();
-        int getColor(int index); // 1 if is white pieces, 0 if it's black pieces.
-        char findType(uint8_t index) const;
         void draw() const;
+
+
+    private:
+        int _moves_without_eating_counter;
+
+        void updateWhiteAndBlackPieces();
+        bool equal(const Board& board);
         Board clone();
-        bool equal(Board& board);
     };
 
 }

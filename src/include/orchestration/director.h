@@ -19,23 +19,23 @@ namespace pdp_chess {
     class Director{
     private:
         Game* _game;
-        LegalMoveV1* _legalMoveV1;
-        LegalMoveV2* _legalMoveV2;
-        PlayerFactory* _playerFactoryV1;
-        PlayerFactory* _playerFactoryV2;
-        MatchParameters _matchParameters;
-        std::chrono::milliseconds _gameTime;
+        LegalMoveV1* _legal_move_v1;
+        LegalMoveV2* _legal_move_v2;
+        PlayerFactory* _player_factory_v1;
+        PlayerFactory* _player_factory_v2;
+        MatchParameters _match_parameters;
+        std::chrono::milliseconds _game_time;
 
 
     public:
         Director();
-        bool LoadMatchFromJson(std::string file_path, bool load_v1);
-        void LoadMatchFromMatchParameters(MatchParameters matchParameters, bool load_v1);
-        void LoadBoard(const std::string &board);
-        void PlayMatch(bool is_timed);
-        void ResetGame();
-        MatchParameters GetRecapMatchParameters();
-        void GetMatchRecap();
+        bool loadMatchFromJson(std::string file_path, bool load_v1);
+        void loadMatchFromMatchParameters(MatchParameters match_parameters, bool load_v1);
+        void loadBoard(const std::string &board);
+        void playMatch(bool is_timed);
+        void resetGame();
+        MatchParameters getRecapMatchParameters();
+        void getMatchRecap();
         void setDraw(bool draw);
     };
 

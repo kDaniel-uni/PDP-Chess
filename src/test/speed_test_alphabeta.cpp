@@ -19,17 +19,17 @@ int main(int argc, char *argv[]) {
 
     MatchParameters matchParameters = MatchParameters();
     PlayerParameters blackPlayerParameters = PlayerParameters();
-    blackPlayerParameters.playerType = pdp_chess::AlphaBeta;
+    blackPlayerParameters.player_type = pdp_chess::AlphaBeta;
     AIParameters blackAIParameters = AIParameters();
-    blackAIParameters.heuristicParameters = HeuristicParameters();
+    blackAIParameters.heuristic_parameters = HeuristicParameters();
     blackAIParameters.depth = 1;
-    blackPlayerParameters.aiParameters = blackAIParameters;
+    blackPlayerParameters.ai_parameters = blackAIParameters;
 
     PlayerParameters whitePlayerParameters = PlayerParameters();
-    whitePlayerParameters.playerType = pdp_chess::AlphaBeta;
+    whitePlayerParameters.player_type = pdp_chess::AlphaBeta;
     AIParameters whiteAIParameters = AIParameters();
 
-    whiteAIParameters.heuristicParameters = HeuristicParameters();
+    whiteAIParameters.heuristic_parameters = HeuristicParameters();
 
     if (arg == "1"){
         whiteAIParameters.depth = 1;
@@ -53,18 +53,18 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    whitePlayerParameters.aiParameters = whiteAIParameters;
+    whitePlayerParameters.ai_parameters = whiteAIParameters;
 
-    matchParameters.blackPlayerParameters = blackPlayerParameters;
-    matchParameters.whitePlayerParameters = whitePlayerParameters;
+    matchParameters.black_player_parameters = blackPlayerParameters;
+    matchParameters.white_player_parameters = whitePlayerParameters;
 
-    director.LoadMatchFromMatchParameters(matchParameters, true);
+    director.loadMatchFromMatchParameters(matchParameters, true);
 
     auto t1 = std::chrono::high_resolution_clock::now();
 
     for (int i = 0; i < number_of_game; ++i) {
-        director.PlayMatch(false);
-        director.ResetGame();
+        director.playMatch(false);
+        director.resetGame();
     }
 
     auto t2 = std::chrono::high_resolution_clock::now();

@@ -18,13 +18,13 @@ int main (int argc, char *argv[]) {
         int number_of_game = 10;
 
         Director director = Director();
-        director.LoadMatchFromJson("../json_exemple/template.json", true);
+        director.loadMatchFromJson("../json_exemple/template.json", true);
 
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int i = 0; i < number_of_game; ++i) {
-            director.PlayMatch(false);
-            director.ResetGame();
+            director.playMatch(false);
+            director.resetGame();
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();
@@ -35,13 +35,13 @@ int main (int argc, char *argv[]) {
         int number_of_game = 10;
 
         Director director = Director();
-        director.LoadMatchFromJson("../json_exemple/template.json", false);
+        director.loadMatchFromJson("../json_exemple/template.json", false);
 
         auto t1 = std::chrono::high_resolution_clock::now();
 
         for (int i = 0; i < number_of_game; ++i) {
-            director.PlayMatch(false);
-            director.ResetGame();
+            director.playMatch(false);
+            director.resetGame();
         }
 
         auto t2 = std::chrono::high_resolution_clock::now();

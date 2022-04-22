@@ -6,7 +6,7 @@
 
 namespace pdp_chess {
 
-    std::string GetStringFromHeuristicParameterType(HeuristicParameterType type){
+    std::string getStringFromHeuristicParameterType(HeuristicParameterType type){
         switch (type) {
             case Pawns: return "Pawns";
             case Rooks: return "Rooks";
@@ -23,7 +23,7 @@ namespace pdp_chess {
         }
     }
 
-    std::string GetStringFromPlayerType(PlayerType type){
+    std::string getStringFromPlayerType(PlayerType type){
         switch (type) {
             case Human: return "Human";
             case Random: return "Random";
@@ -36,7 +36,7 @@ namespace pdp_chess {
         }
     }
 
-    void HeuristicParameters::ChangeValue(HeuristicParameterType type, int value) {
+    void HeuristicParameters::changeValue(HeuristicParameterType type, int value) {
         switch (type) {
             case Pawns:
                 pawns_value = value;
@@ -75,7 +75,7 @@ namespace pdp_chess {
         }
     }
 
-    void HeuristicParameters::SetAllToZero() {
+    void HeuristicParameters::setAllToZero() {
         pawns_value = 0;
         rooks_value = 0;
         bishops_value = 0;

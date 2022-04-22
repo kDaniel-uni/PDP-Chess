@@ -32,7 +32,7 @@ namespace pdp_chess {
         if (depth <= 0 || board.isGameOver()) {
             return tree;
         } else {
-            std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+            std::vector<Move> legal_moves = _legal_move->getLegalMoves(board, current_color);
             //randomiser le legal move
             Move move = legal_moves[0];
             board.doMove(move);
@@ -51,7 +51,7 @@ namespace pdp_chess {
         if (board.isGameOver())
             return tree;
         else {
-            std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+            std::vector<Move> legal_moves = _legal_move->getLegalMoves(board, current_color);
             //randomiser le legal move
             Move move = legal_moves[0];
             board.doMove(move);
@@ -64,7 +64,7 @@ namespace pdp_chess {
     MCTS::node_t MCTS::simulation(node_t tree, color current_color) {
         while (!tree._board.isGameOver()) {
             Board board = tree._board;
-            std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+            std::vector<Move> legal_moves = _legal_move->getLegalMoves(board, current_color);
             //randomiser le legal move
             Move move = legal_moves[0];
             board.doMove(move);
@@ -76,7 +76,7 @@ namespace pdp_chess {
     }
 
     void MCTS::backPropagation(node_t *tree, color my_color) {
-        bool victory = tree->_board._pieces[my_color]->king.value != 0;
+        bool victory = tree->_board.pieces[my_color]->king.value != 0;
         while (&tree != NULL) {
             if (victory)
                 tree->_nb_victory++;

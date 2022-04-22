@@ -23,7 +23,7 @@ namespace pdp_chess {
         int alpha = -std::numeric_limits<int>::max();
         int beta = std::numeric_limits<int>::max();
         Move best_move;
-        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->getLegalMoves(board, current_color);
         moveShuffle(legal_moves);
 
         for(Move move : legal_moves){
@@ -58,7 +58,7 @@ namespace pdp_chess {
         }
         int i, score;
         i = 0;
-        std::vector<Move> legal_moves = _legal_move->GetLegalMoves(board, current_color);
+        std::vector<Move> legal_moves = _legal_move->getLegalMoves(board, current_color);
         for(Move move : legal_moves){
             board.doMove(move);
             score = -algoNegaScout(board, depth - 1, -alpha - 1, -alpha, !current_color);

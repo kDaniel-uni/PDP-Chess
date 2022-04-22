@@ -8,13 +8,13 @@ namespace pdp_chess {
 
     Director::Director() {
         _game = new Game();
-        _legalMoveV1 = new LegalMoveV1();
-        _legalMoveV2 = new LegalMoveV2();
-        _playerFactoryV1 = new PlayerFactory(*_legalMoveV1);
-        _playerFactoryV2 = new PlayerFactory(*_legalMoveV2);
+        _legal_move_v1 = new LegalMoveV1();
+        _legal_move_v2 = new LegalMoveV2();
+        _player_factory_v1 = new PlayerFactory(*_legal_move_v1);
+        _player_factory_v2 = new PlayerFactory(*_legal_move_v1);
     }
 
-    bool Director::LoadMatchFromJson(std::string file_path, bool load_v1) {
+    bool Director::loadMatchFromJson(std::string file_path, bool load_v1) {
         std::ifstream input_stream(file_path);
         Json::Reader reader;
         Json::Value json_object;
@@ -24,24 +24,24 @@ namespace pdp_chess {
             return false;
         }
 
-        LoadMatchFromMatchParameters(GetMatchParameters(json_object), load_v1);
+        loadMatchFromMatchParameters(GetMatchParameters(json_object), load_v1);
 
         return true;
     }
 
-    void Director::LoadMatchFromMatchParameters(MatchParameters matchParameters, bool load_v1) {
+    void Director::loadMatchFromMatchParameters(MatchParameters match_parameters, bool load_v1) {
 
-        _matchParameters = matchParameters;
+        _match_parameters = match_parameters;
 
         Player* white_player;
         Player* black_player;
 
         if (load_v1){
-            white_player = _playerFactoryV1->createPlayer(_matchParameters.whitePlayerParameters);
-            black_player = _playerFactoryV1->createPlayer(_matchParameters.blackPlayerParameters);
+            white_player = _player_factory_v1->createPlayer(_match_parameters.white_player_parameters);
+            black_player = _player_factory_v1->createPlayer(_match_parameters.black_player_parameters);
         } else {
-            white_player = _playerFactoryV2->createPlayer(_matchParameters.whitePlayerParameters);
-            black_player = _playerFactoryV2->createPlayer(_matchParameters.blackPlayerParameters);
+            white_player = _player_factory_v2->createPlayer(_match_parameters.white_player_parameters);
+            black_player = _player_factory_v2->createPlayer(_match_parameters.black_player_parameters);
         }
 
         _game->setPlayer(white, white_player);
@@ -49,28 +49,28 @@ namespace pdp_chess {
         _game->loadBasicBoard();
     }
 
-    void Director::LoadBoard(const std::string &board) {
+    void Director::loadBoard(const std::string &board) {
         _game->fromString(board);
     }
 
-    void Director::PlayMatch(bool is_timed) {
-        std::chrono::time_point<std::chrono::system_clock> _gameStartTime;
-        std::chrono::time_point<std::chrono::system_clock> _gameEndTime;
+    void Director::playMatch(bool is_timed) {
+        std::chrono::time_point<std::chrono::system_clock> game_start_time;
+        std::chrono::time_point<std::chrono::system_clock> game_end_time;
 
         if (is_timed){
-             _gameStartTime = std::chrono::high_resolution_clock::now();
+            game_start_time = std::chrono::high_resolution_clock::now();
         }
 
         _game->start();
 
         if (is_timed){
-            _gameEndTime = std::chrono::high_resolution_clock::now();
-            _gameTime = duration_cast<std::chrono::milliseconds>(_gameEndTime - _gameStartTime);
-            std::cout << "Game time " << _gameTime.count() << " ms" << std::endl;
+            game_end_time = std::chrono::high_resolution_clock::now();
+            _game_time = duration_cast<std::chrono::milliseconds>(game_end_time - game_start_time);
+            std::cout << "Game time " << _game_time.count() << " ms" << std::endl;
         }
     }
 
-    void Director::ResetGame(){
+    void Director::resetGame(){
         _game->reset();
     }
 

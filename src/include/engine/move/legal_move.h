@@ -13,7 +13,7 @@ namespace pdp_chess{
     class LegalMove{
     public:
         virtual ~LegalMove() {}
-        virtual std::vector<Move> GetLegalMoves(const Board& board, bool playing_color) = 0;
+        virtual std::vector<Move> getLegalMoves(const Board& board, bool playing_color) = 0;
     };
 
 }

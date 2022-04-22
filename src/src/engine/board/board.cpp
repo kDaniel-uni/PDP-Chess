@@ -12,18 +12,18 @@
 namespace pdp_chess {
 
     Board::Board() {
-        _pieces[black] = new PlayerState(black, true);
-        _pieces[white] = new PlayerState(white, true);
+        pieces[black] = new PlayerState(black, true);
+        pieces[white] = new PlayerState(white, true);
         updateWhiteAndBlackPieces();
-        moves_without_eating_counter = 0;
+        _moves_without_eating_counter = 0;
     }
 
     void Board::updateWhiteAndBlackPieces() {
 
         for (int i = 0; i < 2; i++) {
-            _pieces[i]->all.value = 0;
-            for (auto bitboard : _pieces[i]->list) {
-                _pieces[i]->all.value |= bitboard->value;
+            pieces[i]->all.value = 0;
+            for (auto bitboard : pieces[i]->list) {
+                pieces[i]->all.value |= bitboard->value;
             }
         }
     }
@@ -37,7 +37,7 @@ namespace pdp_chess {
         }
 
         for (short color = 0; color < 2; color++) {
-            for (Bitboard *bitboard : _pieces[color]->list) {
+            for (Bitboard *bitboard : pieces[color]->list) {
                 for (auto index : getPositionsV1(bitboard->value)) {
                     res[index] = bitboard->type;
                 }
@@ -54,40 +54,40 @@ namespace pdp_chess {
         for (auto index = 0; index < BOARD_SIZE; index++) {
             switch (data[index]) {
                 case 'P':
-                    _pieces[white]->pawns.value += pow(2, index);
+                    pieces[white]->pawns.value += pow(2, index);
                     break;
                 case 'p':
-                    _pieces[black]->pawns.value += pow(2, index);
+                    pieces[black]->pawns.value += pow(2, index);
                     break;
                 case 'R':
-                    _pieces[white]->rooks.value += pow(2, index);
+                    pieces[white]->rooks.value += pow(2, index);
                     break;
                 case 'r':
-                    _pieces[black]->rooks.value += pow(2, index);
+                    pieces[black]->rooks.value += pow(2, index);
                     break;
                 case 'N':
-                    _pieces[white]->knights.value += pow(2, index);
+                    pieces[white]->knights.value += pow(2, index);
                     break;
                 case 'n':
-                    _pieces[black]->knights.value += pow(2, index);
+                    pieces[black]->knights.value += pow(2, index);
                     break;
                 case 'B':
-                    _pieces[white]->bishops.value += pow(2, index);
+                    pieces[white]->bishops.value += pow(2, index);
                     break;
                 case 'b':
-                    _pieces[black]->bishops.value += pow(2, index);
+                    pieces[black]->bishops.value += pow(2, index);
                     break;
                 case 'Q':
-                    _pieces[white]->queen.value += pow(2, index);
+                    pieces[white]->queen.value += pow(2, index);
                     break;
                 case 'q':
-                    _pieces[black]->queen.value += pow(2, index);
+                    pieces[black]->queen.value += pow(2, index);
                     break;
                 case 'K':
-                    _pieces[white]->king.value += pow(2, index);
+                    pieces[white]->king.value += pow(2, index);
                     break;
                 case 'k':
-                    _pieces[black]->king.value += pow(2, index);
+                    pieces[black]->king.value += pow(2, index);
                     break;
                 default:
                     break;
@@ -97,66 +97,66 @@ namespace pdp_chess {
     }
 
     void Board::doMove(Move move, bool is_main_loop) {
-        if ((_pieces[black]->all.value >> move.target_position) & 1) {
-            eatPiece(move, *_pieces[black]);
+        if ((pieces[black]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *pieces[black]);
 
             if (is_main_loop){
-                moves_without_eating_counter = 0;
+                _moves_without_eating_counter = 0;
             }
 
-        } else if ((_pieces[white]->all.value >> move.target_position) & 1) {
-            eatPiece(move, *_pieces[white]);
+        } else if ((pieces[white]->all.value >> move.target_position) & 1) {
+            eatPiece(move, *pieces[white]);
 
             if (is_main_loop){
-                moves_without_eating_counter = 0;
+                _moves_without_eating_counter = 0;
             }
 
         } else {
             move.target_type = '-';
 
             if (is_main_loop){
-                moves_without_eating_counter ++;
+                _moves_without_eating_counter ++;
             }
         }
-        movePiece(move, *_pieces[move.start_type < 90]);
+        movePiece(move, *pieces[move.start_type < 90]);
 
-        _history.push_back(move);
+        history.push_back(move);
     }
 
     Move Board::undoMove(bool is_main_loop) {
-        Move move = _history.back();
+        Move move = history.back();
         Move reverse_move = {move.target_position, move.start_type, move.start_position, move.target_type};
 
-        movePiece(reverse_move, *_pieces[move.start_type < 90]);
+        movePiece(reverse_move, *pieces[move.start_type < 90]);
         if (reverse_move.target_type == '-'){
-            Move back = _history.back();
-            _history.pop_back();
+            Move back = history.back();
+            history.pop_back();
             if (is_main_loop){
-                moves_without_eating_counter --;
+                _moves_without_eating_counter --;
             }
             return back;
         }
-        createPiece(move, *_pieces[move.target_type < 90]);
+        createPiece(move, *pieces[move.target_type < 90]);
 
-        Move back = _history.back();
-        _history.pop_back();
+        Move back = history.back();
+        history.pop_back();
         return back;
     }
 
     bool Board::isDraw(){
 
-        if (moves_without_eating_counter > 50) {
+        if (_moves_without_eating_counter > 50) {
             return true;
         }
 
-        uint64_t all_white = _pieces[white]->all.value;
-        uint64_t all_black = _pieces[black]->all.value;
-        uint64_t king_white = _pieces[white]->king.value;
-        uint64_t king_black = _pieces[black]->king.value;
-        uint64_t bishops_white = _pieces[white]->bishops.value;
-        uint64_t bishops_black = _pieces[black]->bishops.value;
-        uint64_t knights_white = _pieces[white]->knights.value;
-        uint64_t knights_black = _pieces[black]->knights.value;
+        uint64_t all_white = pieces[white]->all.value;
+        uint64_t all_black = pieces[black]->all.value;
+        uint64_t king_white = pieces[white]->king.value;
+        uint64_t king_black = pieces[black]->king.value;
+        uint64_t bishops_white = pieces[white]->bishops.value;
+        uint64_t bishops_black = pieces[black]->bishops.value;
+        uint64_t knights_white = pieces[white]->knights.value;
+        uint64_t knights_black = pieces[black]->knights.value;
 
         if((all_white == king_white) && (all_black == king_black)){ // if king vs king, the result is a draw
             return true;
@@ -182,7 +182,7 @@ namespace pdp_chess {
             return true;
         }
 
-        if(_history.size() >= 8){
+        if(history.size() >= 8){
             Board historic_board = this->clone();
 
             historic_board.undoMove();
@@ -207,16 +207,16 @@ namespace pdp_chess {
 
 
     bool Board::isGameOver() {
-        if ((_pieces[black]->king.value == 0 || _pieces[white]->king.value == 0 || Board::isDraw())){
+        if ((pieces[black]->king.value == 0 || pieces[white]->king.value == 0 || Board::isDraw())){
             return true;
         }
         return false;
     }
 
     std::string Board::result() {
-        if (_pieces[black]->king.value == 0) {
+        if (pieces[black]->king.value == 0) {
             return "Game won by white";
-        } else if (_pieces[white]->king.value == 0) {
+        } else if (pieces[white]->king.value == 0) {
             return "Game won by black";
         } else {
             return "No winner";
@@ -224,49 +224,19 @@ namespace pdp_chess {
     }
 
     void Board::resetToClassic() {
-        _pieces[black]->setPlayerState(black, false);
-        _pieces[white]->setPlayerState(white, false);
+        pieces[black]->setPlayerState(black, false);
+        pieces[white]->setPlayerState(white, false);
         updateWhiteAndBlackPieces();
-        _history.clear();
-        moves_without_eating_counter = 0;
+        history.clear();
+        _moves_without_eating_counter = 0;
     }
 
     void Board::resetToEmpty() {
-        _pieces[black]->setPlayerState(black, true);
-        _pieces[white]->setPlayerState(white, true);
+        pieces[black]->setPlayerState(black, true);
+        pieces[white]->setPlayerState(white, true);
         updateWhiteAndBlackPieces();
-        _history.clear();
-        moves_without_eating_counter = 0;
-    }
-
-    int Board::getColor(int index) {
-        for (int color = 0; color < 2; color++) {
-            if ((_pieces[color]->all.value >> index) & 1) {
-                return color;
-            }
-        }
-        return -1;
-    }
-
-    char Board::findType(uint8_t index) const{
-
-        if ((_pieces[white]->all.value >> index) & 1){
-            for (Bitboard* bitboard : _pieces[white]->list){
-                if ((bitboard->value >> index) & 1){
-                    return bitboard->type;
-                }
-            }
-        }
-
-        if ((_pieces[black]->all.value >> index) & 1){
-            for (Bitboard* bitboard : _pieces[black]->list){
-                if ((bitboard->value >> index) & 1){
-                    return bitboard->type;
-                }
-            }
-        }
-
-        return '-';
+        history.clear();
+        _moves_without_eating_counter = 0;
     }
 
     void Board::draw() const {
@@ -288,14 +258,14 @@ namespace pdp_chess {
         Board clone = Board();
         std::string clonepiece = Board::toString();
         clone.fromString(clonepiece.c_str());
-        std::vector<Move> clonehistory(_history);
-        clone._history = clonehistory;
+        std::vector<Move> clonehistory(history);
+        clone.history = clonehistory;
         return clone;
     }
 
-    bool Board::equal(Board& board) {
-        if (_pieces[white]->equal(*board._pieces[white])
-        && _pieces[black]->equal(*board._pieces[black])){
+    bool Board::equal(const Board& board) {
+        if (pieces[white]->equal(*board.pieces[white])
+        && pieces[black]->equal(*board.pieces[black])){
             return true;
         }
 

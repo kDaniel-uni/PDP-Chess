@@ -11,14 +11,14 @@ namespace pdp_chess {
     }
 
     Player* pdp_chess::PlayerFactory::createPlayer(const PlayerParameters &playerParameters) {
-        PlayerType playerType = playerParameters.playerType;
+        PlayerType playerType = playerParameters.player_type;
 
         switch (playerType) {
             case Human: return createHumanPlayer();
             case Random: return createRandom();
-            case AlphaBeta: return createMinMaxAB(playerParameters.aiParameters);
-            case NegaMax: return createNegaMax(playerParameters.aiParameters);
-            case NegaScout: return createNegaScout(playerParameters.aiParameters);
+            case AlphaBeta: return createMinMaxAB(playerParameters.ai_parameters);
+            case NegaMax: return createNegaMax(playerParameters.ai_parameters);
+            case NegaScout: return createNegaScout(playerParameters.ai_parameters);
             //case Mtdf: return createMTDF(playerParameters.aiParameters);
             //case Mcts: return createMCTS(playerParameters.aiParameters);
             default: return createRandom();
@@ -38,7 +38,7 @@ namespace pdp_chess {
     }
 
     Player* PlayerFactory::createMinMaxAB(const AIParameters &aiParameters) {
-        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
+        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristic_parameters);
         int depth = aiParameters.depth;
 
         MinMaxAb* alpha_beta = new MinMaxAb(*heuristic, *_legal_move, depth);
@@ -47,7 +47,7 @@ namespace pdp_chess {
     }
 
     Player* PlayerFactory::createNegaMax(const AIParameters &aiParameters) {
-        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
+        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristic_parameters);
         int depth = aiParameters.depth;
 
         Negamax* negamax = new Negamax(*heuristic, *_legal_move, depth);
@@ -56,7 +56,7 @@ namespace pdp_chess {
     }
 
     Player* PlayerFactory::createNegaScout(const AIParameters &aiParameters) {
-        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristicParameters);
+        Heuristic* heuristic = new Heuristic(*_legal_move, aiParameters.heuristic_parameters);
         int depth = aiParameters.depth;
 
         class NegaScout* nega_scout = new class NegaScout(*heuristic, *_legal_move, depth);

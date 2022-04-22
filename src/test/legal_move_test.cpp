@@ -65,7 +65,7 @@ bool testPawn(Game &game, LegalMove &legalmove) {
     game.board.fromString("--------P--------p----------------------------------------------");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 3) {
         return false;
@@ -81,7 +81,7 @@ bool testPawn(Game &game, LegalMove &legalmove) {
         }
     }
 
-    to_test = legalmove.GetLegalMoves(game.board, false);
+    to_test = legalmove.getLegalMoves(game.board, false);
 
     if (to_test.size() != 2) {
         return false;
@@ -104,7 +104,7 @@ bool testRooks(Game &game, LegalMove &legalmove) {
     game.board.fromString("R---------------r-----------------------------------------------");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
     if (to_test.size() != 9) {
         return false;
     }
@@ -127,7 +127,7 @@ bool testBishops(Game &game, LegalMove &legalmove) {
     game.board.fromString("---------B--------------------------b---------------------------");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 6) {
         return false;
@@ -151,7 +151,7 @@ bool testKnights(Game &game, LegalMove &legalmove) {
     game.board.draw();
 
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 6) {
         return false;
@@ -174,7 +174,7 @@ bool testQueen(Game &game, LegalMove &legalmove) {
     game.board.fromString("-----P-Q--------------------q----------p------------------------");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 9) {
         return false;
@@ -198,7 +198,7 @@ bool testKing(Game &game, LegalMove &legalmove) {
     game.board.fromString("K-------p------p------------------------------------------------");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 3) {
         return false;
@@ -220,7 +220,7 @@ bool testBasic(Game &game, LegalMove &legalmove) {
     game.board.fromString("RNBQKBNRPPPPPPPP--------------------------------pppppppprnbqkbnr");
     game.board.draw();
 
-    to_test = legalmove.GetLegalMoves(game.board, true);
+    to_test = legalmove.getLegalMoves(game.board, true);
 
     if (to_test.size() != 20) {
         return false;

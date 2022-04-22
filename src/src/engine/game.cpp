@@ -38,7 +38,7 @@ namespace pdp_chess {
         }
 
         if (_draw){
-            std::cout << board.result() << " in " << board._history.size() << " moves" << std::endl;
+            std::cout << board.result() << " in " << board.history.size() << " moves" << std::endl;
         }
     }
 
