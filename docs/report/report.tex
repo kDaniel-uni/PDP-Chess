@@ -57,7 +57,7 @@ Le plateau où se déroule une partie d'échecs, couramment appelé échiquier, 
 \end{figure}
 
 
-Sur un échiquier, chaque case est couramment associée à la  combinaison d'un chiffre et d'une lettre. Elles peuvent aller de A1 correspondant à la case située en bas à gauche, jusqu'à H8 qui est la case située en haut à droite.
+Sur un échiquier, chaque case est couramment associée à la combinaison d'un chiffre et d'une lettre. Elles peuvent aller de A1 correspondant à la case située en bas à gauche, jusqu'à H8 qui est la case située en haut à droite.
 
 Les huit lignes de cases verticales sont nommées colonnes. Chacune des cases composant une colonne possédera la même lettre dans son appellation. Les huit lignes de cases horizontales sont nommées rangées. Chacune des cases composant une rangée possédera le même chiffre dans son appellation.
 
@@ -121,7 +121,7 @@ Les pièces non-glissantes, à l'inverse des glissantes, ne peuvent se déplacer
 \begin{itemize}
     \item Le pion, capable de se déplacer d'une ou deux cases vers l'avant.
     \item Le roi, capable de se déplacer d'une case dans toutes les directions.
-    \item Le cavalier, un peu particulier, capable de se déplacer de deux cases verticalement ou horizontalement puis d'une autre case horizontalement ou verticalement. On ramène souvent cette particularité à un "déplacement en L". De plus, le cavalier est capable de sauter par dessus les autres pièces, tant qu'aucune pièce allié ne se trouve sur la case à laquelle il doit arriver.
+    \item Le cavalier, un peu particulier, capable de se déplacer de deux cases verticalement ou horizontalement puis d'une autre case horizontalement ou verticalement. On ramène souvent cette particularité à un "déplacement en L". De plus, le cavalier est capable de sauter par dessus les autres pièces, tant qu'aucune pièce alliée ne se trouve sur la case à laquelle il doit arriver.
 \end{itemize}
 
 \begin{figure}[h]
@@ -207,7 +207,7 @@ En plus des différents mouvements légaux, il existe également ce qui est appe
 
 La promotion se produit lorsque l'un des deux joueurs parvient à amener un pion jusqu'à la dernière rangée, soit la rangée numérotée 8 pour les pièces blanches et la 1 pour les pièces noires.
 
-Il est alors possible pour le joueur de transformer ce pion en n'importe quelle autre pièce de son choix, à l'exception du roi. Généralement, la dame est le choix le plus courant. Ce choix se fait indépendamment des pièces déjà présente sur l'échiquier. Il est donc possible pour un joueur de disposer de deux dames.
+Il est alors possible pour le joueur de transformer ce pion en n'importe quelle autre pièce de son choix, à l'exception du roi. Généralement, la dame est le choix le plus courant. Ce choix se fait indépendamment des pièces déjà présentes sur l'échiquier. Il est donc possible pour un joueur de disposer de deux dames.
 
 \paragraph{Le roque}
 ~~\\
@@ -648,7 +648,7 @@ Nous avons choisi d'utiliser le langage c++ pour ce projet. En effet celui-ci no
     \item Une architecture orientée objet.
 \end{itemize}
 Ce langage nous permet d'utiliser des structures de données légères, et grâce à l'utilisation de références et pointeurs de les passer aux différentes parties du code sans les copier.
-Il nous permet également d'utiliser l'héritage et le polymorphisme, éléments clé d'une architecture orientée objet.
+Il nous permet également d'utiliser l'héritage et le polymorphisme, éléments clés d'une architecture orientée objet.
 
 \subsubsection{Les bitboards}
 Nous avons choisi la technique des bitboards [Voir \cite{Bitboards}] pour représenter nos différents plateaux de jeu.
@@ -667,7 +667,7 @@ Grâce à ces opérations élémentaires, nous formons des opérations plus comp
     Ces opérations utilisent des bitboards pour récupérer une ou plusieurs valeurs, nous les utilisons pour vérifier la présence d'un bit à un certain index, ou bien pour obtenir la position des bits actifs.
 \end{itemize}
 
-\paragraph{Détection des bits actifs} 
+\paragraph{Détection des bits actifs}
 ~~\\
 \newline
 La détection des bits actifs est une opération importante dans le projet, car elle nous permet d'obtenir les index de chaque bit actif et donc d'itérer sur ces positions pour réaliser d'autres opérations. C'est pour cela que nous en avons réalisé deux versions.
@@ -780,7 +780,7 @@ Tout ce processus nous permet ainsi d'obtenir une valeur de plateau du joueur. N
 \newline
 Nous nous sommes intéressés au facteur de mobilité.\newline
 La liste des mouvements légaux possibles [Voir \ref{Mouvements}] étant récupérable,
-Le nombre d'éléments dans cette liste correspond au nombre de mouvements légaux possible.
+Le nombre d'éléments dans cette liste correspond au nombre de mouvements légaux possibles.
 Nous multiplions ce nombre par sa valeur définie dans l'heuristique que nous ajoutons à la valeur du plateau de jeu.\newline
 Nous répétons cette action pour chaque bitboard constituant le plateau du joueur.
 
@@ -818,14 +818,14 @@ Il est utile pour vérifier la validité des autres algorithmes.
 
 \subsubsection{Jouer un coup}\label{domove}
 Jouer un coup consiste à appliquer un mouvement à notre plateau, c'est à dire que dans le bitboard correspondant au type de la pièce qui effectue le mouvement, nous allons mettre le bit ayant comme index la position de départ à 0 et le bit qui a pour index la position d'arrivée à 1.\newline 
-Nous vérifions aussi si ce mouvement correspond à une attaque, donc si il mange une pièce.\newline
-Dans le cas d'une prise de pièces, le bitboard correspondant au type de la pièce mangée se vois retiré le bit qui a pour index la position d'arrivée.\newline
+Nous vérifions aussi si ce mouvement correspond à une attaque, donc s'il mange une pièce.\newline
+Dans le cas d'une prise de pièces, le bitboard correspondant au type de la pièce mangée se voit retirer le bit qui a pour index la position d'arrivée.\newline
 Lorsque nous jouons un coup, nous enregistrons le mouvement dans l'historique [Voir \ref{L'historique}].\newline
 Nous avons aussi la possibilité de "défaire un coup" grâce à l'historique, nous récupérons le dernier coup joué dans l'historique et nous appliquons l'inverse de jouer un coup en vérifiant si ce coup n'avait pas mangé une pièce, auquel cas nous la faisons réapparaître.
 
 \subsubsection{Les conditions d'arrêt} \label{Architecture_condition_d'arrêt}
-Le jeu est fini lorsque l'un des deux joueurs a gagné, donc le joueur blanc a gagné si il a réussi à manger le roi du joueur noir et inversement.\newline
-Le jeu s'arrête aussi si il y a match nul, pour cela il peut y avoir plusieurs raisons :
+Le jeu est fini lorsque l'un des deux joueurs a gagné, donc le joueur blanc a gagné s'il a réussi à manger le roi du joueur noir et inversement.\newline
+Le jeu s'arrête aussi s'il y a match nul, pour cela il peut y avoir plusieurs raisons :
 \begin{itemize}
     \item Si cinquante coups ont été effectués à la suite sans capture.\newline
     Pour cela, nous allons vérifier dans l'historique [Voir \ref{L'historique}] les cinquante derniers coups, regarder si le type de la position d'arrivée est une pièce ou non et incrémenter un compteur si un coup n'a pas mangé ainsi que de le remettre à zéro sinon.
@@ -885,7 +885,7 @@ La fabrique permet d'instancier tout les joueurs, elle ajoute un degré de rési
 
 \subsubsection{Le directeur}
 Le directeur sert de passerelle entre l'utilisateur et l'ensemble du projet, il instancie tout les composants nécessaires au bon déroulement d'une ou plusieurs parties.
-Il est résilient aux fichier qui ne sont pas lisible par la bibliothèque jsoncpp, et jusqu'à un certain point à une mauvaise écriture des fichiers json.
+Il est résilient aux fichiers qui ne sont pas lisibles par la bibliothèque jsoncpp, et jusqu'à un certain point à une mauvaise écriture des fichiers json.
 
 \newpage
 \subsection{Diagrammes}
@@ -936,7 +936,7 @@ Le paquetage Move, quand à lui, gère tout ce qui est en rapport avec les mouve
 Ils génèrent les listes de mouvements légaux possibles pour un joueur donné.
 \medskip
 
-Pour finir, le paquetage père, Engine, est "dirigé" par la classe Game qui articule la partie en contenant la boucle de jeux et un board dont elle appelle les différentes fonctions (Appliquer un mouvement \dots), jusqu'à l'arrêt de la partie.
+Pour finir, le paquetage père, Engine, est "dirigé" par la classe Game qui articule la partie en contenant la boucle de jeu et un board dont elle appelle les différentes fonctions (Appliquer un mouvement \dots), jusqu'à l'arrêt de la partie.
 
 
 \begin{figure}[!h]
@@ -1052,14 +1052,14 @@ Mettons nous dans une situation concrète d'un lancement de partie via un fichie
     
     \item \textbf{Condition isdraw test}\newline
     Dans ce fichier de test, nous testons si la fonction analyse bien le plateau et détecte le match nul quand il le faut.\newline
-    Pour cela, nous avons des plateaux qui correspondent à chaque cas de match nul et nous vérifions que notre fonctions nous renvoie bien que le match est nul sur ces plateaux.\newline
-    Lorsque nous utilisons notre fonction sur un plateau considéré comme un match nul et qu'elle nous renvoie vraie et que lorsque nous l'utilisons sur un plateau considéré comme match non nul et qu'elle renvoie faux alors le test est validé sinon il ne l'es pas.\newline
+    Pour cela, nous avons des plateaux qui correspondent à chaque cas de match nul et nous vérifions que notre fonction nous renvoie bien que le match est nul sur ces plateaux.\newline
+    Lorsque nous utilisons notre fonction sur un plateau considéré comme un match nul et qu'elle nous renvoie vraie et que lorsque nous l'utilisons sur un plateau considéré comme match non nul et qu'elle renvoie faux alors le test est validé sinon il ne l'est pas.\newline
     
     \item \textbf{Bitboard io test}\newline 
-    Le but de cette suite de test est de vérifier qu'un plateau de jeu sois bien initialisé suivant les paramètres qu'on lui donne, et que les pièces soit bien disposé sur le plateau de jeu.\newline
-    Il faut donc un plateau de jeux à initialiser : soit avec la méthode fromString qui, d'une certaine chaîne de caractère construit le plateau qui en découle, sois via une méthode prédéfinis, comme la mise en place d'un plateau classique.\newline
-    La comparaison du test se fera entre deux chaîne de caractère. 
-    D'une part celle du plateau escompté donc ici, celle passé en paramètre au début, d'autre part, celle généré par le plateau de jeu via la fonction toString.
+    Le but de cette suite de test est de vérifier qu'un plateau de jeu soit bien initialisé suivant les paramètres qu'on lui donne, et que les pièces soit bien disposées sur le plateau de jeu.\newline
+    Il faut donc un plateau de jeu à initialiser : soit avec la méthode fromString qui, à partir d'une certaine chaîne de caractères construit le plateau qui en découle, soit via une méthode prédéfinis, comme la mise en place d'un plateau classique.\newline
+    La comparaison du test se fera entre deux chaînes de caractères. 
+    D'une part celle du plateau escompté donc ici, celle passée en paramètre au début, d'autre part, celle générée par le plateau de jeu via la fonction toString.
     Si les deux chaînes de caractères sont identiques, alors le test est déclaré valide.
     Dans les autres cas, il ne l'est pas.\newline
     
@@ -1068,13 +1068,13 @@ Mettons nous dans une situation concrète d'un lancement de partie via un fichie
     L'objectif de ce fichier de test est de tester si un mouvement [Voir \ref{Mouvements}] appliqué sur un des bitboards \cite{Bitboards} des pièces est bien réalisé.\newline
     Pour ce faire, plusieurs plateaux de jeux sont prédéfinis, notamment pour les situations compliquées, ou à problèmes, par exemple lors d'une prise de pièce par une autre, ou il ne s'agit plus seulement de vérifier le bitboards de la pièce qui s'est déplacée, mais aussi celui de la pièce qui a été prise.\newline
     Nous effectuons donc le mouvement sur le plateau de jeu et nous comparons le ou les bitboards obtenus avec les bitboards escomptés.\newline
-    Si ils sont égaux, alors le test est dit valide.
+    S'ils sont égaux, alors le test est dit valide.
     Sinon, il n'est pas validé.\newline
     
     \item \textbf{bitboard operation test}\newline
-    L'objectif de ce fichier est de tester si notre fonction "getPosition" nous renvoie les indexs des bits à 1 d'un bitboard passé en paramètres.\newline
-    Pour cela, nous lançons notre fonction avec plusieurs bitboards différents et on compare les indexs qu'elle nous renvoie avec les indexs attendus.\newline
-    Si l'ensemble des indexs attendus et l'ensemble des indexs donnés par notre fonction sont égaux alors le test est validé sinon il n'est pas validé.\newline
+    L'objectif de ce fichier est de tester si notre fonction "getPosition" nous renvoie les index des bits à 1 d'un bitboard passé en paramètres.\newline
+    Pour cela, nous lançons notre fonction avec plusieurs bitboards différents et on compare les index qu'elle nous renvoie avec les index attendus.\newline
+    Si l'ensemble des index attendus et l'ensemble des index donnés par notre fonction sont égaux alors le test est validé sinon il n'est pas validé.\newline
     
     \newpage
     \item \textbf{Heuristic test}\newline
@@ -1085,10 +1085,10 @@ Mettons nous dans une situation concrète d'un lancement de partie via un fichie
         \item l'avancement des pions
         \item le nombre de mouvements légaux possible
     \end{itemize}
-    Le test initialise donc un plateau de jeu prédéfinis et lance la fonction d'évaluation du plateau sur celui-ci.\newline
-    En parallèle, il stocke le résultat attendu afin de le comparé au résultat obtenu.\newline
+    Le test initialise donc un plateau de jeu prédéfini et lance la fonction d'évaluation du plateau sur celui-ci.\newline
+    En parallèle, il stocke le résultat attendu afin de le comparer au résultat obtenu.\newline
     Si les résultats sont égaux alors le test est valide.
-    Si ils sont différents, le test est déclaré non valide.
+    S'ils sont différents, le test est déclaré non valide.
     
     
     
@@ -1174,9 +1174,9 @@ Ces résultats sont exprimés en millisecondes pour le temps d'exécution.
 \section{Conclusion}
 
 Nous avons atteint partiellement les objectifs de ce projet, en effet certaines règles du jeu ne sont pas implémentées tel que dans les règles officielles. Certains de nos algorithmes de recherche ne sont pas fonctionnels et l'algorithme NegaMax ne donne pas des résultats satisfaisants. \newline
-De plus certains paramétrages ne sont pas disponibles après compilation notamment le gestion de l'aléatoire et du nombre de partie.
+De plus certains paramétrages ne sont pas disponibles après compilation notamment le gestion de l'aléatoire et du nombre de parties.
 Finalement notre fichier de configuration n'est pas complètement résilient aux erreurs.\newline
-Malgré ces problématiques non résolus, notre moteur de jeu possède plusieurs axes d'optimisation comparées. Nous avons implémenté différentes techniques de génération de mouvements parmi les techniques usuelles. \newline
+Malgré ces problématiques non résolus, notre moteur de jeu possède plusieurs axes d'optimisation comparés. Nous avons implémenté différentes techniques de génération de mouvements parmi les techniques usuelles. \newline
 Notre moteur de jeu est stable, les différents joueurs peuvent s'affronter dans des matchs paramétrables après compilation, et une grande partie des paramètres sont disponibles.
 
 \section{Bibliographie}
