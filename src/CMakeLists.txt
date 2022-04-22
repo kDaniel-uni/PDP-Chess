@@ -142,4 +142,5 @@ add_test(draw_king_knight_vs_king_test condition_isdraw_test 4)
 add_test(draw_king_bishop_vs_king_bishop_test condition_isdraw_test 5)
 add_test(repetition_board_test condition_isdraw_test 2)
 
-add_test(factory_test ai_factory_test 1)
+add_test(versions_test_v1 versions_test 1)
+add_test(versions_test_v2 versions_test 2)

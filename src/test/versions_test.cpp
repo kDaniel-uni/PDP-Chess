@@ -15,10 +15,10 @@ int main (int argc, char *argv[]) {
     std::string arg = argv[1];
 
     if (arg == "1"){
-        int number_of_game = 200;
+        int number_of_game = 10;
 
         Director director = Director();
-        director.LoadMatchFromJson("../json_exemple/ai_test.json", true);
+        director.LoadMatchFromJson("../json_exemple/template.json", true);
 
         auto t1 = std::chrono::high_resolution_clock::now();
 
@@ -32,10 +32,10 @@ int main (int argc, char *argv[]) {
         std::cout << number_of_game << " game played" << std::endl;
         std::cout << "Average game time " << duration.count()/number_of_game << " ms" << std::endl;
     } if (arg == "2"){
-        int number_of_game = 200;
+        int number_of_game = 10;
 
         Director director = Director();
-        director.LoadMatchFromJson("../json_exemple/ai_test.json", false);
+        director.LoadMatchFromJson("../json_exemple/template.json", false);
 
         auto t1 = std::chrono::high_resolution_clock::now();
 
